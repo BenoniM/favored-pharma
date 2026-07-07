@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import {
@@ -55,7 +55,7 @@ function Hero() {
       />
 
       {/* Bottom-left content: headline + buttons */}
-      <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-10 pb-16 sm:pb-20 max-w-[1400px] mx-auto">
+      <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-10 pb-16 sm:pb-20 max-w-[1440px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -130,7 +130,7 @@ function TrustedCollage() {
   ];
   return (
     <section className="py-24 sm:py-32 overflow-hidden bg-[var(--mist)]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <Reveal className="max-w-3xl">
           <SectionLabel>Trusted By Institutions</SectionLabel>
           <h2 className="mt-4 font-display text-4xl sm:text-6xl text-[var(--ink)]">From hospital wards to neighborhood pharmacies — we keep healthcare moving.</h2>
@@ -163,7 +163,7 @@ function PillarsTeaser() {
   ];
   return (
     <section className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-16">
           <SectionLabel>Solutions</SectionLabel>
           <h2 className="mt-4 font-display text-4xl sm:text-6xl text-[var(--ink)]">Four pillars of dependable supply.</h2>
@@ -198,7 +198,7 @@ function PillarsTeaser() {
 function FeaturedTeasers() {
   return (
     <section className="py-24 sm:py-32 bg-[var(--mist)]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-12 gap-6">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-12 gap-6">
         <Link to="/quality" className="lg:col-span-7 group relative rounded-[32px] bg-[var(--ink)] text-white p-10 sm:p-14 overflow-hidden min-h-[440px] flex flex-col justify-between">
           <div aria-hidden className="absolute top-0 right-0 w-[600px] h-[600px] opacity-40" style={{ background: "var(--gradient-glow)" }} />
           <div className="relative">
@@ -239,7 +239,7 @@ function NetworkPreview() {
   ];
   return (
     <section className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-12">
           <SectionLabel>Network</SectionLabel>
           <h2 className="mt-4 font-display text-4xl sm:text-6xl text-[var(--ink)]">A nationwide network, always moving.</h2>

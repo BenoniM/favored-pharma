@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, Heart, Globe, ShieldCheck, Sparkles, Building2, Rocket, Stethoscope, Snowflake, Package, Network } from "lucide-react";
@@ -54,7 +54,7 @@ function About() {
 
       {/* Editorial split */}
       <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-start">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-12 gap-12 items-start">
           <Reveal className="lg:col-span-5 lg:sticky lg:top-32">
             <SectionLabel>Our Story</SectionLabel>
             <h2 className="mt-4 font-display text-4xl sm:text-5xl">From one warehouse to a national network.</h2>
@@ -69,7 +69,7 @@ function About() {
 
       {/* Big counters */}
       <section className="py-16 sm:py-24 bg-[var(--mist)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[["20+","YEARS"],["500+","PARTNERS"],["1,000+","PRODUCTS"],["14","WAREHOUSES"]].map(([k, v], i) => (
             <Reveal key={v} delay={i * 0.05}>
               <div className="rounded-3xl bg-white border border-black/5 p-8 aspect-square flex flex-col justify-between hover:shadow-[var(--shadow-glow)] transition-shadow">
@@ -90,7 +90,7 @@ function About() {
       {/* Values */}
       <section className="py-24 bg-[var(--ink)] text-white relative overflow-hidden">
         <div aria-hidden className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] opacity-30" style={{ background: "var(--gradient-glow)" }} />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="max-w-3xl mb-16">
             <SectionLabel>Values</SectionLabel>
             <h2 className="mt-4 font-display text-4xl sm:text-6xl">Four non-negotiables.</h2>
@@ -111,7 +111,7 @@ function About() {
 
       {/* Leadership */}
       <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="max-w-3xl mb-16">
             <SectionLabel>Leadership</SectionLabel>
             <h2 className="mt-4 font-display text-4xl sm:text-6xl">The people behind the promise.</h2>
@@ -135,7 +135,7 @@ function About() {
       </section>
 
       <section className="py-24 sm:py-32">
-        <Reveal className="mx-auto max-w-5xl px-4 sm:px-6 text-center">
+        <Reveal className="mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 text-center">
           <h2 className="font-display text-5xl sm:text-7xl">Want to work with us?</h2>
           <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-[var(--ink)] transition-colors shadow-[var(--shadow-glow)]">
             Get in touch <ArrowRight className="h-4 w-4" />
@@ -172,7 +172,7 @@ function EditorialTimeline() {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="relative mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-20">
           <SectionLabel>Editorial Timeline</SectionLabel>
           <AnimatedHeadline text="Two decades, one direction." as="h2"

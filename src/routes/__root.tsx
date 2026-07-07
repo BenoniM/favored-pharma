@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -254,7 +254,7 @@ function Nav() {
       }`}
       style={{ transform: hidden ? "translateY(-150%)" : "translateY(0)" }}
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-[1440px]">
         <div
           className={`flex items-center transition-all duration-300 ${
             scrolled

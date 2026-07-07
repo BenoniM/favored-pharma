@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, type Variants } from "framer-motion";
+﻿import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, type Variants } from "framer-motion";
 import { useEffect, useRef, type ReactNode } from "react";
 import { Pill, Plus, Activity, Stethoscope } from "lucide-react";
 import heroWarehouseAsset from "@/assets/hero-warehouse.jpg.asset.json";
@@ -257,7 +257,7 @@ export function PageHero({
         <div className="w-full h-full rounded-full bg-[var(--brand)]/40" />
       </motion.div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 relative">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 relative">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-7">
             <motion.div

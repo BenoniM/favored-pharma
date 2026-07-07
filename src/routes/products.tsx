@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+﻿import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState, useCallback, type KeyboardEvent } from "react";
 import { motion, AnimatePresence, LayoutGroup, useReducedMotion } from "framer-motion";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
@@ -107,7 +107,7 @@ function Products() {
 
       {/* Bento catalog */}
       <section className="pb-24 sm:pb-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <LayoutGroup id="bento">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -212,7 +212,7 @@ function Products() {
 
       {/* Featured callout */}
       <section className="py-24 sm:py-32 bg-[var(--ink)] text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-2 gap-12 items-center">
           <Reveal>
             <SectionLabel>Featured This Quarter</SectionLabel>
             <h2 className="mt-4 font-display text-4xl sm:text-6xl">Cold-chain biologics, now in regional stock.</h2>
@@ -241,7 +241,7 @@ function Products() {
       </section>
 
       <section className="py-24 sm:py-32">
-        <Reveal className="mx-auto max-w-5xl px-4 sm:px-6 text-center">
+        <Reveal className="mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 text-center">
           <h2 className="font-display text-5xl sm:text-7xl">Need the full product list?</h2>
           <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-[var(--ink)] transition-colors shadow-[var(--shadow-glow)]">
             Request catalog (PDF) <ArrowRight className="h-4 w-4" />

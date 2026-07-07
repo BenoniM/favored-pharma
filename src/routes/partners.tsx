@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight, MapPin, Truck, Quote, Snowflake, Package, Clock, Sparkles } from "lucide-react";
@@ -57,7 +57,7 @@ function Partners() {
       <ParallaxReviews />
 
       <section className="py-24 sm:py-32">
-        <Reveal className="mx-auto max-w-5xl px-4 sm:px-6 text-center">
+        <Reveal className="mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 text-center">
           <h2 className="font-display text-5xl sm:text-7xl">Become a partner.</h2>
           <p className="mt-6 text-[var(--ink)]/65 max-w-xl mx-auto">Whether you make medicine or buy it — we'd like to talk.</p>
           <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-[var(--ink)] transition-colors shadow-[var(--shadow-glow)]">
@@ -124,7 +124,7 @@ function ManufacturerMarquee() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="mb-10 flex items-end justify-between flex-wrap gap-4">
           <div>
             <SectionLabel>Manufacturers</SectionLabel>
@@ -202,7 +202,7 @@ function ParallaxReviewCard({ r, i }: { r: typeof reviews[number]; i: number }) 
 function ParallaxReviews() {
   return (
     <section className="py-24 sm:py-32 bg-gradient-to-b from-white to-[var(--mist)] overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-16">
           <SectionLabel>What Partners Say</SectionLabel>
           <h2 className="mt-4 font-display text-4xl sm:text-6xl [text-wrap:balance]">
@@ -229,7 +229,7 @@ function NetworkMap() {
 
   return (
     <section className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-12 flex flex-col gap-4">
           <SectionLabel>Interactive Network</SectionLabel>
           <h2 className="font-display text-4xl sm:text-6xl">Six hubs. Fourteen warehouses. <span className="text-[var(--brand)]">Click any node.</span></h2>

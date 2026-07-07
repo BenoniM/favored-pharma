@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { BadgeCheck, ShieldCheck, ClipboardCheck, Microscope, Snowflake, FileCheck, ArrowRight } from "lucide-react";
@@ -46,7 +46,7 @@ function Quality() {
 
       {/* Big stats bar */}
       <section className="py-12 bg-[var(--ink)] text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             ["100%", "Documented batches"],
             ["0.04%", "Reject rate (Q3)"],
@@ -63,7 +63,7 @@ function Quality() {
 
       {/* Six standards in offset grid */}
       <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="max-w-3xl mb-16">
             <SectionLabel>Six Standards</SectionLabel>
             <h2 className="mt-4 font-display text-4xl sm:text-6xl">Non-negotiable, every shipment.</h2>
@@ -85,7 +85,7 @@ function Quality() {
 
       {/* Certifications wall */}
       <section className="py-24 bg-[var(--mist)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="text-center mb-12">
             <SectionLabel>Certifications</SectionLabel>
             <h2 className="mt-4 font-display text-4xl sm:text-6xl">Audited. Verified. Renewed.</h2>
@@ -110,7 +110,7 @@ function Quality() {
 
 
       <section className="py-24 sm:py-32 bg-[var(--ink)] text-white text-center">
-        <Reveal className="mx-auto max-w-3xl px-4 sm:px-6">
+        <Reveal className="mx-auto max-w-3xl px-6 sm:px-8 lg:px-12">
           <h2 className="font-display text-4xl sm:text-6xl">Need our compliance pack?</h2>
           <p className="mt-6 text-white/65">Certificates, audit reports, and validation records — available on request.</p>
           <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-white hover:text-[var(--ink)] transition-colors">
@@ -139,7 +139,7 @@ function ScrollProcess() {
 
   return (
     <section ref={ref} className="py-24 sm:py-32 relative">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-16">
           <SectionLabel>QA Process</SectionLabel>
           <h2 className="mt-4 font-display text-4xl sm:text-6xl">Seven checkpoints, zero shortcuts.</h2>

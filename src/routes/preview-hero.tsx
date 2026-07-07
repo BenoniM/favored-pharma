@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/preview-hero")({
@@ -41,7 +41,7 @@ function PreviewHeroPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pt-28 pb-20">
-      <div className="mx-auto max-w-[1600px] px-6">
+      <div className="mx-auto max-w-[1440px] px-6">
         <header className="mb-8">
           <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-emerald-700">
             // Internal · hero preview

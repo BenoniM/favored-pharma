@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowRight, Plus, Minus, Loader2, Check } from "lucide-react";
@@ -98,7 +98,7 @@ function Contact() {
 
       {/* Form + offices split */}
       <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-12 gap-8">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-12 gap-8">
           <Reveal className="lg:col-span-7">
             <form noValidate onSubmit={handleSubmit} className="rounded-[32px] bg-[var(--mist)] border border-black/5 p-8 sm:p-12">
               <div className="flex items-center gap-2 mb-8">
@@ -208,7 +208,7 @@ function Contact() {
 
       {/* FAQ */}
       <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="mx-auto max-w-4xl px-6 sm:px-8 lg:px-12">
           <Reveal className="mb-12 text-center">
             <SectionLabel>Frequently Asked</SectionLabel>
             <h2 className="mt-4 font-display text-4xl sm:text-6xl">Before you write to us.</h2>
