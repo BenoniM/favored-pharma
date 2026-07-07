@@ -1,15 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import {
-  Pill, Microscope, FlaskConical, Stethoscope, Syringe, ShieldCheck,
-  Truck, BadgeCheck, Snowflake, Globe, ArrowRight, ArrowUpRight, Sparkles, MapPin,
+  Pill, FlaskConical, Stethoscope, Syringe, ArrowRight, ArrowUpRight, MapPin,
 } from "lucide-react";
-import { Reveal, fadeUp, SectionLabel } from "@/components/site";
+import { Reveal, SectionLabel } from "@/components/site";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
-
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/")(({
   head: () => ({
     meta: [
       { title: "Favored PLC — Pharmaceutical & Healthcare Distribution" },
@@ -21,46 +24,41 @@ export const Route = createFileRoute("/")({
     links: [{ rel: "canonical", href: "/" }],
   }),
   component: Home,
-});
+} as any));
 
-
-
+// ─────────────────────────────────────────────────────────────────────────────
+// Hero
+// ─────────────────────────────────────────────────────────────────────────────
 function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      ".gsap-hero-reveal",
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.9, delay: 0.3, ease: "power2.out" }
+    );
+  }, { scope: heroRef });
 
   return (
     <section
+      ref={heroRef}
       className="relative h-screen min-h-[600px] overflow-hidden text-white"
       aria-label="Favored PLC introduction"
     >
-      {/* Video background */}
       <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
+        autoPlay muted loop playsInline
         className="absolute inset-0 w-full h-full object-cover"
         aria-hidden
       >
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
-
-      {/* Dark overlay */}
       <div
         className="absolute inset-0"
-        style={{
-          background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.2) 100%)",
-        }}
+        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.2) 100%)" }}
       />
-
-      {/* Bottom-left content: headline + buttons */}
       <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-10 pb-16 sm:pb-20 max-w-[1440px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div className="gsap-hero-reveal">
           <h1
             className="text-white leading-[1.05]"
             style={{
@@ -71,12 +69,11 @@ function Hero() {
               maxWidth: "800px",
             }}
           >
-            Trusted Pharmaceutical 
-            & Healthcare Solutions<br />
+            Trusted Pharmaceutical{" "}
+            &amp; Healthcare Solutions
+            <br />
             for a Better Tomorrow.
           </h1>
-
-          {/* CTA buttons */}
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link
               to="/products"
@@ -91,21 +88,23 @@ function Hero() {
               className="inline-flex items-center gap-2 text-[15px] font-semibold text-white px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-105 transition-all"
               style={{ borderRadius: 9999 }}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="opacity-70">
-                <path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM7.25 4h1.5v5.25H12v1.5H7.25V4z"/>
-              </svg>
               Contact Us
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-
+// ─────────────────────────────────────────────────────────────────────────────
+// Stats Marquee
+// ─────────────────────────────────────────────────────────────────────────────
 function StatsMarquee() {
-  const items = ["20+ YEARS EXPERIENCE", "500+ HEALTHCARE PARTNERS", "1,000+ MEDICAL PRODUCTS", "14 WAREHOUSES", "96.4% ON-TIME", "WHO-GMP CERTIFIED", "COLD-CHAIN VALIDATED"];
+  const items = [
+    "20+ YEARS EXPERIENCE", "500+ HEALTHCARE PARTNERS", "1,000+ MEDICAL PRODUCTS",
+    "14 WAREHOUSES", "96.4% ON-TIME", "WHO-GMP CERTIFIED", "COLD-CHAIN VALIDATED",
+  ];
   return (
     <section className="py-8 bg-white overflow-hidden border-b border-black/5">
       <div className="flex marquee gap-24 whitespace-nowrap">
@@ -119,60 +118,308 @@ function StatsMarquee() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Trusted Collage — two-slide full-page pinned grid
+// ─────────────────────────────────────────────────────────────────────────────
 function TrustedCollage() {
-  const tiles = [
-    { label: "Quality Checked", icon: BadgeCheck, h: "h-64", color: "from-[var(--brand)]/20 to-[var(--brand)]/5", emoji: "🏥" },
-    { label: "Cold Chain Ready", icon: Snowflake, h: "h-80", color: "from-sky-100 to-white", emoji: "❄️" },
-    { label: "Regulatory Compliant", icon: ShieldCheck, h: "h-72", color: "from-[var(--ink)]/10 to-white", emoji: "📋" },
-    { label: "Fast Distribution", icon: Truck, h: "h-56", color: "from-amber-50 to-white", emoji: "🚚" },
-    { label: "Lab Verified", icon: Microscope, h: "h-72", color: "from-emerald-50 to-white", emoji: "🔬" },
-    { label: "Pharmacy Network", icon: Pill, h: "h-60", color: "from-[var(--mist)] to-white", emoji: "💊" },
-  ];
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const gridRef    = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // ── initial states ──────────────────────────────────────────────────────
+    gsap.set(".img-a",   { clipPath: "inset(0 100% 0 0)" });
+    gsap.set(".title-a", { y: "120%" });
+    gsap.set(".desc-a",  { y: "120%" });
+    gsap.set(".img-b",   { clipPath: "inset(0 100% 0 0)" });
+    gsap.set(".title-b", { y: "120%" });
+    gsap.set(".desc-b",  { y: "120%" });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: gridRef.current,
+        pin:     gridRef.current,
+        start:   "top top",
+        end:     "+=900%",    // 9× viewport — footer stays well below
+        scrub:   1.2,
+        anticipatePin: 1,
+      },
+    });
+
+    // 1. Pause — empty grid visible
+    tl.to({}, { duration: 0.4 });
+
+    // 2. Slide A images expand left → right
+    tl.to(".img-a", { clipPath: "inset(0 0% 0 0)", duration: 1.5, ease: "power2.inOut", stagger: 0.3 });
+
+    // 3. Slide A titles + descs rise from below
+    tl.to(".title-a", { y: "0%", duration: 0.8, ease: "power3.out", stagger: 0.2 });
+    tl.to(".desc-a",  { y: "0%", duration: 0.8, ease: "power3.out", stagger: 0.2 }, "<0.1");
+
+    // 4. Hold
+    tl.to({}, { duration: 0.5 });
+
+    // 5. Slide A exits: images collapse left, text exits upward
+    tl.to(".img-a",   { clipPath: "inset(0 0% 0 100%)", duration: 1.2, ease: "power2.inOut", stagger: 0.2 });
+    tl.to(".title-a", { y: "-120%", duration: 0.6, ease: "power2.in", stagger: 0.15 }, "<");
+    tl.to(".desc-a",  { y: "-120%", duration: 0.6, ease: "power2.in", stagger: 0.15 }, "<");
+
+    // 6. Slide B images enter from left
+    tl.to(".img-b", { clipPath: "inset(0 0% 0 0)", duration: 1.5, ease: "power2.inOut", stagger: 0.3 }, "<0.2");
+
+    // 7. Slide B titles + descs rise from below
+    tl.to(".title-b", { y: "0%", duration: 0.8, ease: "power3.out", stagger: 0.2 });
+    tl.to(".desc-b",  { y: "0%", duration: 0.8, ease: "power3.out", stagger: 0.2 }, "<0.1");
+
+    // 8. Final hold before unpin
+    tl.to({}, { duration: 0.6 });
+  }, { scope: wrapperRef });
+
+  // Helper: grid cell positions (5 cols × 3 rows)
+  const col = (n: number) => `${(n - 1) * 20}%`;
+  const row = (n: number) => `${((n - 1) * 100) / 3}%`;
+  const W = "20%";
+  const H = "calc(100% / 3)";
+
   return (
-    <section className="py-24 sm:py-32 overflow-hidden bg-[var(--mist)]">
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <Reveal className="max-w-3xl">
-          <SectionLabel>Trusted By Institutions</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">From hospital wards to neighborhood pharmacies we keep healthcare moving.</h2>
-        </Reveal>
-        <Link to="/partners" className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ink)] hover:text-[var(--brand)] shrink-0">
-          Meet our partners <ArrowRight className="h-4 w-4" />
-        </Link>
+    <div ref={wrapperRef}>
+      {/* Heading — scrolls away, NOT pinned */}
+      <div className="bg-white border-t border-black/5 pt-24 sm:pt-32 pb-12">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <Reveal className="max-w-3xl">
+            <SectionLabel>Trusted By Institutions</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">
+              From hospital wards to neighborhood pharmacies we keep healthcare moving.
+            </h2>
+          </Reveal>
+          <Link to="/partners" className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ink)] hover:text-[var(--brand)] shrink-0">
+            Meet our partners <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
-      <motion.div initial={{ x: 0 }} animate={{ x: "-50%" }} transition={{ duration: 30, ease: "linear", repeat: Infinity }} className="flex gap-5 px-6 w-max">
-        {[...tiles, ...tiles].map((t, i) => (
-          <div key={i} className={`relative w-64 ${t.h} rounded-3xl bg-gradient-to-br ${t.color} border border-black/5 overflow-hidden shrink-0 shadow-[var(--shadow-card)]`}>
-            <div className="absolute inset-0 grid place-items-center text-7xl opacity-30">{t.emoji}</div>
-            <div className="absolute bottom-4 left-4 right-4 glass rounded-2xl p-3 flex items-center gap-2">
-              <t.icon className="h-4 w-4 text-[var(--brand)] shrink-0" />
-              <span className="text-xs font-medium text-[var(--ink)] truncate">{t.label}</span>
+
+      {/* Full-page pinned grid */}
+      <div ref={gridRef} className="relative w-full h-screen bg-white border-t border-black/15 overflow-hidden">
+
+        {/* ── SLIDE A — CSS grid ─────────────────────────────────────────────
+            Row 1: [empty] [title-a col2] [img-a col3] [desc-a col4] [empty]
+            Row 2: [title-a col1] [img-a col2] [desc-a col3] [empty] [empty]
+            Row 3: [empty] [empty] [title-a col3] [img-a col4] [desc-a col5]   */}
+        <div className="grid grid-cols-5 grid-rows-3 w-full h-full border-l border-black/15">
+
+          {/* ROW 1 */}
+          <div className="border-r border-b border-black/15" />
+          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right">
+            <div className="overflow-hidden py-2">
+              <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Premium<br />Healthcare</h3>
             </div>
           </div>
-        ))}
-      </motion.div>
-    </section>
+          <div className="border-r border-b border-black/15 relative overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&q=80&w=800"
+              className="img-a absolute inset-0 w-full h-full object-cover"
+              alt="Healthcare Professionals"
+            />
+          </div>
+          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
+            <div className="overflow-hidden py-4 w-full">
+              <p className="desc-a text-sm text-white mix-blend-difference font-medium leading-relaxed">
+                We source premium medical supplies from globally certified manufacturers, ensuring every clinic has access to top-tier essentials.
+              </p>
+            </div>
+          </div>
+          <div className="border-r border-b border-black/15" />
+
+          {/* ROW 2 */}
+          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right">
+            <div className="overflow-hidden py-2">
+              <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Quality<br />Ensured</h3>
+            </div>
+          </div>
+          <div className="border-r border-b border-black/15 relative overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800"
+              className="img-a absolute inset-0 w-full h-full object-cover"
+              alt="Laboratory"
+            />
+          </div>
+          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
+            <div className="overflow-hidden py-4 w-full">
+              <p className="desc-a text-sm text-white mix-blend-difference font-medium leading-relaxed">
+                Every product undergoes rigorous quality assurance checks, ensuring adherence to WHO-GMP standards for maximum patient safety.
+              </p>
+            </div>
+          </div>
+          <div className="border-r border-b border-black/15" />
+          <div className="border-r border-b border-black/15" />
+
+          {/* ROW 3 */}
+          <div className="border-r border-b border-black/15" />
+          <div className="border-r border-b border-black/15" />
+          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right">
+            <div className="overflow-hidden py-2">
+              <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Cold-chain<br />Ready</h3>
+            </div>
+          </div>
+          <div className="border-r border-b border-black/15 relative overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&q=80&w=800"
+              className="img-a absolute inset-0 w-full h-full object-cover"
+              alt="Cold-chain logistics"
+            />
+          </div>
+          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
+            <div className="overflow-hidden py-4 w-full">
+              <p className="desc-a text-sm text-white mix-blend-difference font-medium leading-relaxed">
+                Our logistics network guarantees temperature-controlled transit so vaccines and biologics arrive safely and on schedule nationwide.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── SLIDE B — absolutely positioned at DIFFERENT columns ─────────────
+            Row 1 → col1(title) col2(img) col3(desc)   [img was at col3 in A]
+            Row 2 → col3(title) col4(img) col5(desc)   [img was at col2 in A]
+            Row 3 → col2(title) col3(img) col4(desc)   [img was at col4 in A]  */}
+
+        {/* ROW 1 ── col1 title-b */}
+        <div
+          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          style={{ left: col(1), top: row(1), width: W, height: H }}
+        >
+          <div className="overflow-hidden py-2">
+            <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Trusted<br />Partners</h3>
+          </div>
+        </div>
+        {/* ROW 1 ── col2 img-b */}
+        <div
+          className="absolute border-r border-b border-black/15 overflow-hidden z-10"
+          style={{ left: col(2), top: row(1), width: W, height: H }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800"
+            className="img-b absolute inset-0 w-full h-full object-cover"
+            alt="Partners"
+          />
+        </div>
+        {/* ROW 1 ── col3 desc-b */}
+        <div
+          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-10"
+          style={{ left: col(3), top: row(1), width: W, height: H }}
+        >
+          <div className="overflow-hidden py-4 w-full">
+            <p className="desc-b text-sm text-white mix-blend-difference font-medium leading-relaxed">
+              We partner with 500+ hospitals, pharmacies, and clinics — relationships built on trust, reliability, and a shared commitment to care.
+            </p>
+          </div>
+        </div>
+
+        {/* ROW 2 ── col3 title-b */}
+        <div
+          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          style={{ left: col(3), top: row(2), width: W, height: H }}
+        >
+          <div className="overflow-hidden py-2">
+            <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">24 / 7<br />Support</h3>
+          </div>
+        </div>
+        {/* ROW 2 ── col4 img-b */}
+        <div
+          className="absolute border-r border-b border-black/15 overflow-hidden z-10"
+          style={{ left: col(4), top: row(2), width: W, height: H }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80&w=800"
+            className="img-b absolute inset-0 w-full h-full object-cover"
+            alt="Support"
+          />
+        </div>
+        {/* ROW 2 ── col5 desc-b */}
+        <div
+          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-10"
+          style={{ left: col(5), top: row(2), width: W, height: H }}
+        >
+          <div className="overflow-hidden py-4 w-full">
+            <p className="desc-b text-sm text-white mix-blend-difference font-medium leading-relaxed">
+              Our teams are available round-the-clock to ensure your supply chain never stops — no matter the time or place.
+            </p>
+          </div>
+        </div>
+
+        {/* ROW 3 ── col2 title-b */}
+        <div
+          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          style={{ left: col(2), top: row(3), width: W, height: H }}
+        >
+          <div className="overflow-hidden py-2">
+            <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">On-Time<br />Delivery</h3>
+          </div>
+        </div>
+        {/* ROW 3 ── col3 img-b */}
+        <div
+          className="absolute border-r border-b border-black/15 overflow-hidden z-10"
+          style={{ left: col(3), top: row(3), width: W, height: H }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800"
+            className="img-b absolute inset-0 w-full h-full object-cover"
+            alt="Delivery"
+          />
+        </div>
+        {/* ROW 3 ── col4 desc-b */}
+        <div
+          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-10"
+          style={{ left: col(4), top: row(3), width: W, height: H }}
+        >
+          <div className="overflow-hidden py-4 w-full">
+            <p className="desc-b text-sm text-white mix-blend-difference font-medium leading-relaxed">
+              With a 96.4% on-time record and 14 strategically placed warehouses, the right product reaches the right place — every time.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Pillars Teaser
+// ─────────────────────────────────────────────────────────────────────────────
 function PillarsTeaser() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      ".gsap-pillar-reveal",
+      { opacity: 0, y: 28 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.06,
+        ease: "power2.out",
+        scrollTrigger: { trigger: containerRef.current, start: "top 80%" },
+      }
+    );
+  }, { scope: containerRef });
+
   const blocks = [
-    { n: "01", title: "Pharmaceutical Imports", desc: "Globally certified manufacturers, full chain-of-custody.", icon: Pill },
-    { n: "02", title: "Medical Equipment", desc: "Imaging, monitoring, and surgical devices.", icon: Stethoscope },
-    { n: "03", title: "Laboratory Supplies", desc: "Reagents and precision instruments calibrated for accuracy.", icon: FlaskConical },
-    { n: "04", title: "Hospital Consumables", desc: "Daily-use supplies, delivered on schedule.", icon: Syringe },
+    { n: "01", title: "Pharmaceutical Imports",  desc: "Globally certified manufacturers, full chain-of-custody.", icon: Pill },
+    { n: "02", title: "Medical Equipment",       desc: "Imaging, monitoring, and surgical devices.",              icon: Stethoscope },
+    { n: "03", title: "Laboratory Supplies",     desc: "Reagents and precision instruments calibrated for accuracy.", icon: FlaskConical },
+    { n: "04", title: "Hospital Consumables",    desc: "Daily-use supplies, delivered on schedule.",              icon: Syringe },
   ];
+
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-24 sm:py-32" ref={containerRef}>
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-16">
           <SectionLabel>Solutions</SectionLabel>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">Four pillars of dependable supply.</h2>
         </Reveal>
         <div className="grid md:grid-cols-2 gap-6">
-          {blocks.map((b, i) => (
-            <motion.div key={b.n} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }} variants={fadeUp}
-              transition={{ delay: i * 0.06, duration: 0.7 }}
-              className="group relative rounded-3xl bg-gradient-to-br from-[var(--mist)] to-white border border-black/5 p-8 sm:p-10 overflow-hidden">
+          {blocks.map((b) => (
+            <div key={b.n} className="gsap-pillar-reveal opacity-0 group relative rounded-3xl bg-gradient-to-br from-[var(--mist)] to-white border border-black/5 p-8 sm:p-10 overflow-hidden">
               <div aria-hidden className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[var(--brand)]/10 blur-3xl group-hover:bg-[var(--brand)]/20 transition-colors" />
               <div className="relative">
                 <div className="flex items-center justify-between mb-12">
@@ -187,7 +434,7 @@ function PillarsTeaser() {
                   Learn more <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -195,6 +442,9 @@ function PillarsTeaser() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Featured Teasers
+// ─────────────────────────────────────────────────────────────────────────────
 function FeaturedTeasers() {
   return (
     <section className="py-24 sm:py-32 bg-[var(--mist)]">
@@ -202,8 +452,8 @@ function FeaturedTeasers() {
         <Link to="/quality" className="lg:col-span-7 group relative rounded-[32px] bg-[var(--ink)] text-white p-10 sm:p-14 overflow-hidden min-h-[440px] flex flex-col justify-between">
           <div aria-hidden className="absolute top-0 right-0 w-[600px] h-[600px] opacity-40" style={{ background: "var(--gradient-glow)" }} />
           <div className="relative">
-            <SectionLabel>Quality & Compliance</SectionLabel>
-            <h3 className="mt-6 font-display text-3xl sm:text-4xl max-w-md">Built on quality, safety & trust.</h3>
+            <SectionLabel>Quality &amp; Compliance</SectionLabel>
+            <h3 className="mt-6 font-display text-3xl sm:text-4xl max-w-md">Built on quality, safety &amp; trust.</h3>
           </div>
           <div className="relative flex items-end justify-between">
             <div className="grid grid-cols-3 gap-3">
@@ -231,14 +481,29 @@ function FeaturedTeasers() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Network Preview
+// ─────────────────────────────────────────────────────────────────────────────
 function NetworkPreview() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const hubs = [
-    { city: "Addis Ababa", x: "20%", y: "35%" }, { city: "Bahir Dar", x: "42%", y: "22%" },
-    { city: "Mekelle", x: "62%", y: "18%" }, { city: "Hawassa", x: "35%", y: "62%" },
-    { city: "Dire Dawa", x: "72%", y: "48%" }, { city: "Jimma", x: "15%", y: "70%" },
+    { city: "Addis Ababa", x: "20%", y: "35%" },
+    { city: "Bahir Dar",   x: "42%", y: "22%" },
+    { city: "Mekelle",     x: "62%", y: "18%" },
+    { city: "Hawassa",     x: "35%", y: "62%" },
+    { city: "Dire Dawa",   x: "72%", y: "48%" },
+    { city: "Jimma",       x: "15%", y: "70%" },
   ];
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: "top 75%" } });
+    tl.fromTo(".gsap-network-line", { opacity: 0 }, { opacity: 1, duration: 1.5, stagger: 0.15, ease: "power2.inOut" }, 0);
+    tl.fromTo(".gsap-network-node", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.3);
+  }, { scope: containerRef });
+
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-24 sm:py-32" ref={containerRef}>
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-12">
           <SectionLabel>Network</SectionLabel>
@@ -256,22 +521,23 @@ function NetworkPreview() {
             </svg>
             <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
               {hubs.slice(1).map((h, i) => (
-                <motion.line key={i} x1="20" y1="35" x2={parseFloat(h.x)} y2={parseFloat(h.y)}
-                  stroke="var(--brand)" strokeWidth="0.2" strokeDasharray="1 1"
-                  initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.5, delay: i * 0.15 }} />
+                <line key={i} x1="20" y1="35" x2={parseFloat(h.x)} y2={parseFloat(h.y)}
+                  className="gsap-network-line"
+                  stroke="var(--brand)" strokeWidth="0.2" strokeDasharray="1 1" />
               ))}
             </svg>
-            {hubs.map((h, i) => (
-              <motion.div key={h.city} initial={{ opacity: 0, scale: 0 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 + 0.3 }}
-                style={{ left: h.x, top: h.y }} className="absolute -translate-x-1/2 -translate-y-1/2">
+            {hubs.map((h) => (
+              <div key={h.city} className="gsap-network-node absolute -translate-x-1/2 -translate-y-1/2 opacity-0" style={{ left: h.x, top: h.y }}>
                 <div className="relative">
                   <div className="absolute inset-0 rounded-full bg-[var(--brand)]/30 animate-ping" />
                   <div className="relative h-3 w-3 rounded-full bg-[var(--brand)] ring-4 ring-white" />
                 </div>
                 <div className="absolute left-5 top-0 glass rounded-xl px-3 py-1.5 shadow-[var(--shadow-card)] whitespace-nowrap">
-                  <div className="text-[10px] font-mono text-[var(--ink)]/60 flex items-center gap-1"><MapPin className="h-2.5 w-2.5" />{h.city}</div>
+                  <div className="text-[10px] font-mono text-[var(--ink)]/60 flex items-center gap-1">
+                    <MapPin className="h-2.5 w-2.5" />{h.city}
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -280,6 +546,9 @@ function NetworkPreview() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Page
+// ─────────────────────────────────────────────────────────────────────────────
 function Home() {
   return (
     <main className="bg-white text-[var(--ink)] overflow-x-hidden">

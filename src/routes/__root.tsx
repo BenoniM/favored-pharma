@@ -9,7 +9,6 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useScroll, useSpring, useTransform, useAnimation } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Toaster } from "sonner";
 import gsap from "gsap";
@@ -176,33 +175,45 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
-  const controls = useAnimation();
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const outletRef = useRef<HTMLDivElement>(null);
 
+  // GSAP scroll progress bar — no stacking context issues
+  useEffect(() => {
+    if (!progressBarRef.current) return;
+    const bar = progressBarRef.current;
+    const onScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      gsap.set(bar, { scaleX: progress, transformOrigin: "0% 50%", immediateRender: true });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // GSAP route transition — opacity ONLY, never y/transform on this wrapper
+  // A transform on the outlet wrapper permanently breaks position:sticky on children
   useEffect(() => {
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-    
-    // Animate route change without unmounting Outlet
-    const playAnim = async () => {
-      await controls.start({ opacity: 0, y: 16, filter: "blur(6px)", transition: { duration: 0 } });
-      controls.start({ opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } });
-    };
-    playAnim();
-  }, [pathname, controls]);
+    if (!outletRef.current) return;
+    const el = outletRef.current;
+    gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "all" });
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Nav />
-      {/* Scroll progress bar */}
-      <motion.div
-        style={{ scaleX, transformOrigin: "0% 50%" }}
+      {/* Scroll progress bar — pure GSAP, no framer stacking context */}
+      <div
+        ref={progressBarRef}
+        style={{ transform: "scaleX(0)", transformOrigin: "0% 50%" }}
         className="fixed top-0 left-0 right-0 h-[2px] bg-[var(--brand)] z-[60] pointer-events-none"
       />
-      {/* Route reveal curtain */}
-      <motion.div animate={controls}>
+      {/* Plain div — no transform/filter parent that breaks sticky */}
+      <div ref={outletRef}>
         <Outlet />
-      </motion.div>
+      </div>
       <Footer />
       <Toaster position="bottom-right" richColors closeButton />
     </QueryClientProvider>
@@ -353,8 +364,25 @@ function Nav() {
  *  CTA SECTION
  * ───────────────────────────────────────── */
 function CtaSection() {
+  const ctaRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    gsap.from('.gsap-cta-reveal', {
+      scrollTrigger: {
+        trigger: ctaRef.current,
+        start: 'top 75%',
+      },
+      y: 24,
+      opacity: 0,
+      duration: 0.85,
+      stagger: 0.15,
+      ease: 'power2.out',
+    });
+  }, { scope: ctaRef });
+
   return (
     <section
+      ref={ctaRef}
       className="relative w-full"
       style={{
         height: "100vh",
@@ -372,11 +400,8 @@ function CtaSection() {
         style={{ padding: "clamp(2rem,5vw,5rem)" }}
       >
         {/* TOP-LEFT — kicker + heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.85 }}
+        <div
+          className="gsap-cta-reveal"
           style={{ maxWidth: 420 }}
         >
           <p
@@ -406,14 +431,11 @@ function CtaSection() {
             <br />
             Favored PLC.
           </h2>
-        </motion.div>
+        </div>
 
         {/* BOTTOM-RIGHT — sub-heading, description, buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.85, delay: 0.18 }}
+        <div
+          className="gsap-cta-reveal"
           style={{
             marginTop: "auto",
             marginLeft: "auto",
@@ -495,7 +517,7 @@ function CtaSection() {
               · EXPLORE PRODUCTS ·
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
