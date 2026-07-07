@@ -93,8 +93,9 @@
     letter-spacing: -0.035em;
     font-weight: 600;
     line-height: 0.95;
+    text-transform: capitalize;
   }
-  .font-display { font-family: var(--font-display); letter-spacing: -0.035em; }
+  .font-display { font-family: var(--font-display); letter-spacing: -0.035em; text-transform: capitalize; }
   .font-mono { font-family: var(--font-mono); }
 }
 

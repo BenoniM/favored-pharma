@@ -211,7 +211,7 @@ function Contact() {
         <div className="mx-auto max-w-4xl px-6 sm:px-8 lg:px-12">
           <Reveal className="mb-12 text-center">
             <SectionLabel>Frequently Asked</SectionLabel>
-            <h2 className="mt-4 font-display text-4xl sm:text-6xl">Before you write to us.</h2>
+            <h2 className="mt-4 font-display text-3xl sm:text-5xl">Before you write to us.</h2>
             <p className="mt-4 text-sm text-[var(--ink)]/50 font-mono">Tip: deep-link any question, e.g. /contact#faq-emergency</p>
           </Reveal>
           <div className="space-y-3">
