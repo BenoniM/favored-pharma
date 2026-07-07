@@ -808,6 +808,7 @@ function Footer() {
     // Main timeline scrubbed by scroll
     const tl = gsap.timeline({
       scrollTrigger: {
+        id: "site-footer-curtain",
         trigger: scene,
         start: "top top",
         // pin for 2 extra screenheights of scroll travel
@@ -815,6 +816,7 @@ function Footer() {
         pin: true,
         scrub: 1,
         anticipatePin: 1,
+        refreshPriority: -1,
       },
     });
 
@@ -839,7 +841,10 @@ function Footer() {
       ">-0.05",
     );
 
-    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+    return () => {
+      tl.scrollTrigger?.kill();
+      tl.kill();
+    };
   }, { scope: sceneRef });
 
   return (

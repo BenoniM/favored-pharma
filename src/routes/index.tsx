@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import {
-  Pill, FlaskConical, Stethoscope, Syringe, ArrowRight, ArrowUpRight, MapPin,
+  ArrowRight, ArrowUpRight, MapPin,
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
 
@@ -130,18 +130,21 @@ function TrustedCollage() {
     gsap.set(".img-a",   { clipPath: "inset(0 100% 0 0)" });
     gsap.set(".title-a", { y: "120%" });
     gsap.set(".desc-a",  { y: "120%" });
+    gsap.set(".slide-b-cell", { autoAlpha: 0 });
     gsap.set(".img-b",   { clipPath: "inset(0 100% 0 0)" });
     gsap.set(".title-b", { y: "120%" });
     gsap.set(".desc-b",  { y: "120%" });
 
     const tl = gsap.timeline({
       scrollTrigger: {
+        id: "home-trusted-collage",
         trigger: gridRef.current,
         pin:     gridRef.current,
         start:   "top top",
         end:     "+=900%",    // 9× viewport — footer stays well below
         scrub:   1.2,
         anticipatePin: 1,
+        refreshPriority: 1,
       },
     });
 
@@ -164,6 +167,7 @@ function TrustedCollage() {
     tl.to(".desc-a",  { y: "-120%", duration: 0.6, ease: "power2.in", stagger: 0.15 }, "<");
 
     // 6. Slide B images enter from left
+    tl.set(".slide-b-cell", { autoAlpha: 1 });
     tl.to(".img-b", { clipPath: "inset(0 0% 0 0)", duration: 1.5, ease: "power2.inOut", stagger: 0.3 }, "<0.2");
 
     // 7. Slide B titles + descs rise from below
@@ -215,14 +219,14 @@ function TrustedCollage() {
           </div>
           <div className="border-r border-b border-black/15 relative overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&q=80&w=800"
+              src="https://images.pexels.com/photos/13176452/pexels-photo-13176452.jpeg"
               className="img-a absolute inset-0 w-full h-full object-cover"
               alt="Healthcare Professionals"
             />
           </div>
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
-            <div className="overflow-hidden py-4 w-full">
-              <p className="desc-a text-sm text-white mix-blend-difference font-medium leading-relaxed">
+          <div className="relative z-20 border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none overflow-visible">
+            <div className="relative z-20 -ml-24 w-[calc(100%+6rem)] overflow-hidden py-4">
+              <p className="desc-a text-[15px] text-black mix-blend-difference font-normal leading-relaxed">
                 We source premium medical supplies from globally certified manufacturers, ensuring every clinic has access to top-tier essentials.
               </p>
             </div>
@@ -242,9 +246,9 @@ function TrustedCollage() {
               alt="Laboratory"
             />
           </div>
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
-            <div className="overflow-hidden py-4 w-full">
-              <p className="desc-a text-sm text-white mix-blend-difference font-medium leading-relaxed">
+          <div className="relative z-20 border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none overflow-visible">
+            <div className="relative z-20 -ml-24 w-[calc(100%+6rem)] overflow-hidden py-4">
+              <p className="desc-a text-[15px] text-black mix-blend-difference font-normal leading-relaxed">
                 Every product undergoes rigorous quality assurance checks, ensuring adherence to WHO-GMP standards for maximum patient safety.
               </p>
             </div>
@@ -267,9 +271,9 @@ function TrustedCollage() {
               alt="Cold-chain logistics"
             />
           </div>
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
-            <div className="overflow-hidden py-4 w-full">
-              <p className="desc-a text-sm text-white mix-blend-difference font-medium leading-relaxed">
+          <div className="relative z-20 border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none overflow-visible">
+            <div className="relative z-20 -ml-24 w-[calc(100%+6rem)] overflow-hidden py-4">
+              <p className="desc-a text-[15px] text-black mix-blend-difference font-normal leading-relaxed">
                 Our logistics network guarantees temperature-controlled transit so vaccines and biologics arrive safely and on schedule nationwide.
               </p>
             </div>
@@ -283,7 +287,7 @@ function TrustedCollage() {
 
         {/* ROW 1 ── col1 title-b */}
         <div
-          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
           style={{ left: col(1), top: row(1), width: W, height: H }}
         >
           <div className="overflow-hidden py-2">
@@ -292,7 +296,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 1 ── col2 img-b */}
         <div
-          className="absolute border-r border-b border-black/15 overflow-hidden z-10"
+          className="slide-b-cell absolute border-r border-b border-black/15 overflow-hidden z-10"
           style={{ left: col(2), top: row(1), width: W, height: H }}
         >
           <img
@@ -303,11 +307,11 @@ function TrustedCollage() {
         </div>
         {/* ROW 1 ── col3 desc-b */}
         <div
-          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-20 overflow-visible"
           style={{ left: col(3), top: row(1), width: W, height: H }}
         >
-          <div className="overflow-hidden py-4 w-full">
-            <p className="desc-b text-sm text-white mix-blend-difference font-medium leading-relaxed">
+          <div className="relative z-20 -ml-24 w-[calc(100%+6rem)] overflow-hidden py-4">
+            <p className="desc-b text-[15px] text-black mix-blend-difference font-normal leading-relaxed">
               We partner with 500+ hospitals, pharmacies, and clinics — relationships built on trust, reliability, and a shared commitment to care.
             </p>
           </div>
@@ -315,7 +319,7 @@ function TrustedCollage() {
 
         {/* ROW 2 ── col3 title-b */}
         <div
-          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
           style={{ left: col(3), top: row(2), width: W, height: H }}
         >
           <div className="overflow-hidden py-2">
@@ -324,7 +328,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 2 ── col4 img-b */}
         <div
-          className="absolute border-r border-b border-black/15 overflow-hidden z-10"
+          className="slide-b-cell absolute border-r border-b border-black/15 overflow-hidden z-10"
           style={{ left: col(4), top: row(2), width: W, height: H }}
         >
           <img
@@ -335,11 +339,11 @@ function TrustedCollage() {
         </div>
         {/* ROW 2 ── col5 desc-b */}
         <div
-          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-20 overflow-visible"
           style={{ left: col(5), top: row(2), width: W, height: H }}
         >
-          <div className="overflow-hidden py-4 w-full">
-            <p className="desc-b text-sm text-white mix-blend-difference font-medium leading-relaxed">
+          <div className="relative z-20 -ml-24 w-[calc(100%+6rem)] overflow-hidden py-4">
+            <p className="desc-b text-[15px] text-black mix-blend-difference font-normal leading-relaxed">
               Our teams are available round-the-clock to ensure your supply chain never stops — no matter the time or place.
             </p>
           </div>
@@ -347,7 +351,7 @@ function TrustedCollage() {
 
         {/* ROW 3 ── col2 title-b */}
         <div
-          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
           style={{ left: col(2), top: row(3), width: W, height: H }}
         >
           <div className="overflow-hidden py-2">
@@ -356,7 +360,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 3 ── col3 img-b */}
         <div
-          className="absolute border-r border-b border-black/15 overflow-hidden z-10"
+          className="slide-b-cell absolute border-r border-b border-black/15 overflow-hidden z-10"
           style={{ left: col(3), top: row(3), width: W, height: H }}
         >
           <img
@@ -367,11 +371,11 @@ function TrustedCollage() {
         </div>
         {/* ROW 3 ── col4 desc-b */}
         <div
-          className="absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none z-20 overflow-visible"
           style={{ left: col(4), top: row(3), width: W, height: H }}
         >
-          <div className="overflow-hidden py-4 w-full">
-            <p className="desc-b text-sm text-white mix-blend-difference font-medium leading-relaxed">
+          <div className="relative z-20 -ml-24 w-[calc(100%+6rem)] overflow-hidden py-4">
+            <p className="desc-b text-[15px] text-black mix-blend-difference font-normal leading-relaxed">
               With a 96.4% on-time record and 14 strategically placed warehouses, the right product reaches the right place — every time.
             </p>
           </div>
@@ -387,55 +391,98 @@ function TrustedCollage() {
 // ─────────────────────────────────────────────────────────────────────────────
 function PillarsTeaser() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredPillar, setHoveredPillar] = useState<number | null>(null);
 
   useGSAP(() => {
     gsap.fromTo(
       ".gsap-pillar-reveal",
-      { opacity: 0, y: 28 },
+      { opacity: 0 },
       {
         opacity: 1,
-        y: 0,
         duration: 0.7,
-        stagger: 0.06,
+        stagger: 0.08,
         ease: "power2.out",
         scrollTrigger: { trigger: containerRef.current, start: "top 80%" },
       }
     );
   }, { scope: containerRef });
 
-  const blocks = [
-    { n: "01", title: "Pharmaceutical Imports",  desc: "Globally certified manufacturers, full chain-of-custody.", icon: Pill },
-    { n: "02", title: "Medical Equipment",       desc: "Imaging, monitoring, and surgical devices.",              icon: Stethoscope },
-    { n: "03", title: "Laboratory Supplies",     desc: "Reagents and precision instruments calibrated for accuracy.", icon: FlaskConical },
-    { n: "04", title: "Hospital Consumables",    desc: "Daily-use supplies, delivered on schedule.",              icon: Syringe },
+  const pillars = [
+    {
+      n: "01",
+      title: <>Pharmaceutical<br />Imports</>,
+      desc: "Globally certified manufacturers, dependable sourcing, and full chain-of-custody for essential medicines.",
+      color: "color-mix(in oklab, var(--brand) 42%, #4f9fb8)",
+      shape: "rounded-none",
+      position: "lg:left-[3%] lg:top-[88px]",
+      content: "items-start justify-start text-left",
+    },
+    {
+      n: "02",
+      title: <>Medical<br />Equipment</>,
+      desc: "Imaging, monitoring, surgical devices, and installation support for facilities that need reliable uptime.",
+      color: "color-mix(in oklab, var(--brand) 34%, #d8b64d)",
+      shape: "rounded-full",
+      position: "lg:left-[21%] lg:top-[88px]",
+      content: "items-center justify-center text-center",
+    },
+    {
+      n: "03",
+      title: <>Laboratory<br />Supplies</>,
+      desc: "Reagents, calibrated instruments, and lab essentials selected for accuracy, traceability, and daily use.",
+      color: "color-mix(in oklab, var(--ink) 68%, #a9625d)",
+      shape: "rounded-b-full",
+      position: "lg:left-[44%] lg:top-[88px]",
+      content: "items-start justify-start text-left",
+    },
+    {
+      n: "04",
+      title: <>Hospital<br />Consumables</>,
+      desc: "Daily-use supplies, sterile essentials, and scheduled replenishment that keep clinical teams moving.",
+      color: "color-mix(in oklab, var(--brand) 82%, #38b09c)",
+      shape: "rounded-tr-[220px]",
+      position: "lg:right-[3%] lg:top-[88px]",
+      content: "items-center justify-center text-center",
+    },
   ];
 
+  const getPillarTransform = (index: number) => {
+    if (hoveredPillar === null || hoveredPillar === index) return undefined;
+    if (hoveredPillar === 2 && index === 3) return "translateX(16rem)";
+    return `translateX(${index < hoveredPillar ? "-12rem" : "12rem"})`;
+  };
+
   return (
-    <section className="py-24 sm:py-32" ref={containerRef}>
+    <section className="bg-white py-24 sm:py-32" ref={containerRef}>
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
-        <Reveal className="max-w-3xl mb-16">
+        <Reveal className="max-w-3xl">
           <SectionLabel>Solutions</SectionLabel>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">Four pillars of dependable supply.</h2>
         </Reveal>
-        <div className="grid md:grid-cols-2 gap-6">
-          {blocks.map((b) => (
-            <div key={b.n} className="gsap-pillar-reveal opacity-0 group relative rounded-3xl bg-gradient-to-br from-[var(--mist)] to-white border border-black/5 p-8 sm:p-10 overflow-hidden">
-              <div aria-hidden className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[var(--brand)]/10 blur-3xl group-hover:bg-[var(--brand)]/20 transition-colors" />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-12">
-                  <div className="font-mono text-xs text-[var(--ink)]/40">— {b.n}</div>
-                  <div className="h-14 w-14 rounded-2xl bg-white border border-black/5 grid place-items-center shadow-[var(--shadow-card)]">
-                    <b.icon className="h-7 w-7 text-[var(--brand)]" />
-                  </div>
+        <div className="relative mt-16 min-h-[640px] overflow-visible lg:mt-10">
+          <div className="grid gap-4 lg:block">
+            {pillars.map((pillar, index) => (
+              <article
+                key={pillar.n}
+                className={`gsap-pillar-reveal group relative min-h-[320px] overflow-hidden p-8 text-white opacity-0 transition-transform duration-500 sm:p-10 lg:absolute lg:h-[500px] lg:w-[500px] ${pillar.position} ${pillar.shape}`}
+                style={{ background: pillar.color, transform: getPillarTransform(index) }}
+                onMouseEnter={() => setHoveredPillar(index)}
+                onMouseLeave={() => setHoveredPillar(null)}
+                onFocus={() => setHoveredPillar(index)}
+                onBlur={() => setHoveredPillar(null)}
+                tabIndex={0}
+              >
+                <div className={`flex h-full min-h-[220px] flex-col ${pillar.content}`}>
+                  <h3 className="font-display text-3xl leading-[1.05] text-white sm:text-4xl">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-6 max-w-sm translate-y-3 text-base font-semibold leading-relaxed text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                    {pillar.desc}
+                  </p>
                 </div>
-                <h3 className="font-display text-2xl sm:text-3xl text-[var(--ink)] mb-3">{b.title}</h3>
-                <p className="text-[var(--ink)]/65 leading-relaxed max-w-md">{b.desc}</p>
-                <Link to="/products" className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ink)] group-hover:text-[var(--brand)] transition-colors">
-                  Learn more <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
