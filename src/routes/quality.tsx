@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { BadgeCheck, ShieldCheck, ClipboardCheck, Microscope, Snowflake, FileCheck, ArrowRight } from "lucide-react";
@@ -66,7 +66,7 @@ function Quality() {
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="max-w-3xl mb-16">
             <SectionLabel>Six Standards</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-5xl">Non-negotiable, every shipment.</h2>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl">Non-negotiable, every shipment.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {standards.map((s, i) => (
@@ -88,7 +88,7 @@ function Quality() {
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="text-center mb-12">
             <SectionLabel>Certifications</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-5xl">Audited. Verified. Renewed.</h2>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl">Audited. Verified. Renewed.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {certs.map(([k, v], i) => (
@@ -111,7 +111,7 @@ function Quality() {
 
       <section className="py-24 sm:py-32 bg-[var(--ink)] text-white text-center">
         <Reveal className="mx-auto max-w-3xl px-6 sm:px-8 lg:px-12">
-          <h2 className="font-display text-3xl sm:text-5xl">Need our compliance pack?</h2>
+          <h2 className="font-display text-3xl sm:text-4xl">Need our compliance pack?</h2>
           <p className="mt-6 text-white/65">Certificates, audit reports, and validation records — available on request.</p>
           <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-white hover:text-[var(--ink)] transition-colors">
             Request documentation <ArrowRight className="h-4 w-4" />
@@ -142,7 +142,7 @@ function ScrollProcess() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-16">
           <SectionLabel>QA Process</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-5xl">Seven checkpoints, zero shortcuts.</h2>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl">Seven checkpoints, zero shortcuts.</h2>
           <p className="mt-6 text-[var(--ink)]/65 max-w-xl">A scroll-linked diagram of the path every shipment takes — from manufacturer agreement to client dock.</p>
         </Reveal>
 

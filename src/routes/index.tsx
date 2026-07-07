@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import {
@@ -65,7 +65,7 @@ function Hero() {
             className="text-white leading-[1.05]"
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(3rem, 6.5vw, 4.5rem)",
+              fontSize: "clamp(2.5rem, 5.5vw, 3.5rem)",
               fontWeight: 600,
               letterSpacing: "-0.02em",
               maxWidth: "800px",
@@ -133,7 +133,7 @@ function TrustedCollage() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <Reveal className="max-w-3xl">
           <SectionLabel>Trusted By Institutions</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-5xl text-[var(--ink)]">From hospital wards to neighborhood pharmacies we keep healthcare moving.</h2>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">From hospital wards to neighborhood pharmacies we keep healthcare moving.</h2>
         </Reveal>
         <Link to="/partners" className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ink)] hover:text-[var(--brand)] shrink-0">
           Meet our partners <ArrowRight className="h-4 w-4" />
@@ -166,7 +166,7 @@ function PillarsTeaser() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-16">
           <SectionLabel>Solutions</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-5xl text-[var(--ink)]">Four pillars of dependable supply.</h2>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">Four pillars of dependable supply.</h2>
         </Reveal>
         <div className="grid md:grid-cols-2 gap-6">
           {blocks.map((b, i) => (
@@ -203,7 +203,7 @@ function FeaturedTeasers() {
           <div aria-hidden className="absolute top-0 right-0 w-[600px] h-[600px] opacity-40" style={{ background: "var(--gradient-glow)" }} />
           <div className="relative">
             <SectionLabel>Quality & Compliance</SectionLabel>
-            <h3 className="mt-6 font-display text-3xl sm:text-5xl max-w-md">Built on quality, safety & trust.</h3>
+            <h3 className="mt-6 font-display text-3xl sm:text-4xl max-w-md">Built on quality, safety & trust.</h3>
           </div>
           <div className="relative flex items-end justify-between">
             <div className="grid grid-cols-3 gap-3">
@@ -217,7 +217,7 @@ function FeaturedTeasers() {
         <Link to="/products" className="lg:col-span-5 group relative rounded-[32px] bg-white border border-black/5 p-10 sm:p-14 overflow-hidden min-h-[440px] flex flex-col justify-between">
           <div className="relative">
             <SectionLabel>Product Catalog</SectionLabel>
-            <h3 className="mt-6 font-display text-3xl sm:text-4xl text-[var(--ink)]">1,000+ medical products in stock.</h3>
+            <h3 className="mt-6 font-display text-2xl sm:text-3xl text-[var(--ink)]">1,000+ medical products in stock.</h3>
           </div>
           <div className="flex flex-wrap gap-2">
             {["Prescription", "OTC", "Devices", "Lab", "Consumables", "Emergency"].map((c) => (
@@ -242,7 +242,7 @@ function NetworkPreview() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-12">
           <SectionLabel>Network</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-5xl text-[var(--ink)]">A nationwide network, always moving.</h2>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">A nationwide network, always moving.</h2>
         </Reveal>
         <div className="relative rounded-[32px] bg-gradient-to-br from-[var(--mist)] via-white to-[var(--brand)]/5 border border-black/5 p-6 sm:p-10 overflow-hidden">
           <div className="relative h-[420px] sm:h-[520px] rounded-3xl bg-white/50 border border-black/5 overflow-hidden">

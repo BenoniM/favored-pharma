@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, Heart, Globe, ShieldCheck, Sparkles, Building2, Rocket, Stethoscope, Snowflake, Package, Network } from "lucide-react";
@@ -57,7 +57,7 @@ function About() {
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-12 gap-12 items-start">
           <Reveal className="lg:col-span-5 lg:sticky lg:top-32">
             <SectionLabel>Our Story</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-4xl">From one warehouse to a national network.</h2>
+            <h2 className="mt-4 font-display text-2xl sm:text-3xl">From one warehouse to a national network.</h2>
           </Reveal>
           <div className="lg:col-span-7 space-y-6 text-[var(--ink)]/75 text-lg leading-relaxed">
             <Reveal><p>Favored PLC was founded on a simple belief: a healthcare system is only as strong as the supply chain behind it. When a hospital runs out of an essential medicine, the failure is not pharmaceutical — it is logistical.</p></Reveal>
@@ -93,7 +93,7 @@ function About() {
         <div className="relative mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="max-w-3xl mb-16">
             <SectionLabel>Values</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-5xl">Four non-negotiables.</h2>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl">Four non-negotiables.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {values.map((v, i) => (
@@ -114,7 +114,7 @@ function About() {
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="max-w-3xl mb-16">
             <SectionLabel>Leadership</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-5xl">The people behind the promise.</h2>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl">The people behind the promise.</h2>
           </Reveal>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {leadership.map((p, i) => (
@@ -136,7 +136,7 @@ function About() {
 
       <section className="py-24 sm:py-32">
         <Reveal className="mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 text-center">
-          <h2 className="font-display text-4xl sm:text-6xl">Want to work with us?</h2>
+          <h2 className="font-display text-3xl sm:text-5xl">Want to work with us?</h2>
           <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-[var(--ink)] transition-colors shadow-[var(--shadow-glow)]">
             Get in touch <ArrowRight className="h-4 w-4" />
           </Link>
@@ -176,7 +176,7 @@ function EditorialTimeline() {
         <Reveal className="max-w-3xl mb-20">
           <SectionLabel>Editorial Timeline</SectionLabel>
           <AnimatedHeadline text="Two decades, one direction." as="h2"
-            className="mt-4 font-display text-4xl sm:text-6xl lg:text-8xl leading-[0.95]" />
+            className="mt-4 font-display text-3xl lg:text-4xl leading-[0.95]" />
           <p className="mt-6 text-[var(--ink)]/65 max-w-xl text-lg">
             A short biography of the boxes we've moved, the partners we've earned, and the standards we've kept.
           </p>

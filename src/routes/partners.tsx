@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight, MapPin, Truck, Quote, Snowflake, Package, Clock, Sparkles } from "lucide-react";
@@ -58,7 +58,7 @@ function Partners() {
 
       <section className="py-24 sm:py-32">
         <Reveal className="mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 text-center">
-          <h2 className="font-display text-4xl sm:text-6xl">Become a partner.</h2>
+          <h2 className="font-display text-3xl sm:text-5xl">Become a partner.</h2>
           <p className="mt-6 text-[var(--ink)]/65 max-w-xl mx-auto">Whether you make medicine or buy it — we'd like to talk.</p>
           <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-[var(--ink)] transition-colors shadow-[var(--shadow-glow)]">
             Partner with Favored <ArrowRight className="h-4 w-4" />
@@ -128,7 +128,7 @@ function ManufacturerMarquee() {
         <Reveal className="mb-10 flex items-end justify-between flex-wrap gap-4">
           <div>
             <SectionLabel>Manufacturers</SectionLabel>
-            <h2 className="mt-4 font-display text-2xl sm:text-4xl max-w-2xl leading-[1.05]">
+            <h2 className="mt-4 font-display text-2xl sm:text-3xl max-w-2xl leading-[1.05]">
               Tier-1 makers, <span className="text-[var(--brand)]">continuously in motion.</span>
             </h2>
           </div>
@@ -205,7 +205,7 @@ function ParallaxReviews() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-16">
           <SectionLabel>What Partners Say</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-5xl [text-wrap:balance]">
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl [text-wrap:balance]">
             Trusted by people who <span className="text-[var(--brand)]">can't afford</span> to be let down.
           </h2>
         </Reveal>
@@ -232,7 +232,7 @@ function NetworkMap() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
         <Reveal className="max-w-3xl mb-12 flex flex-col gap-4">
           <SectionLabel>Interactive Network</SectionLabel>
-          <h2 className="font-display text-3xl sm:text-5xl">Six hubs. Fourteen warehouses. <span className="text-[var(--brand)]">Click any node.</span></h2>
+          <h2 className="font-display text-3xl sm:text-4xl">Six hubs. Fourteen warehouses. <span className="text-[var(--brand)]">Click any node.</span></h2>
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-6">

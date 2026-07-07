@@ -1,4 +1,4 @@
-﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -9,7 +9,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring, useTransform, useAnimation } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Toaster } from "sonner";
 import gsap from "gsap";
@@ -178,10 +178,18 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
+  const controls = useAnimation();
 
   useEffect(() => {
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-  }, [pathname]);
+    
+    // Animate route change without unmounting Outlet
+    const playAnim = async () => {
+      await controls.start({ opacity: 0, y: 16, filter: "blur(6px)", transition: { duration: 0 } });
+      controls.start({ opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } });
+    };
+    playAnim();
+  }, [pathname, controls]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -192,17 +200,9 @@ function RootComponent() {
         className="fixed top-0 left-0 right-0 h-[2px] bg-[var(--brand)] z-[60] pointer-events-none"
       />
       {/* Route reveal curtain */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={pathname}
-          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <Outlet />
-        </motion.div>
-      </AnimatePresence>
+      <motion.div animate={controls}>
+        <Outlet />
+      </motion.div>
       <Footer />
       <Toaster position="bottom-right" richColors closeButton />
     </QueryClientProvider>
@@ -393,7 +393,7 @@ function CtaSection() {
           </p>
           <h2
             style={{
-              fontSize: "clamp(2.25rem,4.5vw,3.5rem)",
+              fontSize: "clamp(2rem,3.5vw,2.75rem)",
               fontWeight: 700,
               color: "white",
               lineHeight: 1.05,
@@ -423,7 +423,7 @@ function CtaSection() {
         >
           <h3
             style={{
-              fontSize: "clamp(1.6rem,2.8vw,2.25rem)",
+              fontSize: "clamp(1.25rem,2vw,1.75rem)",
               fontWeight: 700,
               color: "white",
               lineHeight: 1.1,

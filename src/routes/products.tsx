@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState, useCallback, type KeyboardEvent } from "react";
 import { motion, AnimatePresence, LayoutGroup, useReducedMotion } from "framer-motion";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
@@ -215,7 +215,7 @@ function Products() {
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-2 gap-12 items-center">
           <Reveal>
             <SectionLabel>Featured This Quarter</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-5xl">Cold-chain biologics, now in regional stock.</h2>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl">Cold-chain biologics, now in regional stock.</h2>
             <p className="mt-6 text-white/70 leading-relaxed max-w-md">Insulin, vaccines, and biologic therapies are now warehoused regionally — slashing lead times from days to hours for cold-chain orders.</p>
             <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-6 py-3 font-medium hover:bg-white hover:text-[var(--ink)] transition-colors">
               Request availability <ArrowRight className="h-4 w-4" />
@@ -242,7 +242,7 @@ function Products() {
 
       <section className="py-24 sm:py-32">
         <Reveal className="mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 text-center">
-          <h2 className="font-display text-4xl sm:text-6xl">Need the full product list?</h2>
+          <h2 className="font-display text-3xl sm:text-5xl">Need the full product list?</h2>
           <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-[var(--ink)] transition-colors shadow-[var(--shadow-glow)]">
             Request catalog (PDF) <ArrowRight className="h-4 w-4" />
           </Link>
