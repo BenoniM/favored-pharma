@@ -81,7 +81,7 @@ function Hero() {
             <Link
               to="/products"
               className="inline-flex items-center gap-2 text-[15px] font-semibold text-white bg-primary px-8 py-3.5 hover:bg-primary/80 hover:scale-105 transition-all"
-              style={{ borderRadius: 0 }}
+              style={{ borderRadius: 9999 }}
             >
               Explore Products
               <ArrowRight className="h-4 w-4" />
@@ -89,7 +89,7 @@ function Hero() {
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 text-[15px] font-semibold text-white px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-105 transition-all"
-              style={{ borderRadius: 0 }}
+              style={{ borderRadius: 9999 }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="opacity-70">
                 <path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM7.25 4h1.5v5.25H12v1.5H7.25V4z"/>
@@ -107,11 +107,10 @@ function Hero() {
 function StatsMarquee() {
   const items = ["20+ YEARS EXPERIENCE", "500+ HEALTHCARE PARTNERS", "1,000+ MEDICAL PRODUCTS", "14 WAREHOUSES", "96.4% ON-TIME", "WHO-GMP CERTIFIED", "COLD-CHAIN VALIDATED"];
   return (
-    <section className="py-8 bg-[var(--ink)] text-white overflow-hidden border-y border-white/10">
-      <div className="flex marquee gap-12 whitespace-nowrap">
+    <section className="py-8 bg-white overflow-hidden border-b border-black/5">
+      <div className="flex marquee gap-24 whitespace-nowrap">
         {[...items, ...items, ...items].map((t, i) => (
-          <div key={i} className="flex items-center gap-12 font-mono text-sm">
-            <span className="text-[var(--brand)]">●</span>
+          <div key={i} className="flex items-center text-sm sm:text-base font-semibold text-[var(--ink)]/40 tracking-tight">
             <span>{t}</span>
           </div>
         ))}
@@ -281,31 +280,6 @@ function NetworkPreview() {
   );
 }
 
-function FinalCTA() {
-  return (
-    <section className="py-24 sm:py-36 relative overflow-hidden">
-      <div aria-hidden className="absolute inset-0 -z-10" style={{ background: "var(--gradient-hero)" }} />
-      <Reveal className="mx-auto max-w-5xl px-4 sm:px-6 text-center">
-        <h2 className="font-display text-5xl sm:text-8xl text-[var(--ink)] leading-[0.95]">
-          Build a healthier future, <br />
-          <span className="text-[var(--brand)]">with Favored PLC.</span>
-        </h2>
-        <p className="mt-8 text-lg text-[var(--ink)]/65 max-w-xl mx-auto">
-          Become a partner or request our full product list. A specialist responds within one business day.
-        </p>
-        <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-          <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-[var(--ink)] transition-colors shadow-[var(--shadow-glow)]">
-            Become a Partner <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link to="/products" className="inline-flex items-center justify-center gap-2 rounded-full glass text-[var(--ink)] px-7 py-4 font-medium hover:bg-white transition-colors">
-            Request Product List
-          </Link>
-        </div>
-      </Reveal>
-    </section>
-  );
-}
-
 function Home() {
   return (
     <main className="bg-white text-[var(--ink)] overflow-x-hidden">
@@ -315,7 +289,6 @@ function Home() {
       <PillarsTeaser />
       <FeaturedTeasers />
       <NetworkPreview />
-      <FinalCTA />
     </main>
   );
 }

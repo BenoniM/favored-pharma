@@ -8,15 +8,22 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Toaster } from "sonner";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+gsap.registerPlugin(ScrollTrigger);
 
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import logoImg from "@/assets/logo/Logo.png";
+import logoCroppedSvgUrl from "@/assets/logo/Logo-Cropped.svg?url";
+
+const CTA_BG_URL = "https://images.pexels.com/photos/7615614/pexels-photo-7615614.jpeg";
 
 function NotFoundComponent() {
   return (
@@ -213,13 +220,26 @@ const NAV_LINKS = [
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 60);
+
+      // Hide if scrolling down past 200px, show if scrolling up
+      if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+      lastScrollY.current = currentScrollY;
+    };
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -229,15 +249,16 @@ function Nav() {
 
   return (
     <header
-      className={`fixed z-50 transition-all duration-300 ${
+      className={`fixed z-50 transition-all duration-500 ${
         scrolled ? "top-4 inset-x-4 sm:inset-x-8" : "top-0 inset-x-0"
       }`}
+      style={{ transform: hidden ? "translateY(-150%)" : "translateY(0)" }}
     >
       <div className="mx-auto max-w-7xl">
         <div
           className={`flex items-center transition-all duration-300 ${
             scrolled
-              ? "bg-white px-6 sm:px-8 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-black/5"
+              ? "bg-white px-6 sm:px-8 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-black/5 rounded-full"
               : "px-6 sm:px-10 py-5"
           }`}
         >
@@ -276,12 +297,11 @@ function Nav() {
           <div className="ml-auto flex items-center gap-3">
             <Link
               to="/contact"
-              className={`hidden sm:inline-flex items-center gap-1.5 text-sm font-medium px-6 py-3 transition-all duration-300 hover:scale-105 ${
+              className={`hidden sm:inline-flex items-center gap-1.5 text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 ${
                 onDark
                   ? "bg-white text-black hover:bg-gray-100"
                   : "bg-black text-white hover:bg-gray-800"
               }`}
-              style={{ borderRadius: scrolled ? "9999px" : "0" }}
             >
               Contact Us
             </Link>
@@ -329,69 +349,523 @@ function Nav() {
   );
 }
 
-function Footer() {
+/** ─────────────────────────────────────────
+ *  CTA SECTION
+ * ───────────────────────────────────────── */
+function CtaSection() {
   return (
-    <footer className="bg-[var(--ink)] text-white relative overflow-hidden">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--brand)]/40 to-transparent" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-20">
-        <div className="grid lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-5">
-            <div className="rounded-2xl bg-white inline-block p-4">
-              <img src={logoImg} alt="Favored PLC" className="h-12 w-auto" />
-            </div>
-            <h3 className="font-display text-4xl sm:text-5xl mt-8 text-white max-w-md leading-[0.95]">
-              Healthcare delivered. <span className="text-[var(--brand)]">Promise kept.</span>
-            </h3>
-            <form className="mt-8 max-w-sm">
-              <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50">// Newsletter</label>
-              <div className="mt-3 flex glass-dark rounded-full p-1">
-                <input type="email" placeholder="your@email.com" className="flex-1 bg-transparent px-4 py-2 text-sm placeholder:text-white/40 outline-none" />
-                <button className="rounded-full bg-[var(--brand)] text-white px-4 py-2 text-sm font-medium hover:bg-white hover:text-[var(--ink)] transition-colors">
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            </form>
+    <section
+      className="relative w-full"
+      style={{
+        height: "100vh",
+        backgroundImage: `url(${CTA_BG_URL})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center 35%",
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0" style={{ background: "rgba(5,22,18,0.45)" }} />
+
+      {/* Layout */}
+      <div
+        className="relative h-full flex flex-col"
+        style={{ padding: "clamp(2rem,5vw,5rem)" }}
+      >
+        {/* TOP-LEFT — kicker + heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.85 }}
+          style={{ maxWidth: 420 }}
+        >
+          <p
+            style={{
+              fontSize: 11,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.52)",
+              fontFamily: "var(--font-mono)",
+              marginBottom: "1.25rem",
+            }}
+          >
+            — WORK WITH FAVORED
+          </p>
+          <h2
+            style={{
+              fontSize: "clamp(2.25rem,4.5vw,3.5rem)",
+              fontWeight: 700,
+              color: "white",
+              lineHeight: 1.05,
+              fontFamily: "var(--font-display)",
+              letterSpacing: "-0.03em",
+              textTransform: "capitalize"
+            }}
+          >
+            Build a healthier future, with
+            <br />
+            Favored PLC.
+          </h2>
+        </motion.div>
+
+        {/* BOTTOM-RIGHT — sub-heading, description, buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.85, delay: 0.18 }}
+          style={{
+            marginTop: "auto",
+            marginLeft: "auto",
+            maxWidth: 500,
+            textAlign: "right",
+          }}
+        >
+          <h3
+            style={{
+              fontSize: "clamp(1.6rem,2.8vw,2.25rem)",
+              fontWeight: 700,
+              color: "white",
+              lineHeight: 1.1,
+              fontFamily: "var(--font-display)",
+              letterSpacing: "-0.025em",
+              marginBottom: "1rem",
+            }}
+          >
+            To deliver, not just distribute
+          </h3>
+          <p
+            style={{
+              fontSize: 11,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.58)",
+              lineHeight: 1.95,
+              fontFamily: "var(--font-mono)",
+              marginBottom: "2rem",
+            }}
+          >
+            FAVORED PLC SUPPLIES VERIFIED PHARMACEUTICALS,
+            <br />
+            MEDICAL DEVICES AND LABORATORY ESSENTIALS
+            <br />
+            ACROSS HOSPITALS AND CLINICS NATIONWIDE.
+          </p>
+          <div style={{ display: "flex", gap: "0.875rem", justifyContent: "flex-end" }}>
+            <Link
+              to="/contact"
+              className="transition-transform duration-300 hover:scale-105"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                background: "white",
+                color: "#03332F",
+                padding: "0.85rem 1.75rem",
+                fontSize: 12,
+                fontWeight: 600,
+                borderRadius: 9999,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              · GET IN TOUCH ·
+            </Link>
+            <Link
+              to="/products"
+              className="transition-transform duration-300 hover:scale-105"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                border: "1.5px solid rgba(255,255,255,0.5)",
+                color: "white",
+                padding: "0.85rem 1.75rem",
+                fontSize: 12,
+                fontWeight: 600,
+                borderRadius: 9999,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                fontFamily: "var(--font-mono)",
+                backdropFilter: "blur(8px)",
+                background: "rgba(255,255,255,0.06)",
+              }}
+            >
+              · EXPLORE PRODUCTS ·
+            </Link>
           </div>
-          {[
-            { t: "Sitemap", l: NAV_LINKS.map(n => ({ label: n.label, to: n.to })) },
-            {
-              t: "Products", l: [
-                { label: "Prescription", to: "/products" }, { label: "OTC", to: "/products" },
-                { label: "Devices", to: "/products" }, { label: "Laboratory", to: "/products" },
-                { label: "Consumables", to: "/products" },
-              ]
-            },
-            {
-              t: "Contact", l: [
-                { label: "+251 11 000 0000", to: "/contact" }, { label: "hello@favoredplc.com", to: "/contact" },
-                { label: "Addis Ababa, ET", to: "/contact" }, { label: "LinkedIn", to: "/contact" },
-              ]
-            },
-          ].map((c) => (
-            <div key={c.t} className="lg:col-span-2">
-              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mb-5">// {c.t}</div>
-              <ul className="space-y-3">
-                {c.l.map((i) => (
-                  <li key={i.label}>
-                    <Link to={i.to as any} className="text-white/80 hover:text-[var(--brand)] transition-colors text-sm">{i.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="mt-20">
-          <div className="font-display text-[18vw] sm:text-[16vw] lg:text-[14vw] leading-[0.85] text-white/5 select-none">FAVORED</div>
-        </div>
-        <div className="mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
-          <div>© {new Date().getFullYear()} Favored PLC — All rights reserved.</div>
-          <div className="flex gap-6 font-mono">
-            <a href="#" className="hover:text-white">PRIVACY</a>
-            <a href="#" className="hover:text-white">TERMS</a>
-            <a href="#" className="hover:text-white">COMPLIANCE</a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/** ─────────────────────────────────────────
+ *  FOOTER CONTENT (cream layout)
+ * ───────────────────────────────────────── */
+const FOOTER_BG = "#FFFFFF";
+
+const FOOTER_COLS = [
+  {
+    label: "NAVIGATION",
+    links: [
+      { label: "Home", to: "/" },
+      { label: "About", to: "/about" },
+      { label: "Products", to: "/products" },
+      { label: "Quality", to: "/quality" },
+      { label: "Partners", to: "/partners" },
+    ],
+  },
+  {
+    label: "PRODUCTS",
+    links: [
+      { label: "Prescription Medicines", to: "/products" },
+      { label: "OTC & Consumer Health", to: "/products" },
+      { label: "Medical Devices", to: "/products" },
+      { label: "Laboratory Supplies", to: "/products" },
+      { label: "Hospital Consumables", to: "/products" },
+    ],
+  },
+  {
+    label: "COMPANY",
+    links: [
+      { label: "About Favored PLC", to: "/about" },
+      { label: "Quality Standards", to: "/quality" },
+      { label: "Partner Program", to: "/partners" },
+      { label: "Contact Us", to: "/contact" },
+    ],
+  },
+] as const;
+
+function FooterContent() {
+  return (
+    <div
+      style={{
+        background: FOOTER_BG,
+        height: "100%",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* Nav columns grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr 1fr",
+          flex: "0 0 auto",
+          borderBottom: "1px solid rgba(0,0,0,0.08)",
+        }}
+      >
+        {FOOTER_COLS.map((col) => (
+          <div
+            key={col.label}
+            style={{
+              padding: "5rem 1.75rem 2.25rem",
+              borderRight: "1px solid rgba(0,0,0,0.08)",
+            }}
+          >
+            <p
+              style={{
+                fontSize: 10,
+                fontFamily: "var(--font-mono)",
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "rgba(0,0,0,0.36)",
+                marginBottom: "1.1rem",
+              }}
+            >
+              {col.label}
+            </p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+              {col.links.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.to as any}
+                    className="text-[#03332F] hover:text-[#009F5C] transition-colors duration-300"
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 500,
+                      textDecoration: "none",
+                      letterSpacing: "0.04em",
+                      fontFamily: "var(--font-sans)",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        {/* Right col — contact + newsletter */}
+        <div style={{ padding: "5rem 1.75rem 2.25rem" }}>
+          <p
+            style={{
+              fontSize: 10,
+              fontFamily: "var(--font-mono)",
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "rgba(0,0,0,0.36)",
+              marginBottom: "0.875rem",
+              lineHeight: 1.75,
+            }}
+          >
+            IF YOU HAVE ANY QUESTIONS
+            <br />
+            FEEL FREE TO CONTACT US:
+          </p>
+          <a
+            href="mailto:hello@favoredplc.com"
+            style={{
+              display: "block",
+              fontSize: 15,
+              fontWeight: 700,
+              color: "#03332F",
+              textDecoration: "none",
+              fontFamily: "var(--font-display)",
+              marginBottom: "1.75rem",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            HELLO@FAVOREDPLC.COM
+          </a>
+
+          <p
+            style={{
+              fontSize: 10,
+              fontFamily: "var(--font-mono)",
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "rgba(0,0,0,0.36)",
+              marginBottom: "0.6rem",
+            }}
+          >
+            NEWSLETTER
+          </p>
+          <div
+            style={{
+              display: "flex",
+              border: "1px solid rgba(0,0,0,0.12)",
+              background: "white",
+              marginBottom: "1.25rem",
+              borderRadius: 9999,
+              overflow: "hidden",
+            }}
+          >
+            <input
+              type="email"
+              placeholder="your@email.com"
+              style={{
+                flex: 1,
+                padding: "0.6rem 0.875rem 0.6rem 1.25rem",
+                fontSize: 12,
+                border: "none",
+                outline: "none",
+                background: "transparent",
+                color: "#03332F",
+                fontFamily: "var(--font-sans)",
+              }}
+            />
+            <button
+              type="submit"
+              style={{
+                padding: "0.6rem 1rem",
+                background: "#009F5C",
+                border: "none",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <ArrowRight style={{ width: 14, height: 14, color: "white" }} />
+            </button>
           </div>
         </div>
       </div>
-    </footer>
+
+      {/* Large SVG logo — CTA image shows through it via CSS mask */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "1.5rem 2rem",
+          overflow: "hidden",
+        }}
+      >
+        <img
+          src={CTA_BG_URL}
+          alt="Favored PLC"
+          style={{
+            width: "68%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 40%",
+            WebkitMaskImage: `url(${logoCroppedSvgUrl})`,
+            maskImage: `url(${logoCroppedSvgUrl})`,
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+          }}
+        />
+      </div>
+
+      {/* Bottom copyright bar */}
+      <div
+        style={{
+          borderTop: "1px solid rgba(0,0,0,0.08)",
+          padding: "1rem 1.75rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flex: "0 0 auto",
+        }}
+      >
+        <span
+          style={{
+            fontSize: 11,
+            color: "rgba(0,0,0,0.35)",
+            fontFamily: "var(--font-mono)",
+            letterSpacing: "0.06em",
+          }}
+        >
+          © {new Date().getFullYear()} FAVORED PLC — ALL RIGHTS RESERVED.
+        </span>
+        <div style={{ display: "flex", gap: "1.5rem" }}>
+          {["PRIVACY", "TERMS", "COMPLIANCE"].map((t) => (
+            <a
+              key={t}
+              href="#"
+              style={{
+                fontSize: 11,
+                color: "rgba(0,0,0,0.35)",
+                fontFamily: "var(--font-mono)",
+                letterSpacing: "0.1em",
+                textDecoration: "none",
+              }}
+            >
+              {t}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
+
+/** ─────────────────────────────────────────
+ *  FOOTER — GSAP ScrollTrigger curtain
+ *  • GSAP pins the scene so it never unpeels at scroll end
+ *  • 4 white bars drop down (staggered), aligned to the 4-column footer grid
+ *  • FooterContent fades in on top once bars settle
+ * ───────────────────────────────────────── */
+function Footer() {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const barsRef = useRef<HTMLDivElement[]>([]);
+  const footerContentRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+
+    const bars = barsRef.current;
+    const footerEl = footerContentRef.current;
+
+    // Reset initial state
+    gsap.set(bars, { yPercent: -100 });
+    gsap.set(footerEl, { opacity: 0, pointerEvents: "none" });
+
+    // Main timeline scrubbed by scroll
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: scene,
+        start: "top top",
+        // pin for 2 extra screenheights of scroll travel
+        end: "+=200%",
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+      },
+    });
+
+    // Bars drop in with stagger (each takes 20% of timeline, staggered by 10%)
+    tl.to(bars, {
+      yPercent: 0,
+      duration: 0.4,
+      stagger: 0.12,
+      ease: "power2.inOut",
+    });
+
+    // Footer content fades in after bars are mostly down
+    tl.to(
+      footerEl,
+      {
+        opacity: 1,
+        duration: 0.25,
+        ease: "power1.in",
+        onStart: () => { if (footerEl) footerEl.style.pointerEvents = "auto"; },
+        onReverseComplete: () => { if (footerEl) footerEl.style.pointerEvents = "none"; },
+      },
+      ">-0.05",
+    );
+
+    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+  }, { scope: sceneRef });
+
+  return (
+    // This outer div is what GSAP pins — it stays locked in viewport
+    <div ref={sceneRef} style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+
+      {/* ── CTA — bottom layer ── */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 1 }}>
+        <CtaSection />
+      </div>
+
+      {/* ── 4 curtain bars — aligned to footer column grid ── */}
+      {/* pointer-events:none so CTA buttons stay clickable */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
+        {[0, 1, 2, 3].map((i) => (
+          <div
+            key={i}
+            ref={(el) => { if (el) barsRef.current[i] = el; }}
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              left: `${i * 25}%`,
+              width: "25%",
+              background: FOOTER_BG,
+              // right border of bars 0,1,2 = left dividers at 25%, 50%, 75%
+              // exactly where the footer grid has its column borders
+              borderRight: i < 3 ? "2px solid rgba(0,0,0,0.12)" : "none",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ── Footer content — fades in above bars ── */}
+      <div
+        ref={footerContentRef}
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 3,
+          opacity: 0,
+          pointerEvents: "none",
+          overflow: "hidden",
+        }}
+      >
+        <FooterContent />
+      </div>
+    </div>
+  );
+}
+
