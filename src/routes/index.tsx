@@ -7,6 +7,7 @@ import {
   ArrowRight, ArrowUpRight, MapPin,
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
+import ethiopiaMapUrl from "@/assets/maps/Ethiopia_administrative_boundaries.svg?url";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -123,26 +124,26 @@ function StatsMarquee() {
 // ─────────────────────────────────────────────────────────────────────────────
 function TrustedCollage() {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const gridRef    = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     // ── initial states ──────────────────────────────────────────────────────
-    gsap.set(".img-a",   { clipPath: "inset(0 100% 0 0)" });
+    gsap.set(".img-a", { clipPath: "inset(0 100% 0 0)" });
     gsap.set(".title-a", { y: "120%" });
-    gsap.set(".desc-a",  { autoAlpha: 0, y: "120%", clipPath: "inset(100% 0 0 0)" });
+    gsap.set(".desc-a", { autoAlpha: 0, y: "120%", clipPath: "inset(100% 0 0 0)" });
     gsap.set(".slide-b-cell", { autoAlpha: 0 });
-    gsap.set(".img-b",   { clipPath: "inset(0 100% 0 0)" });
+    gsap.set(".img-b", { clipPath: "inset(0 100% 0 0)" });
     gsap.set(".title-b", { y: "120%" });
-    gsap.set(".desc-b",  { autoAlpha: 0, y: "120%", clipPath: "inset(100% 0 0 0)" });
+    gsap.set(".desc-b", { autoAlpha: 0, y: "120%", clipPath: "inset(100% 0 0 0)" });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         id: "home-trusted-collage",
         trigger: gridRef.current,
-        pin:     gridRef.current,
-        start:   "top top",
-        end:     "+=900%",    // 9× viewport — footer stays well below
-        scrub:   1.2,
+        pin: gridRef.current,
+        start: "top top",
+        end: "+=900%",    // 9× viewport — footer stays well below
+        scrub: 1.2,
         anticipatePin: 1,
         refreshPriority: 1,
       },
@@ -156,15 +157,15 @@ function TrustedCollage() {
 
     // 3. Slide A titles + descs rise from below
     tl.to(".title-a", { y: "0%", duration: 0.8, ease: "power3.out", stagger: 0.2 });
-    tl.to(".desc-a",  { autoAlpha: 1, y: "0%", clipPath: "inset(0% 0 0 0)", duration: 0.8, ease: "power3.out", stagger: 0.2 }, "<0.1");
+    tl.to(".desc-a", { autoAlpha: 1, y: "0%", clipPath: "inset(0% 0 0 0)", duration: 0.8, ease: "power3.out", stagger: 0.2 }, "<0.1");
 
     // 4. Hold
     tl.to({}, { duration: 0.5 });
 
     // 5. Slide A exits: images collapse left, text exits upward
-    tl.to(".img-a",   { clipPath: "inset(0 0% 0 100%)", duration: 1.2, ease: "power2.inOut", stagger: 0.2 });
+    tl.to(".img-a", { clipPath: "inset(0 0% 0 100%)", duration: 1.2, ease: "power2.inOut", stagger: 0.2 });
     tl.to(".title-a", { y: "-120%", duration: 0.6, ease: "power2.in", stagger: 0.15 }, "<");
-    tl.to(".desc-a",  { autoAlpha: 0, y: "-120%", clipPath: "inset(0 0 100% 0)", duration: 0.6, ease: "power2.in", stagger: 0.15 }, "<");
+    tl.to(".desc-a", { autoAlpha: 0, y: "-120%", clipPath: "inset(0 0 100% 0)", duration: 0.6, ease: "power2.in", stagger: 0.15 }, "<");
 
     // 6. Slide B images enter from left
     tl.set(".slide-b-cell", { autoAlpha: 1 });
@@ -172,7 +173,7 @@ function TrustedCollage() {
 
     // 7. Slide B titles + descs rise from below
     tl.to(".title-b", { y: "0%", duration: 0.8, ease: "power3.out", stagger: 0.2 });
-    tl.to(".desc-b",  { autoAlpha: 1, y: "0%", clipPath: "inset(0% 0 0 0)", duration: 0.8, ease: "power3.out", stagger: 0.2 }, "<0.1");
+    tl.to(".desc-b", { autoAlpha: 1, y: "0%", clipPath: "inset(0% 0 0 0)", duration: 0.8, ease: "power3.out", stagger: 0.2 }, "<0.1");
 
     // 8. Final hold before unpin
     tl.to({}, { duration: 0.6 });
@@ -539,167 +540,166 @@ function NetworkPreview() {
     {
       city: "Addis Ababa",
       region: "Central command",
-      x: 47,
-      y: 54,
+      // Green SVG paths cluster: avg x≈38.6%, y≈51%
+      x: 38.6,
+      y: 51.0,
       stat: "Daily dispatch control",
-      detail: "Primary routing hub for national orders, emergency requests, and cold-chain coordination.",
+      detail: "Our primary distribution hub, fulfilling daily deliveries to major hospitals and pharmacies across the capital.",
       image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200",
     },
     {
       city: "Bahir Dar",
       region: "Northwest corridor",
-      x: 33,
-      y: 36,
+      // Green SVG path start: x=29.6%, y=28%
+      x: 29.6,
+      y: 28.0,
       stat: "Hospital and pharmacy supply",
-      detail: "Supports Amhara region partners with scheduled replenishment and priority medicine movement.",
+      detail: "We distribute extensively throughout the Amhara region, ensuring continuous supply to healthcare facilities in Bahir Dar and beyond.",
       image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&q=80&w=1200",
     },
     {
       city: "Mekelle",
       region: "Northern reach",
-      x: 61,
-      y: 20,
+      // Green SVG path start: x=42.9%, y=10.9%
+      x: 42.9,
+      y: 10.9,
       stat: "Long-haul validated lanes",
-      detail: "Northern operations are managed with documented handoffs and temperature-sensitive transport plans.",
+      detail: "Our northern distribution lanes deliver temperature-sensitive pharmaceuticals and critical supplies directly to Mekelle's medical centers.",
       image: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&q=80&w=1200",
     },
     {
       city: "Hawassa",
       region: "Southern corridor",
-      x: 43,
-      y: 72,
+      // Green SVG path start: x=37.2%, y=67.5%
+      x: 37.2,
+      y: 67.5,
       stat: "Clinic and lab coverage",
-      detail: "Southern distribution connects hospitals, clinics, laboratories, and regional care providers.",
+      detail: "We supply the southern corridor, distributing essential medicines and medical devices directly to clinics and hospitals in Hawassa.",
       image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80&w=1200",
     },
     {
       city: "Dire Dawa",
       region: "Eastern gateway",
-      x: 72,
-      y: 52,
+      // Green SVG paths cluster: avg x≈59.1%, y≈45.5%
+      x: 59.1,
+      y: 45.5,
       stat: "Fast regional transfer",
-      detail: "Eastern partners receive planned supply movement through a dedicated high-priority route.",
+      detail: "Our eastern distribution network ensures rapid fulfillment and delivery of critical healthcare supplies to facilities in Dire Dawa.",
       image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1200",
     },
     {
       city: "Jimma",
       region: "Southwest route",
-      x: 26,
-      y: 66,
+      // Green SVG path start: x=25.8%, y=62.2%
+      x: 25.8,
+      y: 62.2,
       stat: "Reliable replenishment",
-      detail: "Southwest coverage focuses on recurring facility needs, consumables, and essential pharmaceutical stock.",
+      detail: "We consistently distribute essential pharmaceutical stock and recurring medical consumables to healthcare providers throughout Jimma.",
       image: "https://images.unsplash.com/photo-1518152006812-edab29b069ac?auto=format&fit=crop&q=80&w=1200",
     },
   ];
 
   useGSAP(() => {
     const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: "top 75%" } });
-    tl.fromTo(".gsap-network-line", { opacity: 0 }, { opacity: 1, duration: 1.5, stagger: 0.15, ease: "power2.inOut" }, 0);
-    tl.fromTo(".gsap-network-node", { opacity: 0, scale: 0.75 }, { opacity: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: "back.out(1.5)" }, 0.3);
+    tl.fromTo(".gsap-network-highlight", { opacity: 0 }, { opacity: 1, duration: 0.9, stagger: 0.08, ease: "power2.out" }, 0);
   }, { scope: containerRef });
 
   const selectedHub = hubs[activeHub];
-
   return (
-    <section className="py-24 sm:py-32 bg-white" ref={containerRef}>
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
-        <Reveal className="max-w-3xl mb-12">
-          <SectionLabel>Network</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">A nationwide network, always moving.</h2>
-        </Reveal>
-        <div className="grid min-h-[620px] overflow-hidden border border-black/10 bg-[var(--mist)] lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="relative min-h-[540px] p-6 sm:p-10">
-            <div className="absolute left-6 top-6 sm:left-10 sm:top-10">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--ink)]/45">Operating cities</p>
-              <h3 className="mt-3 font-display text-3xl text-[var(--ink)] sm:text-4xl">Ethiopia coverage</h3>
-            </div>
+    <section className="bg-white" ref={containerRef}>
+      <div className="grid overflow-hidden border-y border-black/5 bg-[var(--mist)] lg:min-h-[760px] lg:grid-cols-[52vw_48vw]">
+        <div className="relative flex min-h-[720px] flex-col px-6 py-12 sm:px-10 lg:px-12">
+          <Reveal className="relative z-20 max-w-[690px]">
+            <SectionLabel>Network</SectionLabel>
+            <h2 className="mt-4 max-w-[660px] font-display text-3xl text-[var(--ink)] sm:text-4xl">
+              A nationwide network, always moving.
+            </h2>
+            <p className="mt-7 max-w-[640px] text-sm font-semibold uppercase leading-snug text-[var(--ink)]/70 sm:text-base">
+              From hospital wards to neighborhood pharmacies we keep healthcare moving.
+            </p>
+          </Reveal>
 
-            <div className="absolute inset-x-4 bottom-4 top-28 sm:inset-x-10 sm:bottom-8 sm:top-28">
-              <svg className="h-full w-full" viewBox="0 0 100 100" role="img" aria-label="Outlined Ethiopia distribution map">
-                <path
-                  d="M55 6 L67 12 L73 22 L87 30 L82 42 L91 52 L77 61 L70 75 L57 83 L49 96 L39 85 L24 83 L18 68 L10 58 L19 47 L15 32 L28 24 L37 12 Z"
-                  fill="rgba(255,255,255,0.38)"
-                  stroke="rgba(49,78,74,0.28)"
-                  strokeWidth="0.9"
+          <div className="relative z-10 mt-12 flex-1 min-h-[410px] overflow-hidden bg-white/45">
+            <div className="absolute inset-5 flex items-center justify-center sm:inset-8">
+              <div className="relative aspect-[800/611] h-full max-h-full max-w-full">
+                <img
+                  src={ethiopiaMapUrl}
+                  alt="Map of Ethiopia"
+                  className="absolute inset-0 h-full w-full object-contain drop-shadow-sm"
                 />
-                <path
-                  d="M47 54 L33 36 M47 54 L61 20 M47 54 L43 72 M47 54 L72 52 M47 54 L26 66"
-                  className="gsap-network-line"
-                  fill="none"
-                  stroke="var(--brand)"
-                  strokeDasharray="1.5 1.5"
-                  strokeLinecap="round"
-                  strokeWidth="0.75"
-                />
-                <path
-                  d="M37 12 L40 31 L33 36 L28 52 L26 66 L24 83 M67 12 L61 20 L58 40 L72 52 L70 75 M18 68 L43 72 L57 83"
-                  fill="none"
-                  stroke="rgba(49,78,74,0.16)"
-                  strokeWidth="0.55"
-                />
-              </svg>
 
-              {hubs.map((hub, index) => {
-                const isActive = index === activeHub;
-                return (
-                  <button
-                    key={hub.city}
-                    type="button"
-                    className="gsap-network-node group absolute -translate-x-1/2 -translate-y-1/2 text-left opacity-0 outline-none"
-                    style={{ left: `${hub.x}%`, top: `${hub.y}%` }}
-                    onMouseEnter={() => setActiveHub(index)}
-                    onFocus={() => setActiveHub(index)}
-                  >
-                    <span className={`relative grid h-5 w-5 place-items-center rounded-full border transition-all duration-300 ${isActive ? "border-[var(--brand)] bg-[var(--brand)]" : "border-[var(--brand)] bg-white"}`}>
-                      <span className={`h-2 w-2 rounded-full transition-colors ${isActive ? "bg-white" : "bg-[var(--brand)]"}`} />
-                    </span>
-                    <span className={`absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] font-semibold transition-colors ${isActive ? "text-[var(--brand)]" : "text-[var(--ink)]/55 group-hover:text-[var(--brand)]"}`}>
-                      {hub.city}
-                    </span>
-                  </button>
-                );
-              })}
+                {hubs.map((hub, index) => {
+                  const isActive = activeHub === index;
+
+                  return (
+                    <button
+                      key={hub.city}
+                      onMouseEnter={() => setActiveHub(index)}
+                      className={`absolute z-20 origin-bottom -translate-x-1/2 -translate-y-full transition-transform hover:scale-125 text-[#228b22] ${
+                        isActive ? "scale-125 drop-shadow-md" : ""
+                      }`}
+                      style={{ left: `${hub.x}%`, top: `${hub.y}%` }}
+                      aria-label={`Select ${hub.city}`}
+                    >
+                      <MapPin
+                        className={`h-5 w-5 sm:h-6 sm:w-6 ${
+                          isActive ? "fill-[#228b22] stroke-white" : "fill-white stroke-[#228b22]"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="relative min-h-[540px] overflow-hidden bg-[var(--ink)] text-white">
-            <img
-              key={selectedHub.image}
-              src={selectedHub.image}
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover opacity-55 transition-opacity duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/20" />
-            <div className="relative flex h-full min-h-[540px] flex-col justify-between p-8 sm:p-10 lg:p-12">
-              <div className="ml-auto w-full max-w-[280px] bg-white p-6 text-[var(--ink)]">
-                <p className="font-display text-2xl leading-tight">{selectedHub.region}</p>
-                <p className="mt-12 text-sm font-semibold uppercase leading-snug text-[var(--ink)]/70">{selectedHub.stat}</p>
-              </div>
+        <div className="relative min-h-[620px] overflow-hidden bg-[var(--ink)] text-white lg:min-h-[760px]">
+          {/* Vibrant Background Image */}
+          <img
+            key={selectedHub.image}
+            src={selectedHub.image}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+          />
+          {/* Subtle gradient for bottom text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-              <div>
-                <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white backdrop-blur">
-                  <MapPin className="h-3.5 w-3.5" />
-                  {selectedHub.city}
-                </div>
-                <h3 className="max-w-xl font-display text-4xl leading-[0.98] text-white sm:text-5xl lg:text-6xl">
-                  {selectedHub.city}
-                  <br />
-                  distribution lane.
-                </h3>
-                <p className="mt-6 max-w-md text-base leading-relaxed text-white/80">
-                  {selectedHub.detail}
-                </p>
-                <div className="mt-8 grid max-w-md grid-cols-2 border border-white/20">
-                  <div className="border-r border-white/20 p-4">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/45">Network role</p>
-                    <p className="mt-3 text-sm font-semibold text-white">{selectedHub.region}</p>
-                  </div>
-                  <div className="p-4">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/45">Movement</p>
-                    <p className="mt-3 text-sm font-semibold text-white">Active route</p>
-                  </div>
-                </div>
-              </div>
+          {/* Top Right Box */}
+          <div
+            className="absolute bg-[#F5F4F0] p-8 flex flex-col justify-between z-10"
+            style={{ width: "220px", height: "200px", top: "0px", right: "10px" }}
+          >
+            <p className="font-display text-2xl text-[#4A5143] leading-tight break-words">Network role</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.08em] leading-relaxed text-[#4A5143]/80 break-words">
+              {selectedHub.region}
+            </p>
+          </div>
+
+          {/* Left/Lower Box */}
+          <div
+            className="absolute bg-[#F5F4F0] p-8 flex flex-col justify-between shadow-2xl z-20"
+            style={{ width: "210px", height: "200px", top: "200px", right: "230px" }}
+          >
+            <p className="font-display text-2xl text-[#4A5143] leading-tight break-words">Movement</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.08em] leading-relaxed text-[#4A5143]/80 break-words">
+              ACTIVE ROUTE —<br />
+              {selectedHub.stat}
+            </p>
+          </div>
+
+          {/* Bottom Left Content */}
+          <div className="absolute bottom-0 left-0 w-full p-8 sm:p-10 lg:p-12 z-30">
+            <div className="max-w-[480px]">
+              <h3 className="font-display text-[32px] sm:text-[40px] lg:text-[46px] leading-[1.05] tracking-tight text-white">
+                {selectedHub.city}
+                <br />
+                distribution lane.
+              </h3>
+              <p className="mt-4 max-w-[380px] text-sm sm:text-base leading-relaxed text-white/90">
+                {selectedHub.detail}
+              </p>
+
             </div>
           </div>
         </div>
