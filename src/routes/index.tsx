@@ -203,76 +203,76 @@ function TrustedCollage() {
       </div>
 
       {/* Full-page pinned grid */}
-      <div ref={gridRef} className="relative w-full h-screen bg-white border-t border-black/15 overflow-hidden isolate">
+      <div ref={gridRef} className="relative w-full h-screen bg-white border-t border-[#228B22]/25 overflow-hidden isolate">
 
         {/* ── SLIDE A — CSS grid ─────────────────────────────────────────────
             Row 1: [empty] [title-a col2] [img-a col3] [desc-a col4] [empty]
             Row 2: [title-a col1] [img-a col2] [desc-a col3] [empty] [empty]
             Row 3: [empty] [empty] [title-a col3] [img-a col4] [desc-a col5]   */}
-        <div className="grid grid-cols-5 grid-rows-3 w-full h-full border-l border-black/15">
+        <div className="grid grid-cols-5 grid-rows-3 w-full h-full border-l border-[#228B22]/25">
 
           {/* ROW 1 */}
-          <div className="border-r border-b border-black/15" />
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right">
+          <div className="border-r border-b border-[#228B22]/25" />
+          <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center justify-end text-right">
             <div className="overflow-hidden py-2">
               <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Premium<br />Healthcare</h3>
             </div>
           </div>
-          <div className="border-r border-b border-black/15 relative overflow-visible">
+          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible">
             <img
               src="https://images.pexels.com/photos/13176452/pexels-photo-13176452.jpeg"
               className="img-a absolute inset-0 w-full h-full object-cover"
               alt="Healthcare Professionals"
             />
           </div>
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
+          <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none">
             <div className="overflow-hidden py-4">
               <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
                 We source premium medical supplies from globally certified manufacturers, ensuring every clinic has access to top-tier essentials.
               </p>
             </div>
           </div>
-          <div className="border-r border-b border-black/15" />
+          <div className="border-r border-b border-[#228B22]/25" />
 
           {/* ROW 2 */}
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right">
+          <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center justify-end text-right">
             <div className="overflow-hidden py-2">
               <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Quality<br />Ensured</h3>
             </div>
           </div>
-          <div className="border-r border-b border-black/15 relative overflow-visible">
+          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible">
             <img
               src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800"
               className="img-a absolute inset-0 w-full h-full object-cover"
               alt="Laboratory"
             />
           </div>
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
+          <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none">
             <div className="overflow-hidden py-4">
               <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
                 Every product undergoes rigorous quality assurance checks, ensuring adherence to WHO-GMP standards for maximum patient safety.
               </p>
             </div>
           </div>
-          <div className="border-r border-b border-black/15" />
-          <div className="border-r border-b border-black/15" />
+          <div className="border-r border-b border-[#228B22]/25" />
+          <div className="border-r border-b border-[#228B22]/25" />
 
           {/* ROW 3 */}
-          <div className="border-r border-b border-black/15" />
-          <div className="border-r border-b border-black/15" />
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right">
+          <div className="border-r border-b border-[#228B22]/25" />
+          <div className="border-r border-b border-[#228B22]/25" />
+          <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center justify-end text-right">
             <div className="overflow-hidden py-2">
               <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Cold-chain<br />Ready</h3>
             </div>
           </div>
-          <div className="border-r border-b border-black/15 relative overflow-visible">
+          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible">
             <img
               src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&q=80&w=800"
               className="img-a absolute inset-0 w-full h-full object-cover"
               alt="Cold-chain logistics"
             />
           </div>
-          <div className="border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none">
+          <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none">
             <div className="overflow-hidden py-4">
               <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
                 Our logistics network guarantees temperature-controlled transit so vaccines and biologics arrive safely and on schedule nationwide.
@@ -288,7 +288,7 @@ function TrustedCollage() {
 
         {/* ROW 1 ── col1 title-b */}
         <div
-          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center justify-end text-right z-10"
           style={{ left: col(1), top: row(1), width: W, height: H }}
         >
           <div className="overflow-hidden py-2">
@@ -297,7 +297,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 1 ── col2 img-b */}
         <div
-          className="slide-b-cell absolute border-r border-b border-black/15 overflow-visible"
+          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible"
           style={{ left: col(2), top: row(1), width: W, height: H }}
         >
           <img
@@ -308,7 +308,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 1 col3 desc-b */}
         <div
-          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none"
+          className="slide-b-cell absolute bg-white border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none"
           style={{ left: col(3), top: row(1), width: W, height: H }}
         >
           <div className="overflow-hidden py-4">
@@ -320,7 +320,7 @@ function TrustedCollage() {
 
         {/* ROW 2 ── col3 title-b */}
         <div
-          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center justify-end text-right z-10"
           style={{ left: col(3), top: row(2), width: W, height: H }}
         >
           <div className="overflow-hidden py-2">
@@ -329,7 +329,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 2 ── col4 img-b */}
         <div
-          className="slide-b-cell absolute border-r border-b border-black/15 overflow-visible"
+          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible"
           style={{ left: col(4), top: row(2), width: W, height: H }}
         >
           <img
@@ -340,7 +340,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 2 col5 desc-b */}
         <div
-          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none"
+          className="slide-b-cell absolute bg-white border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none"
           style={{ left: col(5), top: row(2), width: W, height: H }}
         >
           <div className="overflow-hidden py-4">
@@ -352,7 +352,7 @@ function TrustedCollage() {
 
         {/* ROW 3 ── col2 title-b */}
         <div
-          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center justify-end text-right z-10"
+          className="slide-b-cell absolute bg-white border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center justify-end text-right z-10"
           style={{ left: col(2), top: row(3), width: W, height: H }}
         >
           <div className="overflow-hidden py-2">
@@ -361,7 +361,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 3 ── col3 img-b */}
         <div
-          className="slide-b-cell absolute border-r border-b border-black/15 overflow-visible"
+          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible"
           style={{ left: col(3), top: row(3), width: W, height: H }}
         >
           <img
@@ -372,7 +372,7 @@ function TrustedCollage() {
         </div>
         {/* ROW 3 col4 desc-b */}
         <div
-          className="slide-b-cell absolute bg-white border-r border-b border-black/15 p-6 lg:p-10 flex items-center pointer-events-none"
+          className="slide-b-cell absolute bg-white border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none"
           style={{ left: col(4), top: row(3), width: W, height: H }}
         >
           <div className="overflow-hidden py-4">
@@ -413,7 +413,7 @@ function PillarsTeaser() {
       n: "01",
       title: <>Pharmaceutical<br />Imports</>,
       desc: "Globally certified manufacturers, dependable sourcing, and full chain-of-custody for essential medicines.",
-      color: "color-mix(in oklab, var(--brand) 42%, #4f9fb8)",
+      color: "#018541",
       shape: "rounded-none",
       position: "lg:left-[3%] lg:top-[88px]",
       content: "items-start justify-start text-left",
@@ -422,7 +422,7 @@ function PillarsTeaser() {
       n: "02",
       title: <>Medical<br />Equipment</>,
       desc: "Imaging, monitoring, surgical devices, and installation support for facilities that need reliable uptime.",
-      color: "color-mix(in oklab, var(--brand) 34%, #d8b64d)",
+      color: "#06080F",
       shape: "rounded-full",
       position: "lg:left-[21%] lg:top-[88px]",
       content: "items-center justify-center text-center",
@@ -431,7 +431,7 @@ function PillarsTeaser() {
       n: "03",
       title: <>Laboratory<br />Supplies</>,
       desc: "Reagents, calibrated instruments, and lab essentials selected for accuracy, traceability, and daily use.",
-      color: "color-mix(in oklab, var(--ink) 68%, #a9625d)",
+      color: "#03332F",
       shape: "rounded-b-full",
       position: "lg:left-[44%] lg:top-[88px]",
       content: "items-start justify-start text-left",
@@ -440,7 +440,7 @@ function PillarsTeaser() {
       n: "04",
       title: <>Hospital<br />Consumables</>,
       desc: "Daily-use supplies, sterile essentials, and scheduled replenishment that keep clinical teams moving.",
-      color: "color-mix(in oklab, var(--brand) 82%, #38b09c)",
+      color: "#009F5C",
       shape: "rounded-tr-[220px]",
       position: "lg:right-[3%] lg:top-[88px]",
       content: "items-center justify-center text-center",
@@ -645,7 +645,7 @@ function NetworkPreview() {
   const selectedHub = hubs[activeHub];
   return (
     <section className="bg-white" ref={containerRef}>
-      <div className="grid overflow-hidden border-y border-black/5 bg-[var(--mist)] lg:min-h-[760px] lg:grid-cols-[52vw_48vw]">
+      <div className="grid overflow-hidden border-y border-black/5 bg-white lg:min-h-[760px] lg:grid-cols-[52vw_48vw]">
         <div className="relative flex min-h-[720px] flex-col px-6 py-12 sm:px-10 lg:px-12">
           <Reveal className="relative z-20 max-w-[690px]">
             <SectionLabel>Network</SectionLabel>

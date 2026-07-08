@@ -824,12 +824,18 @@ function Footer() {
       },
     });
 
-    // Bars drop in with stagger (each takes 20% of timeline, staggered by 10%)
+    // Reset initial state — bars start subtly rounded at bottom
+    gsap.set(bars, { borderBottomLeftRadius: "3rem", borderBottomRightRadius: "3rem" });
+
+    // Each bar drops rounded, then flattens ONLY at the very bottom of its travel
     tl.to(bars, {
-      yPercent: 0,
-      duration: 0.4,
+      keyframes: [
+        // Phase 1: full drop, corners stay round
+        { yPercent: 0, borderBottomLeftRadius: "3rem", borderBottomRightRadius: "3rem", duration: 0.34, ease: "power2.inOut" },
+        // Phase 2: landed — snap to flat rectangle
+        { borderBottomLeftRadius: "0rem", borderBottomRightRadius: "0rem", duration: 0.06, ease: "power2.in" },
+      ],
       stagger: 0.12,
-      ease: "power2.inOut",
     });
 
     // Footer content fades in after bars are mostly down
