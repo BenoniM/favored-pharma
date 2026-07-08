@@ -510,18 +510,18 @@ function FeaturedTeasers() {
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 w-full">
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
-          
+
           <Link to="/quality" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-10 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 aspect-[4/5] max-h-[600px]">
             <div className="flex flex-col items-center w-full">
               <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-16">
                 Quality & Compliance
               </h3>
-              
+
               <div className="relative w-32 h-32 mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
-                 <ShieldCheck className="w-24 h-24 stroke-[1.5]" />
+                <ShieldCheck className="w-24 h-24 stroke-[1.5]" />
               </div>
             </div>
-            
+
             <div className="flex flex-col items-center gap-8 w-full">
               <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-sm">
                 Built on quality, safety & trust.
@@ -541,9 +541,9 @@ function FeaturedTeasers() {
               <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-16">
                 Product Catalog
               </h3>
-              
+
               <div className="relative w-32 h-32 mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
-                 <Stethoscope className="w-24 h-24 stroke-[1.5]" />
+                <Stethoscope className="w-24 h-24 stroke-[1.5]" />
               </div>
             </div>
 
@@ -560,7 +560,7 @@ function FeaturedTeasers() {
               </div>
             </div>
           </Link>
-          
+
         </div>
       </div>
     </section>
@@ -673,16 +673,14 @@ function NetworkPreview() {
                     <button
                       key={hub.city}
                       onMouseEnter={() => setActiveHub(index)}
-                      className={`absolute z-20 origin-bottom -translate-x-1/2 -translate-y-full transition-transform hover:scale-125 text-[#228b22] ${
-                        isActive ? "scale-125 drop-shadow-md" : ""
-                      }`}
+                      className={`absolute z-20 origin-bottom -translate-x-1/2 -translate-y-full transition-transform hover:scale-125 text-[#228b22] ${isActive ? "scale-125 drop-shadow-md" : ""
+                        }`}
                       style={{ left: `${hub.x}%`, top: `${hub.y}%` }}
                       aria-label={`Select ${hub.city}`}
                     >
                       <MapPin
-                        className={`h-5 w-5 sm:h-6 sm:w-6 ${
-                          isActive ? "fill-[#228b22] stroke-white" : "fill-white stroke-[#228b22]"
-                        }`}
+                        className={`h-5 w-5 sm:h-6 sm:w-6 ${isActive ? "fill-[#228b22] stroke-white" : "fill-white stroke-[#228b22]"
+                          }`}
                       />
                     </button>
                   );

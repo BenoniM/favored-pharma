@@ -136,16 +136,31 @@ const reviews = [
 function Partners() {
   return (
     <main className="bg-white text-[var(--ink)] overflow-x-hidden">
-      <PageHero
-        kicker="Partners & Network"
-        variant="stethoscope"
-        title={
-          <>
+      <section className="bg-white pt-28 sm:pt-40 px-6 sm:px-8 lg:px-12 flex flex-col items-center text-center pb-16 sm:pb-24">
+        <div className="max-w-4xl mx-auto mb-12 sm:mb-16">
+          <h2 
+            className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
+            style={{ letterSpacing: "-0.04em" }}
+          >
             Global makers. <span className="text-[var(--brand)]">Local impact.</span>
-          </>
-        }
-        lead="The world's most trusted manufacturers, connected to the country's most demanding healthcare institutions through a logistics network that does not sleep."
-      />
+          </h2>
+          <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
+            The world's most trusted manufacturers, connected to the country's most demanding healthcare institutions through a logistics network that does not sleep.
+          </p>
+        </div>
+        
+        <div className="w-full max-w-[1440px] mx-auto rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden bg-black/5 relative">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            className="w-full h-[50vh] sm:h-[70vh] lg:h-[80vh] object-cover"
+          >
+            <source src="https://www.pexels.com/download/video/8851864/" type="video/mp4" />
+          </video>
+        </div>
+      </section>
 
       <ManufacturerMarquee />
       <NetworkMap />

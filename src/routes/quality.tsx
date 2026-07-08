@@ -75,16 +75,31 @@ const certs = [
 function Quality() {
   return (
     <main className="bg-white text-[var(--ink)] overflow-x-hidden">
-      <PageHero
-        kicker="Quality & Compliance"
-        variant="cross"
-        title={
-          <>
+      <section className="bg-white pt-28 sm:pt-40 px-6 sm:px-8 lg:px-12 flex flex-col items-center text-center pb-16 sm:pb-24">
+        <div className="max-w-4xl mx-auto mb-12 sm:mb-16">
+          <h2 
+            className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
+            style={{ letterSpacing: "-0.04em" }}
+          >
             Built on quality, <span className="text-[var(--brand)]">safety, and trust.</span>
-          </>
-        }
-        lead="A pharmaceutical supply chain is only as strong as its weakest checkpoint. Every shipment that leaves our warehouses passes through a documented, auditable, and independently verified process."
-      />
+          </h2>
+          <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
+            A pharmaceutical supply chain is only as strong as its weakest checkpoint. Every shipment that leaves our warehouses passes through a documented, auditable, and independently verified process.
+          </p>
+        </div>
+        
+        <div className="w-full max-w-[1440px] mx-auto rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden bg-black/5 relative">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            className="w-full h-[50vh] sm:h-[70vh] lg:h-[80vh] object-cover"
+          >
+            <source src="https://www.pexels.com/download/video/7525915/" type="video/mp4" />
+          </video>
+        </div>
+      </section>
 
       <section className="py-12 bg-[var(--ink)] text-white">
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8">

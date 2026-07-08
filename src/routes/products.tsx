@@ -178,30 +178,46 @@ function Products() {
 
   return (
     <main className="bg-white text-[var(--ink)] overflow-x-hidden">
-      <PageHero
-        kicker="Catalog"
-        variant="pill"
-        title={
-          <>
+      <section className="bg-white pt-28 sm:pt-40 px-6 sm:px-8 lg:px-12 flex flex-col items-center text-center pb-16 sm:pb-24">
+        <div className="max-w-4xl mx-auto mb-12 sm:mb-16">
+          <h2 
+            className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
+            style={{ letterSpacing: "-0.04em" }}
+          >
             1,000+ products. <span className="text-[var(--brand)]">Eight categories.</span>
-          </>
-        }
-        lead="From a single emergency syringe to a fully stocked operating theatre, our catalog is built around what real hospitals, pharmacies, and labs actually run out of."
-      >
-        <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-          <div className="flex glass rounded-full px-5 py-3 items-center gap-3 flex-1 max-w-md">
+          </h2>
+          <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
+            From a single emergency syringe to a fully stocked operating theatre, our catalog is built around what real hospitals, pharmacies, and labs actually run out of.
+          </p>
+        </div>
+
+        <div className="w-full max-w-[1440px] mx-auto rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden bg-black/5 relative">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            className="w-full h-[50vh] sm:h-[70vh] lg:h-[80vh] object-cover"
+          >
+            <source src="https://www.pexels.com/download/video/7033919/" type="video/mp4" />
+          </video>
+        </div>
+
+        <div className="mt-12 sm:mt-16 flex flex-col items-center gap-6 w-full max-w-4xl mx-auto px-4">
+          <div className="flex glass rounded-full px-5 py-3 items-center gap-3 w-full max-w-2xl border border-black/10">
             <Search className="h-4 w-4 text-[var(--ink)]/50" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search products, brands, lot numbers..."
-              className="flex-1 bg-transparent outline-none text-sm placeholder:text-[var(--ink)]/40"
+              className="flex-1 bg-transparent outline-none text-sm placeholder:text-[var(--ink)]/40 text-left"
             />
           </div>
+          
           <div
             role="tablist"
             aria-label="Product filters"
-            className="flex gap-2 overflow-x-auto -mx-1 px-1"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3"
           >
             {filters.map((f) => {
               const selected = active === f;
@@ -211,19 +227,20 @@ function Products() {
                   role="tab"
                   aria-selected={selected}
                   onClick={() => setActive(f)}
-                  className={`relative shrink-0 rounded-full px-4 py-2 text-sm border transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${selected ? "bg-[var(--ink)] text-white border-[var(--ink)]" : "bg-white text-[var(--ink)]/70 border-black/10 hover:border-[var(--brand)]"}`}
+                  className={`relative rounded-full px-5 py-2 sm:py-2.5 text-sm border transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${selected ? "bg-[var(--ink)] text-white border-[var(--ink)] shadow-md" : "bg-white text-[var(--ink)]/70 border-black/10 hover:border-[var(--brand)]"}`}
                 >
                   {f}
                 </button>
               );
             })}
           </div>
+
+          <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/50 mt-2">
+            {visible.length} {visible.length === 1 ? "category" : "categories"} -{" "}
+            {visible.reduce((s, c) => s + c.count, 0)} SKUs
+          </div>
         </div>
-        <div className="mt-4 text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/50">
-          {visible.length} {visible.length === 1 ? "category" : "categories"} -{" "}
-          {visible.reduce((s, c) => s + c.count, 0)} SKUs
-        </div>
-      </PageHero>
+      </section>
 
       <section className="pb-24 sm:pb-32">
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">

@@ -21,6 +21,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import logoImg from "@/assets/logo/Logo.png";
 import logoCroppedSvgUrl from "@/assets/logo/Logo-Cropped.svg?url";
+import logoCroppedPngUrl from "@/assets/logo/Logo-Cropped.png";
 
 const CTA_BG_URL = "https://images.pexels.com/photos/7615614/pexels-photo-7615614.jpeg";
 
@@ -103,6 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: logoCroppedPngUrl, type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" },
@@ -256,19 +258,21 @@ function Nav() {
 
   useEffect(() => { setOpen(false); }, [pathname]);
 
-  const onDark = !scrolled;
+  const isSpecialHero = ["/about", "/products", "/quality", "/partners"].includes(pathname);
+  const effectiveScrolled = scrolled || isSpecialHero;
+  const onDark = !effectiveScrolled;
 
   return (
     <header
       className={`fixed z-50 transition-all duration-500 ${
-        scrolled ? "top-4 inset-x-4 sm:inset-x-8" : "top-0 inset-x-0"
+        effectiveScrolled ? "top-4 inset-x-4 sm:inset-x-8" : "top-0 inset-x-0"
       }`}
       style={{ transform: hidden ? "translateY(-150%)" : "translateY(0)" }}
     >
       <div className="mx-auto max-w-[1440px]">
         <div
           className={`flex items-center transition-all duration-300 ${
-            scrolled
+            effectiveScrolled
               ? "bg-white px-6 sm:px-8 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-black/5 rounded-full"
               : "px-6 sm:px-10 py-5"
           }`}
