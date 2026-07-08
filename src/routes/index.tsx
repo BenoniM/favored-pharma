@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import {
-  ArrowRight, ArrowUpRight, MapPin,
+  ArrowRight, ArrowUpRight, MapPin, ShieldCheck, Stethoscope
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
 import ethiopiaMapUrl from "@/assets/maps/Ethiopia_administrative_boundaries.svg?url";
@@ -495,35 +495,73 @@ function PillarsTeaser() {
 // ─────────────────────────────────────────────────────────────────────────────
 function FeaturedTeasers() {
   return (
-    <section className="py-24 sm:py-32 bg-[var(--mist)]">
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-12 gap-6">
-        <Link to="/quality" className="lg:col-span-7 group relative rounded-[32px] bg-[var(--ink)] text-white p-10 sm:p-14 overflow-hidden min-h-[440px] flex flex-col justify-between">
-          <div aria-hidden className="absolute top-0 right-0 w-[600px] h-[600px] opacity-40" style={{ background: "var(--gradient-glow)" }} />
-          <div className="relative">
-            <SectionLabel>Quality &amp; Compliance</SectionLabel>
-            <h3 className="mt-6 font-display text-3xl sm:text-4xl max-w-md">Built on quality, safety &amp; trust.</h3>
-          </div>
-          <div className="relative flex items-end justify-between">
-            <div className="grid grid-cols-3 gap-3">
-              {["WHO-GMP", "ISO 9001", "GDP"].map((c) => (
-                <div key={c} className="glass-dark rounded-2xl px-4 py-3 text-xs font-mono">{c}</div>
-              ))}
+    <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0 noise-overlay">
+        <img
+          src="https://images.pexels.com/photos/7615557/pexels-photo-7615557.jpeg"
+          alt="Pharmacy background"
+          className="w-full h-full object-cover scale-[1.05] translate-x-0 md:-translate-x-2"
+        />
+        {/* Overlays to integrate with brand palette and ensure text readability */}
+        <div className="absolute inset-0 bg-[var(--ink)]/50 mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 w-full">
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          
+          <Link to="/quality" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-10 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 aspect-[4/5] max-h-[600px]">
+            <div className="flex flex-col items-center w-full">
+              <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-16">
+                Quality & Compliance
+              </h3>
+              
+              <div className="relative w-32 h-32 mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
+                 <ShieldCheck className="w-24 h-24 stroke-[1.5]" />
+              </div>
             </div>
-            <ArrowUpRight className="h-8 w-8 text-[var(--brand)] group-hover:rotate-45 transition-transform" />
-          </div>
-        </Link>
-        <Link to="/products" className="lg:col-span-5 group relative rounded-[32px] bg-white border border-black/5 p-10 sm:p-14 overflow-hidden min-h-[440px] flex flex-col justify-between">
-          <div className="relative">
-            <SectionLabel>Product Catalog</SectionLabel>
-            <h3 className="mt-6 font-display text-2xl sm:text-3xl text-[var(--ink)]">1,000+ medical products in stock.</h3>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {["Prescription", "OTC", "Devices", "Lab", "Consumables", "Emergency"].map((c) => (
-              <span key={c} className="rounded-full bg-[var(--mist)] px-3 py-1.5 text-xs font-medium text-[var(--ink)] border border-black/5">{c}</span>
-            ))}
-          </div>
-          <ArrowUpRight className="absolute top-10 right-10 h-8 w-8 text-[var(--brand)] group-hover:rotate-45 transition-transform" />
-        </Link>
+            
+            <div className="flex flex-col items-center gap-8 w-full">
+              <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-sm">
+                Built on quality, safety & trust.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {["WHO-GMP", "ISO 9001", "GDP"].map((c) => (
+                  <span key={c} className="rounded-full bg-white/5 px-4 py-2 text-xs font-semibold text-white border border-[var(--brand)]/50 tracking-wide uppercase">
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/products" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-10 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 aspect-[4/5] max-h-[600px]">
+            <div className="flex flex-col items-center w-full">
+              <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-16">
+                Product Catalog
+              </h3>
+              
+              <div className="relative w-32 h-32 mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
+                 <Stethoscope className="w-24 h-24 stroke-[1.5]" />
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-8 w-full">
+              <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-sm">
+                1,000+ medical products in stock.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {["Prescription", "OTC", "Devices", "Lab", "Consumables", "Emergency"].map((c) => (
+                  <span key={c} className="rounded-full bg-white/5 px-4 py-2 text-xs font-semibold text-white border border-[var(--brand)]/50 tracking-wide uppercase">
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Link>
+          
+        </div>
       </div>
     </section>
   );
@@ -655,19 +693,22 @@ function NetworkPreview() {
         </div>
 
         <div className="relative min-h-[620px] overflow-hidden bg-[var(--ink)] text-white lg:min-h-[760px]">
-          {/* Vibrant Background Image */}
-          <img
+          {/* Background image mirrors the footer CTA treatment */}
+          <div
             key={selectedHub.image}
-            src={selectedHub.image}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+            aria-hidden
+            className="absolute inset-0 transition-opacity duration-500"
+            style={{
+              backgroundImage: `url(${selectedHub.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center 35%",
+            }}
           />
-          {/* Subtle gradient for bottom text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[rgba(5,22,18,0.45)]" />
 
           {/* Top Right Box */}
           <div
-            className="absolute bg-[#F5F4F0] p-8 flex flex-col justify-between z-10"
+            className="absolute bg-white p-8 flex flex-col justify-between z-10"
             style={{ width: "220px", height: "200px", top: "0px", right: "10px" }}
           >
             <p className="font-display text-2xl text-[#4A5143] leading-tight break-words">Network role</p>
@@ -678,7 +719,7 @@ function NetworkPreview() {
 
           {/* Left/Lower Box */}
           <div
-            className="absolute bg-[#F5F4F0] p-8 flex flex-col justify-between shadow-2xl z-20"
+            className="absolute bg-white p-8 flex flex-col justify-between shadow-2xl z-20"
             style={{ width: "210px", height: "200px", top: "200px", right: "230px" }}
           >
             <p className="font-display text-2xl text-[#4A5143] leading-tight break-words">Movement</p>
