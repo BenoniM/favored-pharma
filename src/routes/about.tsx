@@ -645,13 +645,13 @@ function EditorialTimeline() {
             />
           </div>
 
-          <div className="absolute inset-0 z-40">
+          <div className="absolute inset-0 z-40 px-6 sm:px-8 lg:px-12">
             {timeline.map((t, i) => {
               const Icon = t.icon;
               const sideClass =
                 i % 2 === 0
-                  ? "lg:left-auto lg:right-6 lg:text-left"
-                  : "lg:left-6 lg:right-auto lg:text-right";
+                  ? "lg:left-auto lg:right-12 lg:text-left"
+                  : "lg:left-12 lg:right-auto lg:text-right";
               return (
                 <article
                   key={t.year}
