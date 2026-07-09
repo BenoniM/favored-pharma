@@ -1,10 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import {
-  Heart,
-  Globe,
-  ShieldCheck,
-  Sparkles,
   Building2,
   Rocket,
   Stethoscope,
@@ -15,7 +11,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Reveal, PageHero, SectionLabel, AnimatedHeadline } from "@/components/site";
+import { Reveal, SectionLabel, AnimatedHeadline } from "@/components/site";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -91,25 +87,6 @@ const timeline = [
   },
 ];
 
-const values = [
-  { icon: Heart, t: "Patient First", d: "Every shipment ends with a human being. We act like it." },
-  {
-    icon: ShieldCheck,
-    t: "Uncompromising Quality",
-    d: "We refuse what we wouldn't give our own family.",
-  },
-  {
-    icon: Globe,
-    t: "Open Sourcing",
-    d: "Full chain-of-custody. Country of origin disclosed for every lot.",
-  },
-  {
-    icon: Sparkles,
-    t: "Always Improving",
-    d: "We measure ourselves on patient outcomes, not invoices.",
-  },
-];
-
 const leadership = [
   { name: "A. Mekonnen", role: "Chief Executive", init: "AM" },
   { name: "S. Tadesse", role: "Head of Quality", init: "ST" },
@@ -164,16 +141,16 @@ function About() {
 
               {/* TOP-LEFT: 20+ Years — number top / icon mid / tag bottom */}
               <Reveal delay={0.1} className="flex-[3] flex">
-                <div className="w-full rounded-[2rem] bg-[var(--mist)] flex flex-col items-center justify-between py-10 px-8 text-center relative overflow-hidden group">
+                <div className="w-full rounded-[2rem] bg-[var(--brand)]/10 flex flex-col items-center justify-between py-10 px-8 text-center relative overflow-hidden group">
                   {/* Number — top */}
-                  <div className="font-display text-[6rem] leading-none text-[var(--ink)] tracking-tighter">
+                  <div className="font-display text-[6rem] leading-none text-[var(--brand)] tracking-tighter">
                     20+
                   </div>
 
                   {/* Icon — middle */}
                   <div className="flex-1 flex items-center justify-center">
-                    <div className="w-24 h-24 rounded-full border-2 border-[var(--ink)]/10 bg-white/60 backdrop-blur-sm grid place-items-center shadow-sm group-hover:scale-110 transition-transform duration-500">
-                      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 text-[var(--ink)]">
+                    <div className="w-24 h-24 rounded-full border-2 border-[var(--brand)]/20 bg-[var(--brand)]/12 backdrop-blur-sm grid place-items-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+                      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 text-[var(--brand)]">
                         <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5"/>
                         <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
@@ -181,7 +158,7 @@ function About() {
                   </div>
 
                   {/* Pill tag — bottom */}
-                  <div className="px-6 py-2.5 rounded-full bg-[var(--ink)] text-white text-sm font-medium tracking-wide">
+                  <div className="px-6 py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-sm font-medium tracking-wide">
                     Years of service
                   </div>
                 </div>
@@ -210,12 +187,9 @@ function About() {
             {/* ── MIDDLE COLUMN: Our Story ── */}
             <div className="flex flex-col">
               <Reveal className="flex-1 flex" delay={0.3}>
-                <div className="w-full rounded-[2rem] bg-[var(--mist)] p-10 sm:p-14 flex flex-col text-center relative overflow-hidden group">
+                <div className="w-full rounded-[2rem] bg-[var(--brand)]/10 p-10 sm:p-14 flex flex-col text-center relative overflow-hidden group">
                   {/* Header */}
                   <div className="mx-auto flex flex-col items-center gap-3 mb-10">
-                    <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6 text-[var(--ink)]/60">
-                      <path d="M12 2V22M17 5H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
                     <div className="font-display text-2xl text-[var(--ink)]">Our Story</div>
                   </div>
 
@@ -265,17 +239,17 @@ function About() {
 
               {/* BOTTOM-RIGHT: 14 Warehouses — number top / icon mid / tag bottom */}
               <Reveal delay={0.5} className="flex-[3] flex">
-                <div className="w-full rounded-[2rem] bg-[var(--mist)] flex flex-col items-center justify-between py-10 px-8 text-center relative overflow-hidden group">
+                <div className="w-full rounded-[2rem] bg-[var(--brand)]/10 flex flex-col items-center justify-between py-10 px-8 text-center relative overflow-hidden group">
 
                   {/* Number — top */}
-                  <div className="font-display text-[6rem] leading-none text-[var(--ink)] tracking-tighter">
+                  <div className="font-display text-[6rem] leading-none text-[var(--brand)] tracking-tighter">
                     14
                   </div>
 
                   {/* Icon — middle */}
                   <div className="flex-1 flex items-center justify-center">
-                    <div className="w-24 h-24 rounded-full border-2 border-[var(--ink)]/10 bg-white/60 backdrop-blur-sm grid place-items-center shadow-sm group-hover:scale-110 transition-transform duration-500">
-                      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 text-[var(--ink)]">
+                    <div className="w-24 h-24 rounded-full border-2 border-[var(--brand)]/20 bg-[var(--brand)]/12 backdrop-blur-sm grid place-items-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+                      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 text-[var(--brand)]">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
                         <polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
                       </svg>
@@ -283,7 +257,7 @@ function About() {
                   </div>
 
                   {/* Pill tag — bottom */}
-                  <div className="px-6 py-2.5 rounded-full bg-[var(--ink)] text-white text-sm font-medium tracking-wide">
+                  <div className="px-6 py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-sm font-medium tracking-wide">
                     Warehouses nationwide
                   </div>
                 </div>
@@ -296,30 +270,7 @@ function About() {
 
       <EditorialTimeline />
 
-      <section className="py-24 bg-[var(--ink)] text-white relative overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] opacity-30"
-          style={{ background: "var(--gradient-glow)" }}
-        />
-        <div className="relative mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
-          <Reveal className="max-w-3xl mb-16">
-            <SectionLabel>Values</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-4xl">Four non-negotiables.</h2>
-          </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {values.map((v, i) => (
-              <Reveal key={v.t} delay={i * 0.06}>
-                <div className="rounded-3xl glass-dark p-7 h-full hover:bg-white/5 transition-colors">
-                  <v.icon className="h-7 w-7 text-[var(--brand)]" />
-                  <h3 className="font-display text-2xl mt-6">{v.t}</h3>
-                  <p className="mt-2 text-sm text-white/60 leading-relaxed">{v.d}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <NonNegotiablesSection />
 
       <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
@@ -352,6 +303,151 @@ function About() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Non-Negotiables — full-screen video container with stacked accordion cards
+// ─────────────────────────────────────────────────────────────────────────────
+function NonNegotiablesSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  // Pillar colours from the home page PillarsTeaser
+  const nonneg = [
+    {
+      title: "Patient First",
+      desc: "Every shipment ends with a human being. We act like it. From cold-chain validation to last-mile delivery, the patient is our north star.",
+      color: "#018541",
+      borderRadius: "9999px",
+    },
+    {
+      title: "Uncompromising Quality",
+      desc: "We refuse what we wouldn't give our own family. Every product undergoes rigorous WHO-GMP aligned quality assurance — no exceptions.",
+      color: "#042A27",
+      borderRadius: "1.25rem",
+    },
+    {
+      title: "Open Sourcing",
+      desc: "Full chain-of-custody. Country of origin disclosed for every lot. We believe transparency is the foundation of trust in healthcare.",
+      color: "#009F5C",
+      borderRadius: "9999px",
+    },
+    {
+      title: "Always Improving",
+      desc: "We measure ourselves on patient outcomes, not invoices. Continuous improvement is woven into every process, every quarter.",
+      color: "#03332F",
+      borderRadius: "1.25rem",
+    },
+  ];
+
+  return (
+    <section
+      ref={sectionRef}
+      className="bg-white pt-24 sm:pt-32 pb-0"
+    >
+      {/* ── Title & description — outside the video box */}
+      <div className="mx-auto max-w-[1440px] px-2 mb-10 sm:mb-14">
+        <Reveal>
+          <SectionLabel>Values</SectionLabel>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">
+            Four non&#8209;negotiables.
+          </h2>
+          <p className="mt-4 max-w-xl text-sm sm:text-base text-[var(--ink)]/60 leading-relaxed">
+            The beliefs that have never changed in twenty years of healthcare delivery.
+          </p>
+        </Reveal>
+      </div>
+
+      {/* ── h-screen video box with side margin, rounded top */}
+      <div
+        className="relative mx-4 sm:mx-12 overflow-hidden"
+        style={{
+          height: "100vh",
+          minHeight: "640px",
+          borderRadius: "2.5rem",
+        }}
+      >
+        {/* Video */}
+        <video
+          autoPlay muted loop playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          aria-hidden
+        >
+          <source src="https://www.pexels.com/download/video/8666761/" type="video/mp4" />
+        </video>
+
+        {/* Subtle overlay */}
+        <div className="absolute inset-0" style={{ background: "rgba(2,18,14,0.28)" }} />
+
+        {/* ── Stacked cards — centred vertically + horizontally, zero gap */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-8">
+          {/* Inner container fits the widest text, buttons stretch to fill it */}
+          <div className="flex flex-col w-fit max-w-3xl">
+          {nonneg.map((item, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <button
+                key={item.title}
+                className="focus:outline-none w-full"
+                onMouseEnter={() => setOpenIndex(i)}
+                onMouseLeave={(e) => {
+                  setOpenIndex(null);
+                  const inner = e.currentTarget.querySelector('.nonneg-card-inner') as HTMLElement;
+                  if (inner) inner.style.transform = "translate(0px, 0px)";
+                }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const cx = (e.clientX - rect.left) / rect.width - 0.5;
+                  const cy = (e.clientY - rect.top) / rect.height - 0.5;
+                  const inner = e.currentTarget.querySelector('.nonneg-card-inner') as HTMLElement;
+                  if (inner) {
+                    // Playful, slightly exaggerated parallax with no random jitter
+                    inner.style.transform = `translate(${cx * 70}px, ${cy * 35}px)`;
+                  }
+                }}
+                aria-expanded={isOpen}
+              >
+                <div
+                  className="nonneg-card-inner"
+                  style={{
+                    borderRadius: item.borderRadius,
+                    background: item.color,
+                    padding: isOpen ? "3rem 3.5rem 3.25rem" : "2.75rem 3.5rem",
+                    // Playful bouncy transition for the transform
+                    transition: "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), padding 0.42s cubic-bezier(0.23,1,0.32,1), border-radius 0.4s ease",
+                    textAlign: "center",
+                  }}
+                >
+                  <span
+                    className="font-display text-2xl sm:text-3xl text-white block select-none"
+                    style={{
+                      letterSpacing: "-0.025em",
+                      textShadow: "0 2px 6px rgba(0,0,0,0.35), 0 -1px 0 rgba(255,255,255,0.06)",
+                    }}
+                  >
+                    {item.title}
+                  </span>
+                  <div
+                    style={{
+                      maxHeight: isOpen ? "180px" : "0px",
+                      opacity: isOpen ? 1 : 0,
+                      overflow: "hidden",
+                      transition: "max-height 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.3s ease",
+                    }}
+                  >
+                    <p className="mt-3 text-sm sm:text-base leading-relaxed text-white/80" style={{ fontWeight: 400 }}>
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function EditorialTimeline() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -359,33 +455,98 @@ function EditorialTimeline() {
     () => {
       if (!ref.current) return;
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const cards = gsap.utils.toArray<HTMLElement>(".sui-scroll-card");
+      const visuals = gsap.utils.toArray<HTMLElement>(".sui-scroll-visual");
+      const cursor = ref.current.querySelector<HTMLElement>(".sui-scroll-cursor");
+      const cursorTrail = ref.current.querySelector<HTMLElement>(".sui-scroll-cursor-trail");
+      let cursorReturn: gsap.core.Tween | undefined;
+      const moveCursor = cursor
+        ? gsap.quickTo(cursor, "y", { duration: 0.42, ease: "power3.out" })
+        : undefined;
+      const moveTrail = cursorTrail
+        ? gsap.quickTo(cursorTrail, "scaleY", { duration: 0.42, ease: "power3.out" })
+        : undefined;
+      const moveTrailOffset = cursorTrail
+        ? gsap.quickTo(cursorTrail, "y", { duration: 0.42, ease: "power3.out" })
+        : undefined;
 
-      gsap.fromTo(
-        ".gsap-timeline-line",
-        { height: "0%" },
-        {
-          height: "100%",
-          ease: "none",
-          scrollTrigger: { trigger: ref.current, start: "top 70%", end: "bottom 30%", scrub: true },
-        },
-      );
-
-      if (!reduce) {
-        gsap.fromTo(
-          ".gsap-timeline-word",
-          { x: -60 },
-          {
-            x: 60,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ref.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          },
-        );
+      if (reduce) {
+        gsap.set(cards, { opacity: 1, y: 0 });
+        gsap.set(visuals, { opacity: 1, scale: 1 });
+        return;
       }
+
+      gsap.set(cards, { autoAlpha: 0, y: "76vh", scale: 0.98 });
+      gsap.set(visuals, { autoAlpha: 0, scale: 0.9, rotateX: -10 });
+      if (cursor) gsap.set(cursor, { y: 0 });
+      if (cursorTrail) {
+        gsap.set(cursorTrail, {
+          xPercent: -50,
+          yPercent: -100,
+          y: 0,
+          scaleY: 0,
+          transformOrigin: "50% 100%",
+          backgroundImage: "linear-gradient(to top, var(--brand), var(--brand))",
+        });
+      }
+
+      const sequence = gsap.timeline({
+        defaults: { ease: "power2.out" },
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top top",
+          end: () => `+=${timeline.length * window.innerHeight}`,
+          scrub: 0.65,
+          pin: ".sui-scroll-stage",
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            if (!moveCursor) return;
+            const velocity = self.getVelocity();
+            const offset = gsap.utils.clamp(-46, 46, velocity / 22);
+            cursorReturn?.kill();
+            moveCursor(offset);
+            if (cursorTrail && moveTrail && moveTrailOffset) {
+              const trailingDown = offset >= 0;
+              gsap.set(cursorTrail, {
+                yPercent: trailingDown ? -100 : 0,
+                transformOrigin: trailingDown ? "50% 100%" : "50% 0%",
+                backgroundImage: trailingDown
+                  ? "linear-gradient(to top, var(--brand), var(--brand))"
+                  : "linear-gradient(to bottom, var(--brand), var(--brand))",
+              });
+              moveTrail(Math.max(0.08, Math.min(1, Math.abs(offset) / 46)));
+              moveTrailOffset(offset);
+            }
+            cursorReturn = gsap.delayedCall(0.18, () => {
+              moveCursor(0);
+              moveTrail?.(0);
+              moveTrailOffset?.(0);
+            });
+          },
+        },
+      });
+
+      cards.forEach((card, i) => {
+        const visual = visuals[i];
+        const position = i * 2;
+        sequence
+          .to(
+            card,
+            { autoAlpha: 1, y: "18vh", scale: 1, duration: 0.42 },
+            position,
+          )
+          .to(
+            visual,
+            { autoAlpha: 1, scale: 1, rotateX: 0, duration: 0.45 },
+            position + 0.05,
+          )
+          .to(card, { y: "-18vh", duration: 0.9, ease: "none" }, position + 0.45);
+
+        sequence
+          .to(card, { autoAlpha: 0, y: "-76vh", scale: 0.98, duration: 0.48 }, position + 1.34)
+          .to(visual, { autoAlpha: 0, scale: 0.94, rotateX: 10, duration: 0.48 }, position + 1.34);
+      });
     },
     { scope: ref },
   );
@@ -393,127 +554,102 @@ function EditorialTimeline() {
   return (
     <section
       ref={ref}
-      className="py-24 sm:py-32 relative overflow-hidden bg-gradient-to-b from-white via-[var(--mist)] to-white"
+      className="relative min-h-[640vh] overflow-hidden bg-gradient-to-b from-white via-[var(--mist)] to-white text-[var(--ink)]"
     >
-      <div
-        aria-hidden
-        className="gsap-timeline-word absolute top-1/2 -translate-y-1/2 left-0 right-0 font-display text-[22vw] leading-none text-[var(--brand)]/[0.05] select-none pointer-events-none whitespace-nowrap"
-      >
-        SINCE - 2004 - SINCE - 2004
-      </div>
-
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--ink) 1px, transparent 1px), linear-gradient(90deg, var(--ink) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
-        <Reveal className="max-w-3xl mb-20">
-          <SectionLabel>Editorial Timeline</SectionLabel>
-          <AnimatedHeadline
-            text="Two decades, one direction."
-            as="h2"
-            className="mt-4 font-display text-3xl lg:text-4xl leading-[0.95]"
-          />
-          <p className="mt-6 text-[var(--ink)]/65 max-w-xl text-lg">
-            A short biography of the boxes we've moved, the partners we've earned, and the standards
-            we've kept.
-          </p>
-          <div className="mt-8 inline-flex items-center gap-3 rounded-full bg-white border border-black/5 px-4 py-2 shadow-sm">
-            <span className="h-2 w-2 rounded-full bg-[var(--brand)] animate-pulse" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--ink)]/60">
-              {timeline.length} chapters - scroll to unfold
-            </span>
+      <div className="sui-scroll-stage relative h-screen min-h-[760px] overflow-hidden">
+        <div className="relative mx-auto h-full max-w-[1440px] px-6 py-8 sm:px-8 sm:py-10 lg:px-12">
+          <div className="absolute left-6 top-4 z-10 max-w-2xl sm:left-8 sm:top-5 lg:left-12">
+            <Reveal>
+              <SectionLabel>Editorial Timeline</SectionLabel>
+              <AnimatedHeadline
+                text="Two decades, one direction."
+                as="h2"
+                className="mt-3 font-display text-2xl leading-[0.95] text-[var(--ink)] sm:text-3xl lg:text-4xl"
+              />
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--ink)]/65 sm:text-base">
+                A short biography of the boxes we've moved, the partners we've earned, and the
+                standards we've kept.
+              </p>
+            </Reveal>
           </div>
-        </Reveal>
 
-        <div className="relative">
-          <div className="absolute lg:left-1/2 left-6 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--border)] to-transparent lg:-translate-x-px" />
-          <div className="gsap-timeline-line absolute lg:left-1/2 left-6 top-0 w-[3px] -translate-x-[1px] rounded-full bg-gradient-to-b from-[var(--brand)] via-[var(--brand)] to-[var(--brand)]/0 shadow-[0_0_20px_var(--brand)]" />
+          <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 hidden h-[40vh] -translate-x-1/2 -translate-y-1/2 lg:block">
+            <div
+              className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle, color-mix(in oklab, var(--ink) 70%, transparent) 2.8px, transparent 3.2px)",
+                backgroundPosition: "center top",
+                backgroundRepeat: "repeat-y",
+                backgroundSize: "1px 16px",
+              }}
+            />
+            <div className="sui-scroll-cursor-trail absolute left-1/2 top-1/2 h-[104px] w-[3px] rounded-full" />
+            <div
+              className="sui-scroll-cursor absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[5px] border-white bg-[var(--brand)]"
+            />
+          </div>
 
-          <ul className="space-y-16 sm:space-y-24">
+          <div className="absolute inset-0 z-40 px-6 sm:px-8 lg:px-12">
             {timeline.map((t, i) => {
-              const right = i % 2 === 1;
               const Icon = t.icon;
+              const sideClass =
+                i % 2 === 0
+                  ? "lg:left-auto lg:right-12 lg:text-left"
+                  : "lg:left-12 lg:right-auto lg:text-right";
               return (
-                <li key={t.year} className="relative">
-                  <Reveal className="absolute lg:left-1/2 left-6 top-8 -translate-x-1/2 z-10">
-                    <div className="relative h-12 w-12 rounded-full bg-white border-2 border-[var(--brand)] grid place-items-center shadow-[0_8px_24px_-8px_var(--brand)]">
-                      <Icon className="h-5 w-5 text-[var(--brand)]" strokeWidth={2} />
-                      <span
-                        aria-hidden
-                        className="absolute inset-0 rounded-full border-2 border-[var(--brand)]/40 animate-ping"
-                      />
+                <article
+                  key={t.year}
+                  className={`sui-scroll-card absolute inset-x-6 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2rem] border border-black/5 bg-white/90 shadow-[var(--shadow-card)] backdrop-blur-xl sm:inset-x-8 lg:inset-x-auto lg:w-[calc(50%-160px)] lg:max-w-[500px] ${sideClass}`}
+                >
+                  <div className="flex items-center border-b border-black/5">
+                    <div className="grid h-14 w-14 shrink-0 place-items-center border-r border-black/5 bg-[var(--mist)] font-mono text-sm font-semibold text-[var(--ink)] sm:h-16 sm:w-16">
+                      {String(i + 1).padStart(2, "0")}
                     </div>
-                    <div className="absolute top-1/2 -translate-y-1/2 left-full ml-2 hidden lg:block font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ink)]/40 whitespace-nowrap">
-                      {right ? "" : `chapter - 0${i + 1}`}
-                    </div>
-                  </Reveal>
-
-                  <div
-                    className={`grid lg:grid-cols-2 gap-6 lg:gap-16 items-center ${right ? "lg:[&>*:first-child]:order-2" : ""}`}
-                  >
-                    <Reveal
-                      className={`pl-20 lg:pl-0 ${right ? "lg:pl-20 lg:text-left" : "lg:pr-20 lg:text-right"}`}
-                    >
-                      <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--ink)]/40">
-                        chapter / 0{i + 1}
-                      </div>
-                      <div className="mt-2 font-display text-7xl sm:text-8xl lg:text-[120px] text-[var(--ink)] leading-[0.85] tracking-[-0.04em]">
-                        <span className="text-stroke">{t.year.slice(0, 2)}</span>
-                        <span className="text-[var(--brand)]">{t.year.slice(2)}</span>
-                      </div>
-                      <div className="mt-5 inline-flex items-baseline gap-3 rounded-2xl bg-white border border-black/5 px-5 py-3 shadow-sm">
-                        <span className="font-display text-3xl text-[var(--brand)]">
-                          {t.metric}
-                        </span>
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ink)]/60">
-                          {t.metricLabel}
-                        </span>
-                      </div>
-                    </Reveal>
-
-                    <Reveal
-                      className={`pl-20 lg:pl-0 ${right ? "lg:pr-20" : "lg:pl-20"}`}
-                      delay={0.1}
-                    >
-                      <div className="group relative rounded-3xl bg-white border border-black/5 p-7 sm:p-9 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-glow)] transition-shadow overflow-hidden">
-                        <div
-                          aria-hidden
-                          className="absolute -top-px -left-px h-12 w-12 rounded-tl-3xl border-t-2 border-l-2 border-[var(--brand)]"
-                        />
-                        <div
-                          aria-hidden
-                          className="absolute -bottom-px -right-px h-12 w-12 rounded-br-3xl border-b-2 border-r-2 border-[var(--brand)]/40"
-                        />
-                        <AnimatedHeadline
-                          text={t.title}
-                          as="h3"
-                          className="font-display text-xl sm:text-2xl lg:text-4xl text-[var(--ink)] leading-[1.1]"
-                        />
-                        <p className="mt-4 text-[var(--ink)]/65 text-base sm:text-lg leading-relaxed">
-                          {t.body}
-                        </p>
-                        <div className="mt-6 h-[3px] origin-left rounded-full bg-gradient-to-r from-[var(--brand)] via-[var(--brand)]/60 to-transparent" />
-                      </div>
-                    </Reveal>
+                    <h3 className="sui-scroll-reveal px-4 font-mono text-xs uppercase tracking-[0.02em] text-[var(--ink)] sm:px-5 sm:text-sm">
+                      {t.title}
+                    </h3>
                   </div>
-                </li>
+
+                  <div className="grid min-h-[170px] border-b border-black/5 p-4 sm:p-5">
+                    <div className="sui-scroll-visual m-auto grid w-full max-w-[150px] place-items-center">
+                      <div className="relative aspect-square w-full">
+                        <div className="absolute inset-[17%] rotate-45 border border-[var(--ink)]/10" />
+                        <div className="absolute inset-[27%] rotate-45 border border-[var(--brand)]/55" />
+                        <div className="absolute left-1/2 top-[16%] h-[68%] w-px -translate-x-1/2 bg-[var(--ink)]/10" />
+                        <div className="absolute left-[16%] top-1/2 h-px w-[68%] -translate-y-1/2 bg-[var(--ink)]/10" />
+                        <div className="absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[var(--brand)]/60 bg-white">
+                          <Icon className="h-6 w-6 text-[var(--brand)]" strokeWidth={1.6} />
+                        </div>
+                        <span className="absolute left-[26%] top-[30%] h-3 w-3 rounded-full border border-[var(--brand)] bg-white" />
+                        <span className="absolute right-[28%] top-[37%] h-3 w-3 rounded-full border border-[var(--brand)] bg-white" />
+                        <span className="absolute bottom-[26%] left-[47%] h-3 w-3 rounded-full border border-[var(--brand)] bg-white" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:p-5">
+                    <div className="sui-scroll-reveal">
+                      <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--ink)]/40">
+                        {t.year}
+                      </div>
+                      <p className="mt-2 max-w-xl text-xs leading-relaxed text-[var(--ink)]/65 sm:text-sm">
+                        {t.body}
+                      </p>
+                    </div>
+                    <div className="sui-scroll-reveal flex items-end gap-3 sm:justify-end">
+                      <span className="font-display text-2xl leading-none text-[var(--brand)] sm:text-3xl">
+                        {t.metric}
+                      </span>
+                      <span className="pb-1 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink)]/45">
+                        {t.metricLabel}
+                      </span>
+                    </div>
+                  </div>
+                </article>
               );
             })}
-          </ul>
-
-          <Reveal className="relative mt-16 flex justify-center">
-            <div className="lg:ml-0 ml-12 inline-flex items-center gap-2 rounded-full bg-[var(--ink)] text-white px-6 py-3 font-mono text-[10px] uppercase tracking-[0.3em]">
-              <Sparkles className="h-3.5 w-3.5 text-[var(--brand)]" />
-              the story continues
-            </div>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

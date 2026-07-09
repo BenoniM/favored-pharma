@@ -564,11 +564,144 @@ const FOOTER_COLS = [
   },
 ] as const;
 
+function FooterNavColumn({ index }: { index: number }) {
+  if (index < 3) {
+    const col = FOOTER_COLS[index];
+    return (
+      <div
+        style={{
+          padding: "5rem 1.75rem 2.25rem",
+          height: "100%",
+        }}
+      >
+        <p
+          style={{
+            fontSize: 10,
+            fontFamily: "var(--font-mono)",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "rgba(0,0,0,0.36)",
+            marginBottom: "1.1rem",
+          }}
+        >
+          {col.label}
+        </p>
+        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+          {col.links.map((link) => (
+            <li key={link.label}>
+              <Link
+                to={link.to as any}
+                className="text-[#03332F] hover:text-[#009F5C] transition-colors duration-300"
+                style={{
+                  fontSize: 12,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  letterSpacing: "0.04em",
+                  fontFamily: "var(--font-sans)",
+                  textTransform: "uppercase",
+                }}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ padding: "5rem 1.75rem 2.25rem", height: "100%" }}>
+      <p
+        style={{
+          fontSize: 10,
+          fontFamily: "var(--font-mono)",
+          letterSpacing: "0.16em",
+          textTransform: "uppercase",
+          color: "rgba(0,0,0,0.36)",
+          marginBottom: "0.875rem",
+          lineHeight: 1.75,
+        }}
+      >
+        IF YOU HAVE ANY QUESTIONS
+        <br />
+        FEEL FREE TO CONTACT US:
+      </p>
+      <a
+        href="mailto:hello@favoredplc.com"
+        style={{
+          display: "block",
+          fontSize: 15,
+          fontWeight: 700,
+          color: "#03332F",
+          textDecoration: "none",
+          fontFamily: "var(--font-display)",
+          marginBottom: "1.75rem",
+          letterSpacing: "-0.01em",
+        }}
+      >
+        HELLO@FAVOREDPLC.COM
+      </a>
+
+      <p
+        style={{
+          fontSize: 10,
+          fontFamily: "var(--font-mono)",
+          letterSpacing: "0.16em",
+          textTransform: "uppercase",
+          color: "rgba(0,0,0,0.36)",
+          marginBottom: "0.6rem",
+        }}
+      >
+        NEWSLETTER
+      </p>
+      <div
+        style={{
+          display: "flex",
+          border: "1px solid rgba(0,0,0,0.12)",
+          background: "white",
+          marginBottom: "1.25rem",
+          borderRadius: 9999,
+          overflow: "hidden",
+        }}
+      >
+        <input
+          type="email"
+          placeholder="your@email.com"
+          style={{
+            flex: 1,
+            padding: "0.6rem 0.875rem 0.6rem 1.25rem",
+            fontSize: 12,
+            border: "none",
+            outline: "none",
+            background: "transparent",
+            color: "#03332F",
+            fontFamily: "var(--font-sans)",
+          }}
+        />
+        <button
+          type="submit"
+          style={{
+            padding: "0.6rem 1rem",
+            background: "#009F5C",
+            border: "none",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <ArrowRight style={{ width: 14, height: 14, color: "white" }} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function FooterContent() {
   return (
     <div
       style={{
-        background: FOOTER_BG,
+        background: "transparent",
         height: "100%",
         overflow: "hidden",
         display: "flex",
@@ -584,133 +717,16 @@ function FooterContent() {
           borderBottom: "1px solid rgba(0,0,0,0.08)",
         }}
       >
-        {FOOTER_COLS.map((col) => (
+        {[0, 1, 2, 3].map((i) => (
           <div
-            key={col.label}
+            key={i}
             style={{
-              padding: "5rem 1.75rem 2.25rem",
-              borderRight: "1px solid rgba(0,0,0,0.08)",
+              borderRight: i < 3 ? "1px solid rgba(0,0,0,0.08)" : "none",
             }}
           >
-            <p
-              style={{
-                fontSize: 10,
-                fontFamily: "var(--font-mono)",
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "rgba(0,0,0,0.36)",
-                marginBottom: "1.1rem",
-              }}
-            >
-              {col.label}
-            </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-              {col.links.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.to as any}
-                    className="text-[#03332F] hover:text-[#009F5C] transition-colors duration-300"
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 500,
-                      textDecoration: "none",
-                      letterSpacing: "0.04em",
-                      fontFamily: "var(--font-sans)",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <FooterNavColumn index={i} />
           </div>
         ))}
-
-        {/* Right col — contact + newsletter */}
-        <div style={{ padding: "5rem 1.75rem 2.25rem" }}>
-          <p
-            style={{
-              fontSize: 10,
-              fontFamily: "var(--font-mono)",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "rgba(0,0,0,0.36)",
-              marginBottom: "0.875rem",
-              lineHeight: 1.75,
-            }}
-          >
-            IF YOU HAVE ANY QUESTIONS
-            <br />
-            FEEL FREE TO CONTACT US:
-          </p>
-          <a
-            href="mailto:hello@favoredplc.com"
-            style={{
-              display: "block",
-              fontSize: 15,
-              fontWeight: 700,
-              color: "#03332F",
-              textDecoration: "none",
-              fontFamily: "var(--font-display)",
-              marginBottom: "1.75rem",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            HELLO@FAVOREDPLC.COM
-          </a>
-
-          <p
-            style={{
-              fontSize: 10,
-              fontFamily: "var(--font-mono)",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "rgba(0,0,0,0.36)",
-              marginBottom: "0.6rem",
-            }}
-          >
-            NEWSLETTER
-          </p>
-          <div
-            style={{
-              display: "flex",
-              border: "1px solid rgba(0,0,0,0.12)",
-              background: "white",
-              marginBottom: "1.25rem",
-              borderRadius: 9999,
-              overflow: "hidden",
-            }}
-          >
-            <input
-              type="email"
-              placeholder="your@email.com"
-              style={{
-                flex: 1,
-                padding: "0.6rem 0.875rem 0.6rem 1.25rem",
-                fontSize: 12,
-                border: "none",
-                outline: "none",
-                background: "transparent",
-                color: "#03332F",
-                fontFamily: "var(--font-sans)",
-              }}
-            />
-            <button
-              type="submit"
-              style={{
-                padding: "0.6rem 1rem",
-                background: "#009F5C",
-                border: "none",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <ArrowRight style={{ width: 14, height: 14, color: "white" }} />
-            </button>
-          </div>
-        </div>
       </div>
 
       {/* Large SVG logo — CTA image shows through it via CSS mask */}
@@ -851,6 +867,18 @@ function Footer() {
       ">-0.05",
     );
 
+    // Simultaneously fade out the full-height borders on the bars
+    // so they don't cut through the logo in the bottom half
+    tl.to(
+      bars,
+      {
+        borderRightColor: "rgba(0,0,0,0)",
+        duration: 0.25,
+        ease: "power1.in",
+      },
+      "<"
+    );
+
     return () => {
       tl.scrollTrigger?.kill();
       tl.kill();
@@ -883,8 +911,11 @@ function Footer() {
               // right border of bars 0,1,2 = left dividers at 25%, 50%, 75%
               // exactly where the footer grid has its column borders
               borderRight: i < 3 ? "2px solid rgba(0,0,0,0.12)" : "none",
+              overflow: "hidden",
             }}
-          />
+          >
+            <FooterNavColumn index={i} />
+          </div>
         ))}
       </div>
 

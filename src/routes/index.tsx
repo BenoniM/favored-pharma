@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
 import ethiopiaMapUrl from "@/assets/maps/Ethiopia_administrative_boundaries.svg?url";
+import heroVideo from "@/assets/hero-video/998015_Medicines_Masks_3840x2160.mp4"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -52,7 +53,7 @@ function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
         aria-hidden
       >
-        <source src="/hero-video.mp4" type="video/mp4" />
+        <source /* src="/hero-video.mp4"   */src={heroVideo} type="video/mp4" />
       </video>
       <div
         className="absolute inset-0"
@@ -422,7 +423,7 @@ function PillarsTeaser() {
       n: "02",
       title: <>Medical<br />Equipment</>,
       desc: "Imaging, monitoring, surgical devices, and installation support for facilities that need reliable uptime.",
-      color: "#06080F",
+      color: "#042A27",
       shape: "rounded-full",
       position: "lg:left-[21%] lg:top-[88px]",
       content: "items-center justify-center text-center",
@@ -431,7 +432,7 @@ function PillarsTeaser() {
       n: "03",
       title: <>Laboratory<br />Supplies</>,
       desc: "Reagents, calibrated instruments, and lab essentials selected for accuracy, traceability, and daily use.",
-      color: "#03332F",
+      color: "#009F5C",
       shape: "rounded-b-full",
       position: "lg:left-[44%] lg:top-[88px]",
       content: "items-start justify-start text-left",
@@ -440,7 +441,7 @@ function PillarsTeaser() {
       n: "04",
       title: <>Hospital<br />Consumables</>,
       desc: "Daily-use supplies, sterile essentials, and scheduled replenishment that keep clinical teams moving.",
-      color: "#009F5C",
+      color: "#03332F",
       shape: "rounded-tr-[220px]",
       position: "lg:right-[3%] lg:top-[88px]",
       content: "items-center justify-center text-center",
