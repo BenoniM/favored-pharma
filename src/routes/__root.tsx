@@ -203,6 +203,16 @@ function RootComponent() {
     gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "all" });
   }, [pathname]);
 
+  // Ensure ScrollTrigger updates if images or dynamic content changes the body height
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const observer = new ResizeObserver(() => {
+      ScrollTrigger.refresh();
+    });
+    observer.observe(document.body);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Nav />
@@ -216,7 +226,7 @@ function RootComponent() {
       <div ref={outletRef}>
         <Outlet />
       </div>
-      <Footer />
+      <Footer key={pathname} />
       <Toaster position="bottom-right" richColors closeButton />
     </QueryClientProvider>
   );
