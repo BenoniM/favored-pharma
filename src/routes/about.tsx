@@ -88,10 +88,30 @@ const timeline = [
 ];
 
 const leadership = [
-  { name: "A. Mekonnen", role: "Chief Executive", init: "AM" },
-  { name: "S. Tadesse", role: "Head of Quality", init: "ST" },
-  { name: "Y. Hailu", role: "Chief Operations", init: "YH" },
-  { name: "M. Bekele", role: "Regulatory Affairs", init: "MB" },
+  { 
+    name: "Alemayehu Mekonnen", 
+    role: "Founder & Board Chair", 
+    bio: "Alemayehu founded Favored PLC in 2004 with a single warehouse and a mission to close the gap between Ethiopia's hospitals and the medicines they needed. Two decades later, that mission still drives every decision the company makes.", 
+    image: "https://images.pexels.com/photos/7648251/pexels-photo-7648251.jpeg",
+    linkedin: "#",
+    twitter: null,
+  },
+  { 
+    name: "Selamawit Tadesse", 
+    role: "Chief Executive Officer", 
+    bio: "Selamawit has spent over 15 years in pharmaceutical supply chain and regulatory affairs across East Africa. She led Favored PLC's WHO-GMP alignment and ISO 9001:2015 certification, and now oversees the company's nationwide distribution strategy.", 
+    image: "https://images.pexels.com/photos/8297149/pexels-photo-8297149.jpeg",
+    linkedin: "#",
+    twitter: "#",
+  },
+  { 
+    name: "Yohannes Hailu", 
+    role: "Chief Operations Officer", 
+    bio: "Yohannes has 18 years of experience in cold-chain logistics and warehouse operations. He built out Favored PLC's regional hub network, now spanning fourteen warehouses and six regions across the country.", 
+    image: "https://images.pexels.com/photos/13801827/pexels-photo-13801827.jpeg",
+    linkedin: "#",
+    twitter: "#",
+  },
 ];
 
 function About() {
@@ -273,29 +293,64 @@ function About() {
       <NonNegotiablesSection />
 
       <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1440px] px-6">
           <Reveal className="max-w-3xl mb-16">
             <SectionLabel>Leadership</SectionLabel>
             <h2 className="mt-4 font-display text-3xl sm:text-4xl">
               The people behind the promise.
             </h2>
           </Reveal>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {leadership.map((p, i) => (
-              <Reveal key={p.name} delay={i * 0.05}>
-                <div className="group">
-                  <div className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-[var(--mist)] to-[var(--brand)]/15 border border-black/5 grid place-items-center overflow-hidden relative">
-                    <div className="font-display text-7xl sm:text-8xl text-[var(--ink)]/30 group-hover:text-[var(--brand)] transition-colors">
-                      {p.init}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+            {leadership.map((p, i) => {
+              const alignRight = i % 2 === 1;
+              return (
+                <Reveal key={p.name} delay={i * 0.05}>
+                  <div className="group flex flex-col h-full">
+                    {/* Image Container */}
+                    <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-[var(--mist)]">
+                      <img 
+                        src={p.image} 
+                        alt={p.name} 
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+
+                      {/* Overlay panel — slides up from below, meets the outside caption as it travels up */}
+                      <div
+                        className={`absolute inset-0 z-10 flex flex-col justify-end translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]`}
+                      >
+                        <div className="absolute inset-0 bg-white" />
+                        <div className="absolute inset-0 bg-[var(--brand)]/10" />
+
+                        <div className="relative px-6 sm:px-8 py-6 sm:py-8 w-full">
+                          <h3 className="font-semibold text-[1.05rem] text-[var(--ink)] mb-0.5 tracking-tight">
+                            {p.name}
+                          </h3>
+                          <p className="text-[0.9rem] text-[var(--ink)]/50 mb-3">
+                            {p.role}
+                          </p>
+                          <p className="text-[0.85rem] text-[var(--ink)]/80 leading-[1.6]">
+                            {p.bio}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="absolute inset-x-4 bottom-4 glass rounded-2xl px-4 py-3">
-                      <div className="font-display text-lg text-[var(--ink)]">{p.name}</div>
-                      <div className="text-xs text-[var(--ink)]/60">{p.role}</div>
+
+                    {/* Outside caption — same padding/typography as the inside version, so it lines up exactly.
+                        On hover it travels upward and fades, reading as if it's being pulled up into the overlay. */}
+                    <div
+                      className={`px-6 sm:px-8 pt-4 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-6 group-hover:opacity-0`}
+                    >
+                      <h3 className="font-semibold text-[1.05rem] text-[var(--ink)] mb-0.5 tracking-tight">
+                        {p.name}
+                      </h3>
+                      <p className="text-[0.9rem] text-[var(--ink)]/50">
+                        {p.role}
+                      </p>
                     </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -410,7 +465,7 @@ function NonNegotiablesSection() {
                   style={{
                     borderRadius: item.borderRadius,
                     background: item.color,
-                    padding: isOpen ? "3rem 3.5rem 3.25rem" : "2.75rem 3.5rem",
+                    padding: isOpen ? "3rem 3.5rem 3.25rem" : "3.25rem 3.5rem",
                     // Playful bouncy transition for the transform
                     transition: "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), padding 0.42s cubic-bezier(0.23,1,0.32,1), border-radius 0.4s ease",
                     textAlign: "center",
@@ -558,7 +613,7 @@ function EditorialTimeline() {
     >
       <div className="sui-scroll-stage relative h-screen min-h-[760px] overflow-hidden">
         <div className="relative mx-auto h-full max-w-[1440px] px-6 py-8 sm:px-8 sm:py-10 lg:px-12">
-          <div className="absolute left-6 top-4 z-10 max-w-2xl sm:left-8 sm:top-5 lg:left-12">
+          <div className="absolute left-6 top-4 z-10 max-w-2xl sm:left-8 sm:top-5 lg:left-2">
             <Reveal>
               <SectionLabel>Editorial Timeline</SectionLabel>
               <AnimatedHeadline
@@ -590,20 +645,20 @@ function EditorialTimeline() {
             />
           </div>
 
-          <div className="absolute inset-0 z-40 px-6 sm:px-8 lg:px-12">
+          <div className="absolute inset-0 z-40">
             {timeline.map((t, i) => {
               const Icon = t.icon;
               const sideClass =
                 i % 2 === 0
-                  ? "lg:left-auto lg:right-12 lg:text-left"
-                  : "lg:left-12 lg:right-auto lg:text-right";
+                  ? "lg:left-auto lg:right-6 lg:text-left"
+                  : "lg:left-6 lg:right-auto lg:text-right";
               return (
                 <article
                   key={t.year}
-                  className={`sui-scroll-card absolute inset-x-6 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2rem] border border-black/5 bg-white/90 shadow-[var(--shadow-card)] backdrop-blur-xl sm:inset-x-8 lg:inset-x-auto lg:w-[calc(50%-160px)] lg:max-w-[500px] ${sideClass}`}
+                  className={`sui-scroll-card absolute inset-x-6 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2rem] border border-[var(--brand)]/15 bg-[var(--brand)]/10 shadow-[var(--shadow-card)] backdrop-blur-xl sm:inset-x-8 lg:inset-x-auto lg:w-[calc(50%-160px)] lg:max-w-[500px] ${sideClass}`}
                 >
                   <div className="flex items-center border-b border-black/5">
-                    <div className="grid h-14 w-14 shrink-0 place-items-center border-r border-black/5 bg-[var(--mist)] font-mono text-sm font-semibold text-[var(--ink)] sm:h-16 sm:w-16">
+                    <div className="grid h-14 w-14 shrink-0 place-items-center border-r border-black/5 bg-[var(--brand)]/10 font-mono text-sm font-semibold text-[var(--ink)] sm:h-16 sm:w-16">
                       {String(i + 1).padStart(2, "0")}
                     </div>
                     <h3 className="sui-scroll-reveal px-4 font-mono text-xs uppercase tracking-[0.02em] text-[var(--ink)] sm:px-5 sm:text-sm">
