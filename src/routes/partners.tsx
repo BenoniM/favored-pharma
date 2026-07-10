@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
-import { MapPin, Truck, Quote, Snowflake, Package, Clock, Sparkles } from "lucide-react";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { MapPin, Truck, Quote, Snowflake, Package, Clock, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import useEmblaCarousel from "embla-carousel-react";
 import { Reveal, PageHero, SectionLabel } from "@/components/site";
+import ethiopiaMapUrl from "@/assets/maps/Ethiopia_administrative_boundaries.svg?url";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -47,8 +49,8 @@ const manufacturers = [
 type Hub = {
   city: string;
   units: string;
-  x: string;
-  y: string;
+  x: number;
+  y: number;
   region: string;
   lead: string;
   coldChain: boolean;
@@ -57,8 +59,8 @@ const hubs: Hub[] = [
   {
     city: "Addis Ababa",
     units: "4,210",
-    x: "20%",
-    y: "35%",
+    x: 38.6,
+    y: 51.0,
     region: "Central HQ",
     lead: "12h",
     coldChain: true,
@@ -66,8 +68,8 @@ const hubs: Hub[] = [
   {
     city: "Bahir Dar",
     units: "1,840",
-    x: "42%",
-    y: "22%",
+    x: 29.6,
+    y: 28.0,
     region: "Amhara",
     lead: "28h",
     coldChain: true,
@@ -75,8 +77,8 @@ const hubs: Hub[] = [
   {
     city: "Mekelle",
     units: "2,150",
-    x: "62%",
-    y: "18%",
+    x: 42.9,
+    y: 10.9,
     region: "Tigray",
     lead: "34h",
     coldChain: true,
@@ -84,8 +86,8 @@ const hubs: Hub[] = [
   {
     city: "Hawassa",
     units: "1,520",
-    x: "35%",
-    y: "62%",
+    x: 37.2,
+    y: 67.5,
     region: "Sidama",
     lead: "22h",
     coldChain: false,
@@ -93,8 +95,8 @@ const hubs: Hub[] = [
   {
     city: "Dire Dawa",
     units: "1,980",
-    x: "72%",
-    y: "48%",
+    x: 59.1,
+    y: 45.5,
     region: "East",
     lead: "26h",
     coldChain: true,
@@ -102,8 +104,8 @@ const hubs: Hub[] = [
   {
     city: "Jimma",
     units: "1,140",
-    x: "15%",
-    y: "70%",
+    x: 25.8,
+    y: 62.2,
     region: "Oromia SW",
     lead: "30h",
     coldChain: false,
@@ -162,9 +164,9 @@ function Partners() {
         </div>
       </section>
 
-      <ManufacturerMarquee />
-      <NetworkMap />
+      {/* <ManufacturerMarquee /> */}
       <ParallaxReviews />
+      <NetworkMap />
     </main>
   );
 }
@@ -223,7 +225,7 @@ function ManufacturerMarquee() {
     </div>
   );
 
-  return (
+/*   return (
     <section
       className="py-20 sm:py-28 bg-[var(--mist)]"
       onMouseEnter={() => setPaused(true)}
@@ -249,7 +251,7 @@ function ManufacturerMarquee() {
       </div>
       <style>{`@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-33.3333%) } }`}</style>
     </section>
-  );
+  ); */
 }
 
 const REVIEW_TINTS = [
@@ -275,85 +277,132 @@ const REVIEW_TINTS = [
   },
 ];
 
-function ParallaxReviewCard({ r, i }: { r: (typeof reviews)[number]; i: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const tint = REVIEW_TINTS[i % REVIEW_TINTS.length];
+function ParallaxReviews() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start", skipSnaps: false });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isReady, setIsReady] = useState(false);
 
-  useGSAP(
-    () => {
-      if (!ref.current) return;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduce) return;
-      gsap.fromTo(
-        ref.current,
-        { y: 40, rotate: i % 2 ? -1.2 : 1.2 },
-        {
-          y: -40,
-          rotate: i % 2 ? 1.2 : -1.2,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        },
-      );
-    },
-    { scope: ref },
-  );
+  useEffect(() => {
+    if (!emblaApi) {
+      setIsReady(false);
+      return;
+    }
+
+    setIsReady(true);
+
+    const updateIndex = () => {
+      try {
+        const idx = emblaApi.selectedScrollSnap();
+        setSelectedIndex(idx);
+      } catch (e) {
+        // silently handle if embla isn't ready
+      }
+    };
+
+    // Initial update
+    updateIndex();
+
+    // Listen for all navigation events
+    emblaApi.on("select", updateIndex);
+    emblaApi.on("reInit", updateIndex);
+    emblaApi.on("settle", updateIndex);
+
+    return () => {
+      try {
+        emblaApi.off("select", updateIndex);
+        emblaApi.off("reInit", updateIndex);
+        emblaApi.off("settle", updateIndex);
+      } catch (e) {
+        // cleanup errors are ok
+      }
+    };
+  }, [emblaApi]);
+
+  const scrollPrev = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
 
   return (
-    <div ref={ref} className="will-change-transform">
-      <div
-        className="rounded-3xl border border-black/5 p-8 sm:p-10 h-full shadow-[0_1px_0_rgba(0,0,0,0.03)] hover:shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
-        style={{ background: tint.bg }}
-      >
-        <div
-          aria-hidden
-          className="absolute -right-16 -top-16 w-56 h-56 rounded-full opacity-50 blur-3xl"
-          style={{ background: `radial-gradient(circle, ${tint.accent}33, transparent 70%)` }}
-        />
-        <div className="relative">
-          <Quote className="h-6 w-6" style={{ color: tint.accent }} />
-          <p className="mt-6 font-display text-xl sm:text-2xl text-[var(--ink)] leading-[1.15] [text-wrap:balance]">
-            {r.q}
-          </p>
-          <div className="mt-8 flex items-center gap-3">
-            <div
-              className={`h-10 w-10 rounded-full grid place-items-center font-semibold ${tint.chip}`}
+    <>
+      <section className="py-8">
+        <div className="mx-auto max-w-[1500px] px-6 sm:px-8">
+          <Reveal className="max-w-3xl flex flex-col gap-4">
+            <SectionLabel>Testimonials</SectionLabel>
+            <h2 className="font-display text-3xl sm:text-4xl">
+              Trusted by hospitals <span className="text-[var(--brand)]">across the region.</span>
+            </h2>
+            <p className="text-base text-[var(--ink)]/70 font-medium leading-relaxed max-w-2xl">
+              Hear from the healthcare institutions and pharmacy chains that depend on Favored for their most critical supply needs.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+      <section className="py-0 bg-[var(--brand)] overflow-hidden">
+        <div className="mx-auto max-w-full px-0">
+          <div className="relative min-h-[620px] md:min-h-[560px] pb-24 md:pb-28">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {reviews.map((r) => (
+                <div
+                  key={r.a}
+                  className="flex-[0_0_100%] min-w-0 md:flex-[0_0_78%] lg:flex-[0_0_64%]"
+                >
+                  <div className="relative min-h-[520px] md:min-h-[480px] p-6 md:p-10 lg:p-12 flex flex-col justify-between bg-[rgba(255,255,255,0.08)] backdrop-blur-xl border border-[rgba(255,255,255,0.12)] rounded-xl md:rounded-2xl m-4 md:m-6 lg:m-8">
+                    <div>
+                      <div className="text-5xl md:text-6xl lg:text-7xl text-[#c9a961] opacity-30 font-serif mb-6 leading-none">
+                        "
+                      </div>
+                      <p className="text-lg md:text-2xl lg:text-3xl text-white leading-relaxed font-light [text-wrap:balance]">
+                        {r.q}
+                      </p>
+                    </div>
+
+                    <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.1)]">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <div className="text-sm font-semibold text-white mb-1">{r.a}</div>
+                          <div className="text-xs text-[rgba(255,255,255,0.7)]">{r.r}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 lg:left-12 flex items-center gap-3 z-10">
+            <div className="text-xs md:text-sm font-mono text-[rgba(255,255,255,0.5)]">
+              {String(selectedIndex + 1).padStart(2, "0")} / {String(reviews.length).padStart(2, "0")}
+            </div>
+          </div>
+
+          <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 lg:right-12 flex items-center gap-2 md:gap-3 z-10">
+            <button
+              onClick={scrollPrev}
+              className="h-10 w-10 md:h-12 md:w-12 rounded-full border border-[rgba(255,255,255,0.3)] text-[rgba(255,255,255,0.7)] hover:text-white hover:border-white transition-all flex items-center justify-center hover:bg-[rgba(255,255,255,0.1)]"
+              aria-label="Previous review"
             >
-              {r.a[0]}
-            </div>
-            <div>
-              <div className="text-sm font-semibold text-[var(--ink)]">{r.a}</div>
-              <div className="text-xs text-[var(--ink)]/60">{r.r}</div>
-            </div>
+              <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+            </button>
+            <button
+              onClick={scrollNext}
+              className="h-10 w-10 md:h-12 md:w-12 rounded-full border border-[rgba(255,255,255,0.3)] text-[rgba(255,255,255,0.7)] hover:text-white hover:border-white transition-all flex items-center justify-center hover:bg-[rgba(255,255,255,0.1)]"
+              aria-label="Next review"
+            >
+              <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function ParallaxReviews() {
-  return (
-    <section className="py-24 sm:py-32 bg-gradient-to-b from-white to-[var(--mist)] overflow-hidden">
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
-        <Reveal className="max-w-3xl mb-16">
-          <SectionLabel>What Partners Say</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl [text-wrap:balance]">
-            Trusted by people who <span className="text-[var(--brand)]">can't afford</span> to be
-            let down.
-          </h2>
-        </Reveal>
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-          {reviews.map((r, i) => (
-            <ParallaxReviewCard key={r.a} r={r} i={i} />
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -370,27 +419,25 @@ function NetworkMap() {
     () => {
       if (!ref.current) return;
       gsap.fromTo(
-        ".gsap-network-path",
-        { strokeDashoffset: 1, opacity: 0 },
+        ".gsap-map-surface",
+        { opacity: 0, y: 16 },
         {
-          strokeDashoffset: 0,
           opacity: 1,
-          duration: 1.4,
-          stagger: 0.12,
+          y: 0,
+          duration: 1.05,
           ease: "power3.out",
           scrollTrigger: { trigger: ref.current, start: "top 72%", once: true },
         },
       );
       gsap.fromTo(
         ".gsap-network-node",
-        { opacity: 0, scale: 0 },
+        { opacity: 0 },
         {
           opacity: 1,
-          scale: 1,
-          duration: 0.45,
+          duration: 0.35,
           stagger: 0.08,
-          delay: 0.25,
-          ease: "back.out(1.8)",
+          delay: 0.2,
+          ease: "power2.out",
           scrollTrigger: { trigger: ref.current, start: "top 72%", once: true },
         },
       );
@@ -400,7 +447,7 @@ function NetworkMap() {
 
   return (
     <section ref={ref} className="py-24 sm:py-32">
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-[1500px] px-6 sm:px-8">
         <Reveal className="max-w-3xl mb-12 flex flex-col gap-4">
           <SectionLabel>Interactive Network</SectionLabel>
           <h2 className="font-display text-3xl sm:text-4xl">
@@ -410,82 +457,41 @@ function NetworkMap() {
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-8 relative rounded-[32px] bg-gradient-to-br from-[var(--mist)] via-white to-[var(--brand)]/5 border border-black/5 p-4 sm:p-6">
-            <div className="relative h-[420px] sm:h-[560px] rounded-3xl bg-white/60 border border-black/5 overflow-hidden">
-              <svg className="absolute inset-0 w-full h-full opacity-50">
-                <defs>
-                  <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path
-                      d="M 40 0 L 0 0 0 40"
-                      fill="none"
-                      stroke="rgba(49,78,74,0.08)"
-                      strokeWidth="1"
-                    />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid2)" />
-              </svg>
-              <svg
-                className="absolute inset-0 w-full h-full"
-                preserveAspectRatio="none"
-                viewBox="0 0 100 100"
-              >
-                <defs>
-                  <linearGradient id="brand-line" x1="0" x2="1">
-                    <stop offset="0%" stopColor="var(--brand)" stopOpacity="0.9" />
-                    <stop offset="100%" stopColor="var(--brand)" stopOpacity="0.15" />
-                  </linearGradient>
-                </defs>
-                {hubs.slice(1).map((h) => {
-                  const x1 = 20,
-                    y1 = 35;
-                  const x2 = parseFloat(h.x),
-                    y2 = parseFloat(h.y);
-                  const mx = (x1 + x2) / 2;
-                  const my = (y1 + y2) / 2 - 10;
-                  const isSel = selected.city === h.city;
-                  return (
-                    <path
-                      key={h.city}
-                      className="gsap-network-path"
-                      d={`M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`}
-                      stroke={isSel ? "var(--brand)" : "url(#brand-line)"}
-                      strokeWidth={isSel ? 0.45 : 0.25}
-                      strokeDasharray={isSel ? "0" : "1 1.2"}
-                      fill="none"
-                    />
-                  );
-                })}
-              </svg>
+          <div className="lg:col-span-8 relative rounded-[32px] bg-white border border-black/10 p-4 sm:p-6 shadow-[0_1px_0_rgba(0,0,0,0.03)]">
+            <div className="relative h-[420px] sm:h-[560px] rounded-3xl overflow-hidden">
+              <div className="absolute inset-5 flex items-center justify-center sm:inset-8">
+                <div className="relative aspect-[800/611] h-full max-h-full max-w-full">
+                  <img
+                    src={ethiopiaMapUrl}
+                    alt="Map of Ethiopia"
+                    className="gsap-map-surface absolute inset-0 h-full w-full object-contain drop-shadow-sm"
+                  />
 
-              {hubs.map((h) => {
-                const isSel = selected.city === h.city;
-                return (
-                  <button
-                    key={h.city}
-                    type="button"
-                    onClick={() => setSelected(h)}
-                    style={{ left: h.x, top: h.y }}
-                    className="gsap-network-node absolute -translate-x-1/2 -translate-y-1/2 outline-none transition-transform hover:scale-110"
-                  >
-                    <span className="relative block">
-                      {isSel && (
-                        <span className="absolute -inset-3 rounded-full bg-[var(--brand)]/20 animate-ping" />
-                      )}
-                      <span
-                        className={`relative block rounded-full ring-4 ring-white transition-all ${isSel ? "h-4 w-4 bg-[var(--brand)] shadow-[0_0_0_4px_rgba(0,166,81,0.25)]" : "h-3 w-3 bg-[var(--brand)]/80"}`}
-                      />
-                    </span>
-                    <span
-                      className={`absolute left-5 -top-1 glass rounded-xl px-2.5 py-1 shadow-[var(--shadow-card)] whitespace-nowrap transition-opacity ${isSel ? "opacity-100" : "opacity-70 hover:opacity-100"}`}
-                    >
-                      <span className="block text-[10px] font-mono text-[var(--ink)]/60">
-                        {h.city}
-                      </span>
-                    </span>
-                  </button>
-                );
-              })}
+                  {hubs.map((h) => {
+                    const isSel = selected.city === h.city;
+                    return (
+                      <button
+                        key={h.city}
+                        type="button"
+                        onClick={() => setSelected(h)}
+                        className="gsap-network-node absolute z-20 text-[#228b22]"
+                        style={{
+                          left: `${h.x}%`,
+                          top: `${h.y}%`,
+                          transform: isSel ? "translate(-50%, -100%) scale(1.25)" : "translate(-50%, -100%)",
+                          transformOrigin: "bottom center",
+                          transition: "transform 160ms ease",
+                        }}
+                        aria-label={`Select ${h.city}`}
+                      >
+                        <MapPin
+                          className={`h-5 w-5 sm:h-6 sm:w-6 ${isSel ? "fill-[#228b22] stroke-white" : "fill-white stroke-[#228b22]"}`}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
 
