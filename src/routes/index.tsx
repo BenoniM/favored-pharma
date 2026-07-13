@@ -9,6 +9,11 @@ import {
 import { Reveal, SectionLabel } from "@/components/site";
 import ethiopiaMapUrl from "@/assets/maps/Ethiopia_administrative_boundaries.svg?url";
 import heroVideo from "@/assets/hero-video/998015_Medicines_Masks_3840x2160.mp4"
+import supportImg from "@/assets/institutes/24-7-support.png";
+import coldChainImg from "@/assets/institutes/cold-chain.png";
+import deliveryImg from "@/assets/institutes/on-time-delivery.png";
+import qualityImg from "@/assets/institutes/quality-ensured.png";
+import partnersImg from "@/assets/institutes/trusted-partners.png";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -243,7 +248,7 @@ function TrustedCollage() {
           </div>
           <div className="border-r border-b border-[#228B22]/25 relative overflow-visible">
             <img
-              src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800"
+              src={qualityImg}
               className="img-a absolute inset-0 w-full h-full object-cover"
               alt="Laboratory"
             />
@@ -268,7 +273,7 @@ function TrustedCollage() {
           </div>
           <div className="border-r border-b border-[#228B22]/25 relative overflow-visible">
             <img
-              src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&q=80&w=800"
+              src={coldChainImg}
               className="img-a absolute inset-0 w-full h-full object-cover"
               alt="Cold-chain logistics"
             />
@@ -302,7 +307,7 @@ function TrustedCollage() {
           style={{ left: col(2), top: row(1), width: W, height: H }}
         >
           <img
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800"
+            src={partnersImg}
             className="img-b absolute inset-0 w-full h-full object-cover"
             alt="Partners"
           />
@@ -334,7 +339,7 @@ function TrustedCollage() {
           style={{ left: col(4), top: row(2), width: W, height: H }}
         >
           <img
-            src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80&w=800"
+            src={supportImg}
             className="img-b absolute inset-0 w-full h-full object-cover"
             alt="Support"
           />
@@ -366,7 +371,7 @@ function TrustedCollage() {
           style={{ left: col(3), top: row(3), width: W, height: H }}
         >
           <img
-            src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800"
+            src={deliveryImg}
             className="img-b absolute inset-0 w-full h-full object-cover"
             alt="Delivery"
           />
