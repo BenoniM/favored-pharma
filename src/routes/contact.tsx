@@ -142,9 +142,9 @@ function Contact() {
         {/* Glass Overlay */}
         <div className="absolute inset-0 bg-black/20 backdrop-blur-lg pointer-events-none z-0" />
 
-        {/* Left Text */}
-        <div className="absolute left-6 sm:left-12 md:left-24 top-1/2 -translate-y-1/2 z-10 hidden sm:block">
-          <span className="font-display text-lg md:text-xl lg:text-2xl text-white/90 tracking-wide">
+        {/* Left Text / Top Text on Mobile */}
+        <div className="absolute inset-x-0 sm:inset-x-auto text-center sm:text-left top-[35%] sm:top-1/2 -translate-y-1/2 sm:left-12 md:left-24 z-10 block">
+          <span className="font-display text-[2rem] sm:text-lg md:text-xl lg:text-2xl text-white/90 tracking-wide">
             Get In Touch
           </span>
         </div>

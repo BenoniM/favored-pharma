@@ -421,15 +421,15 @@ function ScrollProcess() {
       ref={sectionRef}
       className="relative h-screen overflow-hidden bg-white text-[var(--ink)]"
     >
-      <div className="absolute inset-x-0 top-8 bottom-[22vh] mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
-        <div className="grid h-full items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.92fr)] lg:grid-rows-[auto_minmax(0,1fr)] lg:gap-x-28 lg:gap-y-0 xl:gap-x-36">
+      <div className="absolute inset-x-0 top-4 sm:top-8 bottom-4 sm:bottom-12 lg:bottom-[22vh] mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
+        <div className="grid h-full items-start gap-4 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.92fr)] lg:grid-rows-[auto_minmax(0,1fr)] lg:gap-x-28 lg:gap-y-0 xl:gap-x-36">
           <Reveal className="w-full lg:col-start-1 lg:row-start-1">
             <div className="max-w-3xl">
               <SectionLabel>QA Process</SectionLabel>
-              <h2 className="mt-4 font-display text-3xl sm:text-4xl">
+              <h2 className="mt-2 sm:mt-4 font-display text-[1.65rem] sm:text-4xl leading-tight">
                 Seven checkpoints, zero shortcuts.
               </h2>
-              <p className="mt-6 max-w-xl text-sm leading-relaxed text-[var(--ink)]/65 sm:text-base">
+              <p className="mt-2 sm:mt-6 max-w-xl text-xs sm:text-base leading-relaxed text-[var(--ink)]/65">
                 A scroll-linked diagram of the path every shipment takes, from manufacturer
                 agreement to client dock.
               </p>
@@ -437,7 +437,7 @@ function ScrollProcess() {
           </Reveal>
 
           <Reveal className="w-full lg:col-start-1 lg:row-start-2 lg:h-full">
-            <ol className="relative mt-7 space-y-[1.125rem] sm:mt-9 sm:space-y-[1.375rem] lg:flex lg:h-full lg:flex-col lg:justify-between lg:gap-2.5 lg:space-y-0">
+            <ol className="relative mt-4 sm:mt-7 space-y-2 sm:space-y-[1.125rem] lg:flex lg:h-full lg:flex-col lg:justify-between lg:gap-2.5 lg:space-y-0">
               <span
                 aria-hidden
                 className="absolute left-5 z-20 hidden h-3 w-3 rounded-full bg-[var(--brand)] shadow-[0_10px_24px_rgba(1,133,65,0.28)] transition-[top,transform] duration-300 ease-[cubic-bezier(.18,.89,.32,1.28)] sm:left-9 sm:block"
@@ -510,7 +510,7 @@ function ScrollProcess() {
                 key={STEPS[activeStep].image}
                 src={STEPS[activeStep].image}
                 alt={`${STEPS[activeStep].t} quality assurance process`}
-                className="h-[34vh] w-full animate-in fade-in zoom-in-[1.02] object-cover object-center duration-500 sm:h-[40vh] lg:h-full"
+                className="h-[22vh] w-full animate-in fade-in zoom-in-[1.02] object-cover object-center duration-500 sm:h-[40vh] lg:h-full"
               />
             </div>
           </Reveal>
