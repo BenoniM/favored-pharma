@@ -208,8 +208,71 @@ function TrustedCollage() {
         </div>
       </div>
 
-      {/* Full-page pinned grid */}
-      <div ref={gridRef} className="relative w-full h-screen bg-white border-t border-[#228B22]/25 overflow-hidden isolate">
+      {/* Mobile Stacked Version */}
+      <div className="lg:hidden w-full bg-white px-6 sm:px-8 pb-20 flex flex-col gap-12 pt-8">
+        <div className="flex flex-col gap-4">
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Premium<br />Healthcare</h3>
+          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
+            <img src="https://images.pexels.com/photos/13176452/pexels-photo-13176452.jpeg" className="absolute inset-0 w-full h-full object-cover" alt="Healthcare Professionals" />
+          </div>
+          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
+            We source premium medical supplies from globally certified manufacturers, ensuring every clinic has access to top-tier essentials.
+          </p>
+        </div>
+        
+        <div className="flex flex-col gap-4">
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Quality<br />Ensured</h3>
+          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
+            <img src={qualityImg} className="absolute inset-0 w-full h-full object-cover" alt="Laboratory" />
+          </div>
+          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
+            Every product undergoes rigorous quality assurance checks, ensuring adherence to WHO-GMP standards for maximum patient safety.
+          </p>
+        </div>
+        
+        <div className="flex flex-col gap-4">
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Cold-chain<br />Ready</h3>
+          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
+            <img src={coldChainImg} className="absolute inset-0 w-full h-full object-cover" alt="Cold-chain logistics" />
+          </div>
+          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
+            Our logistics network guarantees temperature-controlled transit so vaccines and biologics arrive safely and on schedule nationwide.
+          </p>
+        </div>
+        
+        <div className="flex flex-col gap-4">
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Trusted<br />Partners</h3>
+          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
+            <img src={partnersImg} className="absolute inset-0 w-full h-full object-cover" alt="Partners" />
+          </div>
+          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
+            We partner with 500+ hospitals, pharmacies, and clinics - relationships built on trust, reliability, and a shared commitment to care.
+          </p>
+        </div>
+        
+        <div className="flex flex-col gap-4">
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">24 / 7<br />Support</h3>
+          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
+            <img src={supportImg} className="absolute inset-0 w-full h-full object-cover" alt="Support" />
+          </div>
+          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
+            Our teams are available round-the-clock to ensure your supply chain never stops - no matter the time or place.
+          </p>
+        </div>
+        
+        <div className="flex flex-col gap-4">
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">On-Time<br />Delivery</h3>
+          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
+            <img src={deliveryImg} className="absolute inset-0 w-full h-full object-cover" alt="Delivery" />
+          </div>
+          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
+            With a 96.4% on-time record and 14 strategically placed warehouses, the right product reaches the right place - every time.
+          </p>
+        </div>
+      </div>
+
+      {/* Full-page pinned grid (Desktop Only) */}
+      <div ref={gridRef} className="hidden lg:block relative w-full h-screen bg-white border-t border-[#228B22]/25 overflow-hidden isolate">
 
         {/* ── SLIDE A — CSS grid ─────────────────────────────────────────────
             Row 1: [empty] [title-a col2] [img-a col3] [desc-a col4] [empty]
@@ -429,7 +492,7 @@ function PillarsTeaser() {
       title: <>Medical<br />Equipment</>,
       desc: "Imaging, monitoring, surgical devices, and installation support for facilities that need reliable uptime.",
       color: "#042A27",
-      shape: "rounded-full",
+      shape: "aspect-square rounded-full mx-auto w-full",
       position: "lg:left-[21%] lg:top-[88px]",
       content: "items-center justify-center text-center",
     },
@@ -467,7 +530,7 @@ function PillarsTeaser() {
           <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">Four pillars of dependable supply.</h2>
         </Reveal>
         <div className="relative mt-16 min-h-[640px] overflow-visible lg:mt-10">
-          <div className="grid gap-4 lg:block">
+          <div className="grid gap-8 lg:block">
             {pillars.map((pillar, index) => (
               <article
                 key={pillar.n}
@@ -483,7 +546,7 @@ function PillarsTeaser() {
                   <h3 className="font-display text-3xl leading-[1.05] text-white sm:text-4xl">
                     {pillar.title}
                   </h3>
-                  <p className="mt-6 max-w-sm translate-y-3 text-base font-semibold leading-relaxed text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                  <p className="mt-6 max-w-sm text-base font-semibold leading-relaxed text-white transition-all duration-300 opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-3 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
                     {pillar.desc}
                   </p>
                 </div>
@@ -501,7 +564,7 @@ function PillarsTeaser() {
 // ─────────────────────────────────────────────────────────────────────────────
 function FeaturedTeasers() {
   return (
-    <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+    <section className="relative py-24 md:py-0 h-auto md:h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 noise-overlay">
         <img
@@ -517,24 +580,24 @@ function FeaturedTeasers() {
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 w-full">
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
 
-          <Link to="/quality" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-10 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 aspect-[4/5] max-h-[600px]">
+          <Link to="/quality" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-8 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 h-auto md:aspect-[4/5] md:max-h-[600px]">
             <div className="flex flex-col items-center w-full">
-              <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-16">
+              <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-6 md:mb-16">
                 Quality & Compliance
               </h3>
 
-              <div className="relative w-32 h-32 mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
-                <ShieldCheck className="w-24 h-24 stroke-[1.5]" />
+              <div className="relative w-24 h-24 md:w-32 md:h-32 mb-8 md:mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
+                <ShieldCheck className="w-16 h-16 md:w-24 md:h-24 stroke-[1.5]" />
               </div>
             </div>
 
-            <div className="flex flex-col items-center gap-8 w-full">
+            <div className="flex flex-col items-center gap-6 md:gap-8 w-full">
               <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-sm">
                 Built on quality, safety & trust.
               </p>
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap justify-center gap-2 md:gap-3">
                 {["WHO-GMP", "ISO 9001", "GDP"].map((c) => (
-                  <span key={c} className="rounded-full bg-white/5 px-4 py-2 text-xs font-semibold text-white border border-[var(--brand)]/50 tracking-wide uppercase">
+                  <span key={c} className="rounded-full bg-white/5 px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-xs font-semibold text-white border border-[var(--brand)]/50 tracking-wide uppercase">
                     {c}
                   </span>
                 ))}
@@ -542,24 +605,24 @@ function FeaturedTeasers() {
             </div>
           </Link>
 
-          <Link to="/products" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-10 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 aspect-[4/5] max-h-[600px]">
+          <Link to="/products" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-8 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 h-auto md:aspect-[4/5] md:max-h-[600px] mt-4 md:mt-0">
             <div className="flex flex-col items-center w-full">
-              <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-16">
+              <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-6 md:mb-16">
                 Product Catalog
               </h3>
 
-              <div className="relative w-32 h-32 mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
-                <Stethoscope className="w-24 h-24 stroke-[1.5]" />
+              <div className="relative w-24 h-24 md:w-32 md:h-32 mb-8 md:mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
+                <Stethoscope className="w-16 h-16 md:w-24 md:h-24 stroke-[1.5]" />
               </div>
             </div>
 
-            <div className="flex flex-col items-center gap-8 w-full">
+            <div className="flex flex-col items-center gap-6 md:gap-8 w-full">
               <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-sm">
                 1,000+ medical products in stock.
               </p>
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap justify-center gap-2 md:gap-3">
                 {["Prescription", "OTC", "Devices", "Lab", "Consumables", "Emergency"].map((c) => (
-                  <span key={c} className="rounded-full bg-white/5 px-4 py-2 text-xs font-semibold text-white border border-[var(--brand)]/50 tracking-wide uppercase">
+                  <span key={c} className="rounded-full bg-white/5 px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-xs font-semibold text-white border border-[var(--brand)]/50 tracking-wide uppercase">
                     {c}
                   </span>
                 ))}

@@ -9,6 +9,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Toaster } from "sonner";
 import gsap from "gsap";
@@ -268,6 +269,17 @@ function Nav() {
 
   useEffect(() => { setOpen(false); }, [pathname]);
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const isSpecialHero = ["/about", "/products", "/quality", "/partners"].includes(pathname);
   const effectiveScrolled = scrolled || isSpecialHero;
   const onDark = !effectiveScrolled;
@@ -332,44 +344,75 @@ function Nav() {
             </Link>
             <button
               onClick={() => setOpen(!open)}
-              className={`lg:hidden p-2 ${
-                onDark ? "text-white" : "text-[var(--ink)]"
+              className={`lg:hidden p-2 relative w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 ${
+                onDark ? "text-white" : "text-[var(--brand)]"
               }`}
               aria-label="Menu"
               aria-expanded={open}
             >
-              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <Menu className={`absolute w-7 h-7 stroke-[3] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "scale-50 opacity-0 rotate-90" : "scale-100 opacity-100 rotate-0"}`} />
+              <X className={`absolute w-7 h-7 stroke-[3] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "scale-100 opacity-100 rotate-0" : "scale-50 opacity-0 -rotate-90"}`} />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div
-          className="lg:hidden border-t py-4 px-6 flex flex-col gap-2"
-          style={{
-            background: "#ffffff",
-            borderColor: "rgba(0,0,0,0.08)",
-          }}
-        >
-          {NAV_LINKS.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="py-3 text-sm font-medium text-[var(--ink)]/80 hover:text-[var(--ink)] border-b border-black/5 last:border-0"
-            >
-              {l.label}
-            </Link>
-          ))}
-          <Link
-            to="/contact"
-            className="mt-2 inline-flex items-center justify-center bg-[#00A651] text-white text-sm font-medium px-5 py-3"
-          >
-            Contact Us
-          </Link>
-        </div>
+      {/* Mobile menu backdrop */}
+      {typeof document !== "undefined" && createPortal(
+        <div 
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-[40] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={() => setOpen(false)} 
+          aria-hidden="true"
+        />,
+        document.body
       )}
+      
+      {/* Mobile menu dropdown */}
+      <div 
+        className={`mx-auto max-w-[1440px] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] absolute inset-x-0 top-full pt-2 sm:pt-4 origin-top ${
+          open ? "opacity-100 pointer-events-auto translate-y-0 scale-y-100" : "opacity-0 pointer-events-none -translate-y-4 scale-y-95"
+        }`}
+      >
+        <div className="rounded-3xl bg-white p-8 shadow-[0_20px_40px_rgb(0,0,0,0.1)] border border-black/5 flex flex-col gap-6 w-full">
+          <div className="flex flex-col gap-5 mt-2">
+            {NAV_LINKS.map((l) => {
+              const isActive = pathname === l.to;
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-4 text-3xl sm:text-4xl font-display text-[var(--ink)] hover:text-[var(--brand)] transition-colors"
+                >
+                  {isActive ? (
+                    <div className="w-3.5 h-3.5 bg-[var(--brand)] rounded-full shrink-0 shadow-sm" />
+                  ) : (
+                    <div className="w-3.5 h-3.5 opacity-0 shrink-0" />
+                  )}
+                  {l.label}
+                </Link>
+              );
+            })}
+          </div>
+          
+          <div className="mt-4 pt-8 border-t border-black/5 flex flex-col gap-5">
+            <div>
+              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/40 mb-3">Contact</div>
+              <div className="text-sm font-medium text-[var(--ink)]/80">hello@favoredplc.com</div>
+              <div className="text-sm font-medium text-[var(--ink)]/80 mt-1">+251 11 000 0000</div>
+            </div>
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center rounded-full bg-[var(--brand)] text-white text-sm font-medium px-6 py-4 hover:bg-[var(--ink)] transition-colors w-full"
+            >
+              Let's Talk Supply
+            </Link>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
