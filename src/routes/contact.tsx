@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, ArrowRight, Plus, Minus, Loader2, Check } from "lu
 import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal, PageHero, SectionLabel } from "@/components/site";
+import logoCroppedSvgUrl from "@/assets/logo/Logo-Cropped.svg?url";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -22,26 +23,17 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const offices = [
-  {
-    city: "Addis Ababa",
-    role: "Headquarters",
-    addr: "Bole Sub-City, Addis Ababa",
-    phone: "+251 11 000 0000",
-  },
-  {
-    city: "Bahir Dar",
-    role: "Regional Hub",
-    addr: "Industrial Zone, Bahir Dar",
-    phone: "+251 58 000 0000",
-  },
-  {
-    city: "Hawassa",
-    role: "Distribution Center",
-    addr: "SNNPR Industrial Park, Hawassa",
-    phone: "+251 46 000 0000",
-  },
-];
+
+const AnimatedText = ({ children }: { children: React.ReactNode }) => (
+  <span className="group relative overflow-hidden inline-flex cursor-default">
+    <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full">
+      {children}
+    </span>
+    <span className="absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] translate-y-full group-hover:translate-y-0" aria-hidden="true">
+      {children}
+    </span>
+  </span>
+);
 
 const faqs = [
   {
@@ -136,27 +128,94 @@ function Contact() {
 
   return (
     <main className="bg-white text-[var(--ink)] overflow-x-hidden">
-      <PageHero
-        kicker="Get In Touch"
-        variant="pulse"
-        title={
-          <>
-            Let's talk <span className="text-[var(--brand)]">supply.</span>
-          </>
-        }
-        lead="Whether you're a hospital procurement officer, pharmacy owner, or manufacturer looking for a distribution partner — a specialist will respond within one business day."
-      />
+      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[var(--ink)] text-white">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover scale-110 pointer-events-none"
+        >
+          <source src="https://www.pexels.com/download/video/10577610/" type="video/mp4" />
+        </video>
 
-      {/* Form + offices split */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-12 gap-8">
-          <Reveal className="lg:col-span-7">
+        {/* Glass Overlay */}
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-lg pointer-events-none z-0" />
+
+        {/* Left Text */}
+        <div className="absolute left-6 sm:left-12 md:left-24 top-1/2 -translate-y-1/2 z-10 hidden sm:block">
+          <span className="font-display text-lg md:text-xl lg:text-2xl text-white/90 tracking-wide">
+            Get In Touch
+          </span>
+        </div>
+
+        {/* Center Logo */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          <img
+            src={logoCroppedSvgUrl}
+            alt="Logo"
+            className="h-24 sm:h-32 md:h-40 w-auto brightness-0 invert"
+          />
+        </div>
+
+        {/* Right Text */}
+        <div className="absolute right-6 sm:right-12 md:right-24 top-1/2 -translate-y-1/2 z-10 hidden sm:block">
+          <span className="font-display text-lg md:text-xl lg:text-2xl text-white/90 tracking-wide">
+            Let's Talk supply
+          </span>
+        </div>
+
+        {/* Bottom Text */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-full max-w-4xl px-6 text-center z-10">
+          <p className="text-white/80 text-lg sm:text-xl md:text-2xl leading-relaxed font-medium">
+            Whether you're a hospital procurement officer, pharmacy owner, or manufacturer looking for a distribution partner — a specialist will respond within one business day.
+          </p>
+        </div>
+      </section>
+
+      {/* Headquarter & Contact Info Section */}
+      <section className="bg-white py-16 border-y border-black/5">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {/* Headers */}
+            <div className="border-b border-black/10 pb-4 md:pr-12 lg:pr-24 md:border-r">
+              <h2 className="text-xl sm:text-2xl font-display tracking-wide text-[var(--ink)]">Headquarter</h2>
+            </div>
+            <div className="border-b border-black/10 pb-4 pt-8 md:pt-0 md:pl-12 lg:pl-24">
+              <h2 className="text-xl sm:text-2xl font-display tracking-wide text-[var(--ink)]">Contact</h2>
+            </div>
+
+            {/* Content */}
+            <div className="pt-8 md:pr-12 lg:pr-24 md:border-r border-black/10 relative flex flex-col justify-center">
+              <div className="text-lg sm:text-xl md:text-2xl text-[var(--ink)]/80 leading-snug tracking-tight flex flex-col items-start gap-1">
+                <AnimatedText>Bole Sub-City,</AnimatedText>
+                <AnimatedText>Addis Ababa</AnimatedText>
+                <AnimatedText>Ethiopia</AnimatedText>
+              </div>
+              <div className="absolute right-8 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#bbf7d0]" />
+            </div>
+
+            <div className="pt-8 md:pl-12 lg:pl-24 flex flex-col justify-center">
+              <div className="text-lg sm:text-xl md:text-2xl text-[var(--ink)]/80 leading-snug tracking-tight flex flex-col items-start gap-1">
+                <AnimatedText>Phone - +251 11 000 0000</AnimatedText>
+                <AnimatedText>Mail - hello@favoredplc.com</AnimatedText>
+                <AnimatedText>TIN & VAT - 0000000000</AnimatedText>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Form & FAQ Split Section */}
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-2 gap-16 lg:gap-24">
+          <Reveal>
             <form
               noValidate
               onSubmit={handleSubmit}
-              className="rounded-[32px] bg-[var(--mist)] border border-black/5 p-8 sm:p-12"
+              className="bg-transparent"
             >
-              <div className="flex items-center gap-2 mb-8">
+              <div className="flex items-center gap-2 mb-10">
                 <div className="h-2 w-2 rounded-full bg-[var(--brand)] animate-pulse" />
                 <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--ink)]/60">
                   Inquiry Form
@@ -174,19 +233,20 @@ function Contact() {
                   </p>
                 </div>
               ) : (
-                <>
-                  <div className="grid sm:grid-cols-2 gap-4">
+                <div className="space-y-10">
+                  <div className="space-y-8">
                     {(
                       [
-                        ["name", "Full name", "Dr. Amani Reta", "text"],
-                        ["org", "Organization", "Tikur Anbessa Hospital", "text"],
-                        ["email", "Email", "you@hospital.org", "email"],
-                        ["phone", "Phone", "+251 9...", "tel"],
+                        ["name", "Name", true, "Hello...", "text"],
+                        ["email", "Email", true, "Where can I reply?", "email"],
+                        ["org", "Organization Name", false, "Your organization or website?", "text"],
+                        ["phone", "Phone", false, "Your phone number?", "tel"],
                       ] as const
-                    ).map(([k, l, p, type]) => (
-                      <label key={k} className="block">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/50">
+                    ).map(([k, l, req, p, type]) => (
+                      <label key={k} className="block relative">
+                        <span className="block text-sm font-semibold text-[var(--ink)] mb-2">
                           {l}
+                          {req && <span className="text-red-400 ml-0.5">*</span>}
                         </span>
                         <input
                           type={type}
@@ -194,179 +254,117 @@ function Contact() {
                           onChange={(e) => setForm((f) => ({ ...f, [k]: e.target.value }))}
                           placeholder={p}
                           aria-invalid={!!errors[k as keyof FormState]}
-                          className={`mt-2 w-full rounded-2xl bg-white border px-4 py-3 text-sm outline-none transition-colors ${errors[k as keyof FormState] ? "border-red-400" : "border-black/5 focus:border-[var(--brand)]"}`}
+                          className={`w-full bg-transparent border-b py-3 text-sm outline-none transition-colors placeholder:text-[var(--ink)]/40 ${errors[k as keyof FormState] ? "border-red-400" : "border-black/10 focus:border-[var(--brand)]"}`}
                         />
                         {errors[k as keyof FormState] && (
-                          <span className="mt-1 block text-xs text-red-500">
+                          <span className="absolute -bottom-5 left-0 text-xs text-red-500">
                             {errors[k as keyof FormState]}
                           </span>
                         )}
                       </label>
                     ))}
                   </div>
-                  <label className="block mt-4">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/50">
-                      Inquiry Type
+
+                  <label className="block">
+                    <span className="block text-sm font-semibold text-[var(--ink)] mb-4">
+                      What's in your mind?<span className="text-red-400 ml-0.5">*</span>
                     </span>
-                    <div className="mt-2 flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-3">
                       {["Partnership", "Product Quote", "Catalog Request", "Other"].map((t) => (
                         <button
                           type="button"
                           key={t}
                           onClick={() => setForm((f) => ({ ...f, type: t }))}
-                          className={`rounded-full px-4 py-2 text-sm border transition-colors ${form.type === t ? "bg-[var(--ink)] text-white border-[var(--ink)]" : "bg-white text-[var(--ink)]/70 border-black/10 hover:border-[var(--brand)]"}`}
+                          className={`rounded-full px-5 py-2.5 text-sm transition-colors border ${form.type === t ? "bg-[var(--brand)] text-white border-[var(--brand)]" : "bg-white text-[var(--ink)]/70 border-black/15 hover:border-black/30"}`}
                         >
                           {t}
                         </button>
                       ))}
                     </div>
                   </label>
-                  <label className="block mt-4">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/50">
-                      Message
+
+                  <label className="block relative">
+                    <span className="block text-sm font-semibold text-[var(--ink)] mb-2">
+                      Message<span className="text-red-400 ml-0.5">*</span>
                     </span>
                     <textarea
-                      rows={5}
+                      rows={4}
                       value={form.message}
                       onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                      placeholder="Tell us what you need…"
+                      placeholder="I want to discuss..."
                       aria-invalid={!!errors.message}
-                      className={`mt-2 w-full rounded-2xl bg-white border px-4 py-3 text-sm outline-none transition-colors resize-none ${errors.message ? "border-red-400" : "border-black/5 focus:border-[var(--brand)]"}`}
+                      className={`w-full bg-transparent border-b py-3 text-sm outline-none transition-colors resize-none placeholder:text-[var(--ink)]/40 ${errors.message ? "border-red-400" : "border-black/10 focus:border-[var(--brand)]"}`}
                     />
                     {errors.message && (
-                      <span className="mt-1 block text-xs text-red-500">{errors.message}</span>
+                      <span className="absolute -bottom-5 left-0 text-xs text-red-500">{errors.message}</span>
                     )}
                   </label>
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="mt-6 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[var(--brand)] text-white px-7 py-4 font-medium hover:bg-[var(--ink)] transition-colors shadow-[var(--shadow-glow)] disabled:opacity-60"
-                  >
-                    {submitting ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" /> Sending…
-                      </>
-                    ) : (
-                      <>
-                        Send inquiry <ArrowRight className="h-4 w-4" />
-                      </>
-                    )}
-                  </button>
-                </>
+
+                  <div className="flex justify-end pt-4">
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--brand)] text-white px-8 py-4 text-sm font-medium transition-transform duration-200 hover:scale-110 active:scale-95 disabled:opacity-60"
+                    >
+                      {submitting ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <>
+                          Submit <ArrowRight className="h-4 w-4" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
               )}
             </form>
           </Reveal>
 
-          <div className="lg:col-span-5 space-y-4">
+          {/* FAQs */}
+          <div>
             <Reveal>
-              <div className="rounded-3xl bg-[var(--ink)] text-white p-8 relative overflow-hidden">
-                <div
-                  aria-hidden
-                  className="absolute -top-20 -right-20 w-64 h-64 rounded-full opacity-30"
-                  style={{ background: "var(--gradient-glow)" }}
-                />
-                <SectionLabel>Direct Lines</SectionLabel>
-                <div className="mt-6 space-y-4">
-                  <a href="mailto:hello@favoredplc.com" className="flex items-center gap-3 group">
-                    <div className="h-10 w-10 rounded-2xl glass-dark grid place-items-center">
-                      <Mail className="h-4 w-4 text-[var(--brand)]" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50">
-                        Email
-                      </div>
-                      <div className="text-white group-hover:text-[var(--brand)] transition-colors">
-                        hello@favoredplc.com
-                      </div>
-                    </div>
-                  </a>
-                  <a href="tel:+251110000000" className="flex items-center gap-3 group">
-                    <div className="h-10 w-10 rounded-2xl glass-dark grid place-items-center">
-                      <Phone className="h-4 w-4 text-[var(--brand)]" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50">
-                        Phone
-                      </div>
-                      <div className="text-white group-hover:text-[var(--brand)] transition-colors">
-                        +251 11 000 0000
-                      </div>
-                    </div>
-                  </a>
-                </div>
+              <div className="flex items-center gap-2 mb-10">
+                <div className="h-2 w-2 rounded-full bg-[var(--brand)] animate-pulse" />
+                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--ink)]/60">
+                  Frequently Asked
+                </span>
               </div>
             </Reveal>
-            {offices.map((o, i) => (
-              <Reveal key={o.city} delay={i * 0.05}>
-                <div className="rounded-3xl bg-white border border-black/5 p-6 hover:shadow-[var(--shadow-card)] transition-shadow">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--brand)]">
-                        {o.role}
-                      </div>
-                      <div className="font-display text-2xl mt-1">{o.city}</div>
-                    </div>
-                    <MapPin className="h-5 w-5 text-[var(--ink)]/40" />
-                  </div>
-                  <div className="mt-4 text-sm text-[var(--ink)]/70">{o.addr}</div>
-                  <div className="text-sm font-mono text-[var(--ink)]/60">{o.phone}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-4xl px-6 sm:px-8 lg:px-12">
-          <Reveal className="mb-12 text-center">
-            <SectionLabel>Frequently Asked</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-4xl">Before you write to us.</h2>
-            <p className="mt-4 text-sm text-[var(--ink)]/50 font-mono">
-              Tip: deep-link any question, e.g. /contact#faq-emergency
-            </p>
-          </Reveal>
-          <div className="space-y-3">
-            {faqs.map((f, i) => {
-              const open = openFaq === f.id;
-              return (
-                <Reveal key={f.id} delay={i * 0.04}>
-                  <div id={`faq-${f.id}`} className="scroll-mt-32">
-                    <button
-                      onClick={() => {
-                        const next = open ? null : f.id;
-                        setOpenFaq(next);
-                        if (next && typeof window !== "undefined") {
-                          history.replaceState(null, "", `#faq-${f.id}`);
-                        }
-                      }}
-                      className="w-full text-left rounded-3xl bg-[var(--mist)] border border-black/5 p-6 sm:p-7 hover:border-[var(--brand)]/30 transition-colors"
-                    >
-                      <div className="flex items-center justify-between gap-4">
-                        <span className="font-display text-xl sm:text-2xl text-[var(--ink)]">
-                          {f.q}
-                        </span>
-                        <div className="h-9 w-9 shrink-0 rounded-full bg-white grid place-items-center border border-black/5">
-                          {open ? (
-                            <Minus className="h-4 w-4 text-[var(--brand)]" />
-                          ) : (
-                            <Plus className="h-4 w-4 text-[var(--ink)]" />
-                          )}
-                        </div>
-                      </div>
-                      <div
-                        className={`grid transition-[grid-template-rows,opacity] duration-300 ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+            <div className="border-t border-black/10">
+              {faqs.map((f, i) => {
+                const open = openFaq === f.id;
+                return (
+                  <Reveal key={f.id} delay={i * 0.04}>
+                    <div id={`faq-${f.id}`} className="scroll-mt-32">
+                      <button
+                        onClick={() => {
+                          setOpenFaq(open ? null : f.id);
+                        }}
+                        className="w-full text-left bg-transparent border-b border-black/10 py-6 hover:border-black/30 transition-colors group"
                       >
-                        <div className="overflow-hidden">
-                          <p className="mt-4 text-[var(--ink)]/70 leading-relaxed">{f.a}</p>
+                        <div className="flex items-center justify-between gap-4">
+                          <span className="text-lg md:text-xl font-medium text-[var(--ink)] transition-colors">
+                            {f.q}
+                          </span>
+                          <div className={`shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--ink)]/60 group-hover:text-[var(--ink)]">
+                              <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                          </div>
                         </div>
-                      </div>
-                    </button>
-                  </div>
-                </Reveal>
-              );
-            })}
+                        <div
+                          className={`grid transition-[grid-template-rows,opacity] duration-300 ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                        >
+                          <div className="overflow-hidden">
+                            <p className="pt-4 text-[var(--ink)]/60 text-sm sm:text-base leading-relaxed pr-8">{f.a}</p>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
