@@ -440,49 +440,29 @@ function CtaSection() {
   return (
     <section
       ref={ctaRef}
-      className="relative w-full"
+      className="relative w-full h-screen bg-cover bg-[center_35%]"
       style={{
-        height: "100vh",
         backgroundImage: `url(${CTA_BG_URL})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center 35%",
       }}
     >
       {/* Dark overlay */}
-      <div className="absolute inset-0" style={{ background: "rgba(5,22,18,0.45)" }} />
+      <div className="absolute inset-0 bg-[#051612]/45" />
 
       {/* Layout */}
       <div
-        className="relative h-full flex flex-col"
-        style={{ padding: "clamp(2rem,5vw,5rem)" }}
+        className="relative h-full flex flex-col md:flex-row md:justify-between p-8 sm:p-12 md:p-20"
       >
         {/* TOP-LEFT — kicker + heading */}
         <div
-          className="gsap-cta-reveal"
-          style={{ maxWidth: 420 }}
+          className="gsap-cta-reveal flex flex-col items-start w-full md:w-auto max-w-[420px]"
         >
           <p
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.52)",
-              fontFamily: "var(--font-mono)",
-              marginBottom: "1.25rem",
-            }}
+            className="text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-white/50 font-mono mb-3 md:mb-5"
           >
             — WORK WITH FAVORED
           </p>
           <h2
-            style={{
-              fontSize: "clamp(2rem,3.5vw,2.75rem)",
-              fontWeight: 700,
-              color: "white",
-              lineHeight: 1.05,
-              fontFamily: "var(--font-display)",
-              letterSpacing: "-0.03em",
-              textTransform: "capitalize"
-            }}
+            className="text-4xl md:text-5xl lg:text-[2.75rem] font-bold text-white font-display leading-[1.05] tracking-[-0.03em] capitalize mb-12 md:mb-0"
           >
             Build a healthier future, with
             <br />
@@ -492,62 +472,26 @@ function CtaSection() {
 
         {/* BOTTOM-RIGHT — sub-heading, description, buttons */}
         <div
-          className="gsap-cta-reveal"
-          style={{
-            marginTop: "auto",
-            marginLeft: "auto",
-            maxWidth: 500,
-            textAlign: "right",
-          }}
+          className="gsap-cta-reveal flex flex-col items-start md:items-end text-left md:text-right mt-auto md:ml-auto w-full md:w-auto max-w-[500px]"
         >
           <h3
-            style={{
-              fontSize: "clamp(1.25rem,2vw,1.75rem)",
-              fontWeight: 700,
-              color: "white",
-              lineHeight: 1.1,
-              fontFamily: "var(--font-display)",
-              letterSpacing: "-0.025em",
-              marginBottom: "1rem",
-            }}
+            className="text-2xl md:text-[1.75rem] font-bold text-white font-display leading-[1.1] tracking-[-0.025em] mb-4"
           >
             To deliver, not just distribute
           </h3>
           <p
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.58)",
-              lineHeight: 1.95,
-              fontFamily: "var(--font-mono)",
-              marginBottom: "2rem",
-            }}
+            className="text-[10px] md:text-[11px] uppercase tracking-[0.1em] text-white/60 font-mono leading-[1.95] mb-8"
           >
             FAVORED PLC SUPPLIES VERIFIED PHARMACEUTICALS,
-            <br />
+            <br className="hidden md:block" />
             MEDICAL DEVICES AND LABORATORY ESSENTIALS
-            <br />
+            <br className="hidden md:block" />
             ACROSS HOSPITALS AND CLINICS NATIONWIDE.
           </p>
-          <div style={{ display: "flex", gap: "0.875rem", justifyContent: "flex-end" }}>
+          <div className="flex flex-wrap justify-start md:justify-end gap-3.5 w-full">
             <Link
               to="/contact"
-              className="transition-transform duration-300 hover:scale-105"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                background: "white",
-                color: "#03332F",
-                padding: "0.85rem 1.75rem",
-                fontSize: 12,
-                fontWeight: 600,
-                borderRadius: 9999,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                textDecoration: "none",
-                fontFamily: "var(--font-mono)",
-              }}
+              className="inline-flex items-center bg-white text-[#03332F] px-7 py-3.5 text-xs font-semibold rounded-full tracking-[0.08em] uppercase font-mono transition-transform duration-300 hover:scale-105"
             >
               · GET IN TOUCH ·
             </Link>
@@ -621,12 +565,7 @@ function FooterNavColumn({ index }: { index: number }) {
   if (index < 3) {
     const col = FOOTER_COLS[index];
     return (
-      <div
-        style={{
-          padding: "5rem 1.75rem 2.25rem",
-          height: "100%",
-        }}
-      >
+      <div className="px-4 py-8 sm:px-8 sm:py-10 lg:px-7 lg:pt-20 lg:pb-9 h-full flex flex-col">
         <p
           style={{
             fontSize: 10,
@@ -664,7 +603,7 @@ function FooterNavColumn({ index }: { index: number }) {
   }
 
   return (
-    <div style={{ padding: "5rem 1.75rem 2.25rem", height: "100%" }}>
+    <div className="px-6 py-8 sm:px-8 sm:py-10 lg:px-7 lg:pt-20 lg:pb-9 h-full flex flex-col">
       <p
         style={{
           fontSize: 10,
@@ -723,8 +662,8 @@ function FooterNavColumn({ index }: { index: number }) {
           placeholder="your@email.com"
           style={{
             flex: 1,
-            padding: "0.6rem 0.875rem 0.6rem 1.25rem",
-            fontSize: 12,
+            padding: "1rem 1.25rem",
+            fontSize: 14,
             border: "none",
             outline: "none",
             background: "transparent",
@@ -735,7 +674,7 @@ function FooterNavColumn({ index }: { index: number }) {
         <button
           type="submit"
           style={{
-            padding: "0.6rem 1rem",
+            padding: "1rem 1.5rem",
             background: "#009F5C",
             border: "none",
             cursor: "pointer",
@@ -743,7 +682,7 @@ function FooterNavColumn({ index }: { index: number }) {
             alignItems: "center",
           }}
         >
-          <ArrowRight style={{ width: 14, height: 14, color: "white" }} />
+          <ArrowRight style={{ width: 16, height: 16, color: "white" }} />
         </button>
       </div>
     </div>
@@ -752,104 +691,110 @@ function FooterNavColumn({ index }: { index: number }) {
 
 function FooterContent() {
   return (
-    <div
-      style={{
-        background: "transparent",
-        height: "100%",
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* Nav columns grid */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr",
-          flex: "0 0 auto",
-          borderBottom: "1px solid rgba(0,0,0,0.08)",
-        }}
-      >
-        {[0, 1, 2, 3].map((i) => (
-          <div
-            key={i}
-            style={{
-              borderRight: i < 3 ? "1px solid rgba(0,0,0,0.08)" : "none",
-            }}
-          >
-            <FooterNavColumn index={i} />
-          </div>
-        ))}
-      </div>
-
-      {/* Large SVG logo — CTA image shows through it via CSS mask */}
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "1.5rem 2rem",
-          overflow: "hidden",
-        }}
-      >
-        <img
-          src={CTA_BG_URL}
-          alt="Favored PLC"
-          style={{
-            width: "68%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center 40%",
-            WebkitMaskImage: `url(${logoCroppedSvgUrl})`,
-            maskImage: `url(${logoCroppedSvgUrl})`,
-            WebkitMaskSize: "contain",
-            maskSize: "contain",
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-            maskPosition: "center",
-          }}
-        />
-      </div>
-
-      {/* Bottom copyright bar */}
-      <div
-        style={{
-          borderTop: "1px solid rgba(0,0,0,0.08)",
-          padding: "1rem 1.75rem",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flex: "0 0 auto",
-        }}
-      >
-        <span
-          style={{
-            fontSize: 11,
-            color: "rgba(0,0,0,0.35)",
-            fontFamily: "var(--font-mono)",
-            letterSpacing: "0.06em",
-          }}
-        >
-          © {new Date().getFullYear()} FAVORED PLC — ALL RIGHTS RESERVED.
-        </span>
-        <div style={{ display: "flex", gap: "1.5rem" }}>
-          {["PRIVACY", "TERMS", "COMPLIANCE"].map((t) => (
-            <a
-              key={t}
-              href="#"
-              style={{
-                fontSize: 11,
-                color: "rgba(0,0,0,0.35)",
-                fontFamily: "var(--font-mono)",
-                letterSpacing: "0.1em",
-                textDecoration: "none",
-              }}
+    <div className="bg-transparent h-full w-full flex flex-col pointer-events-auto">
+      {/* ── DESKTOP LAYOUT ── */}
+      <div className="hidden lg:flex flex-col h-full w-full">
+        {/* Nav columns grid */}
+        <div className="grid grid-cols-4 flex-none border-b border-black/10">
+          {[0, 1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="border-r border-black/10 last:border-r-0"
             >
-              {t}
-            </a>
+              <FooterNavColumn index={i} />
+            </div>
           ))}
+        </div>
+
+        {/* Large SVG logo */}
+        <div className="flex-1 flex items-center justify-center p-6 lg:p-8 overflow-hidden">
+          <img
+            src={CTA_BG_URL}
+            alt="Favored PLC"
+            style={{
+              width: "68%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center 40%",
+              WebkitMaskImage: `url(${logoCroppedSvgUrl})`,
+              maskImage: `url(${logoCroppedSvgUrl})`,
+              WebkitMaskSize: "contain",
+              maskSize: "contain",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+              maskPosition: "center",
+            }}
+          />
+        </div>
+
+        {/* Bottom copyright bar */}
+        <div className="border-t border-black/10 p-4 lg:px-7 flex justify-between items-center flex-none">
+          <span className="text-[11px] text-black/35 font-mono tracking-[0.06em]">
+            © {new Date().getFullYear()} FAVORED PLC — ALL RIGHTS RESERVED.
+          </span>
+          <div className="flex gap-6">
+            {["PRIVACY", "TERMS", "COMPLIANCE"].map((t) => (
+              <a
+                key={t}
+                href="#"
+                className="text-[11px] text-black/35 font-mono tracking-[0.1em] hover:text-black transition-colors"
+              >
+                {t}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── MOBILE LAYOUT ── */}
+      <div className="flex lg:hidden flex-col h-full w-full">
+        {/* Box 1: Nav & Company */}
+        <div className="flex border-b border-black/10 flex-none">
+          <div className="flex-1 border-r border-black/10"><FooterNavColumn index={0} /></div>
+          <div className="flex-1"><FooterNavColumn index={2} /></div>
+        </div>
+        {/* Box 2: Contact (Email Form, full width) */}
+        <div className="w-full border-b border-black/10 flex-none">
+          <FooterNavColumn index={3} />
+        </div>
+        {/* Box 3: Logo */}
+        <div className="flex-1 border-b border-black/10 flex items-center justify-center min-h-[160px] p-8">
+          <img
+            src={CTA_BG_URL}
+            alt="Favored PLC"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center 40%",
+              WebkitMaskImage: `url(${logoCroppedSvgUrl})`,
+              maskImage: `url(${logoCroppedSvgUrl})`,
+              WebkitMaskSize: "contain",
+              maskSize: "contain",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+              maskPosition: "center",
+            }}
+          />
+        </div>
+        {/* Box 4: Privacy */}
+        <div className="flex flex-col items-center justify-center gap-5 p-8 flex-none bg-white">
+          <div className="flex gap-6">
+            {["PRIVACY", "TERMS", "COMPLIANCE"].map((t) => (
+              <a
+                key={t}
+                href="#"
+                className="text-[11px] text-black/40 font-mono tracking-[0.1em] hover:text-[#009F5C] transition-colors"
+              >
+                {t}
+              </a>
+            ))}
+          </div>
+          <span className="text-[10px] text-black/30 font-mono tracking-[0.06em]">
+            © {new Date().getFullYear()} FAVORED PLC
+          </span>
         </div>
       </div>
     </div>
@@ -874,68 +819,89 @@ function Footer() {
     const bars = barsRef.current;
     const footerEl = footerContentRef.current;
 
-    // Reset initial state
-    gsap.set(bars, { yPercent: -100 });
     gsap.set(footerEl, { opacity: 0, pointerEvents: "none" });
 
-    // Main timeline scrubbed by scroll
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        id: "site-footer-curtain",
-        trigger: scene,
-        start: "top top",
-        // pin for 2 extra screenheights of scroll travel
-        end: "+=200%",
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        refreshPriority: -1,
-      },
+    const mm = gsap.matchMedia();
+
+    // Desktop: Curtain drops from top
+    mm.add("(min-width: 1024px)", () => {
+      gsap.set(bars, { yPercent: -100, x: 0, borderBottomLeftRadius: "3rem", borderBottomRightRadius: "3rem", borderTopRightRadius: 0 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          id: "site-footer-curtain-desktop",
+          trigger: scene,
+          start: "top top",
+          end: "+=200%",
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+        },
+      });
+
+      tl.to(bars, {
+        keyframes: [
+          { yPercent: 0, borderBottomLeftRadius: "3rem", borderBottomRightRadius: "3rem", duration: 0.34, ease: "power2.inOut" },
+          { borderBottomLeftRadius: "0rem", borderBottomRightRadius: "0rem", duration: 0.06, ease: "power2.in" },
+        ],
+        stagger: 0.12,
+      });
+
+      tl.to(
+        footerEl,
+        {
+          opacity: 1,
+          duration: 0.25,
+          ease: "power1.in",
+          onStart: () => { if (footerEl) footerEl.style.pointerEvents = "auto"; },
+          onReverseComplete: () => { if (footerEl) footerEl.style.pointerEvents = "none"; },
+        },
+        ">-0.05"
+      );
+
+      tl.to(bars, { borderColor: "rgba(0,0,0,0)", duration: 0.25, ease: "power1.in" }, "<");
     });
 
-    // Reset initial state — bars start subtly rounded at bottom
-    gsap.set(bars, { borderBottomLeftRadius: "3rem", borderBottomRightRadius: "3rem" });
+    // Mobile: Curtain slides from left to right
+    mm.add("(max-width: 1023px)", () => {
+      gsap.set(bars, { x: "-100vw", yPercent: 0, borderTopRightRadius: "3rem", borderBottomRightRadius: "3rem", borderBottomLeftRadius: 0 });
 
-    // Each bar drops rounded, then flattens ONLY at the very bottom of its travel
-    tl.to(bars, {
-      keyframes: [
-        // Phase 1: full drop, corners stay round
-        { yPercent: 0, borderBottomLeftRadius: "3rem", borderBottomRightRadius: "3rem", duration: 0.34, ease: "power2.inOut" },
-        // Phase 2: landed — snap to flat rectangle
-        { borderBottomLeftRadius: "0rem", borderBottomRightRadius: "0rem", duration: 0.06, ease: "power2.in" },
-      ],
-      stagger: 0.12,
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          id: "site-footer-curtain-mobile",
+          trigger: scene,
+          start: "top top",
+          end: "+=200%",
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+        },
+      });
+
+      tl.to(bars, {
+        keyframes: [
+          { x: 0, borderTopRightRadius: "3rem", borderBottomRightRadius: "3rem", duration: 0.34, ease: "power2.inOut" },
+          { borderTopRightRadius: "0rem", borderBottomRightRadius: "0rem", duration: 0.06, ease: "power2.in" },
+        ],
+        stagger: 0.12,
+      });
+
+      tl.to(
+        footerEl,
+        {
+          opacity: 1,
+          duration: 0.25,
+          ease: "power1.in",
+          onStart: () => { if (footerEl) footerEl.style.pointerEvents = "auto"; },
+          onReverseComplete: () => { if (footerEl) footerEl.style.pointerEvents = "none"; },
+        },
+        ">-0.05"
+      );
+
+      tl.to(bars, { borderColor: "rgba(0,0,0,0)", duration: 0.25, ease: "power1.in" }, "<");
     });
 
-    // Footer content fades in after bars are mostly down
-    tl.to(
-      footerEl,
-      {
-        opacity: 1,
-        duration: 0.25,
-        ease: "power1.in",
-        onStart: () => { if (footerEl) footerEl.style.pointerEvents = "auto"; },
-        onReverseComplete: () => { if (footerEl) footerEl.style.pointerEvents = "none"; },
-      },
-      ">-0.05",
-    );
-
-    // Simultaneously fade out the full-height borders on the bars
-    // so they don't cut through the logo in the bottom half
-    tl.to(
-      bars,
-      {
-        borderRightColor: "rgba(0,0,0,0)",
-        duration: 0.25,
-        ease: "power1.in",
-      },
-      "<"
-    );
-
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
-    };
+    return () => mm.revert();
   }, { scope: sceneRef });
 
   return (
@@ -949,25 +915,16 @@ function Footer() {
 
       {/* ── 4 curtain bars — aligned to footer column grid ── */}
       {/* pointer-events:none so CTA buttons stay clickable */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
+      <div className="absolute inset-0 z-[2] pointer-events-none grid grid-cols-1 lg:grid-cols-4">
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
             ref={(el) => { if (el) barsRef.current[i] = el; }}
-            style={{
-              position: "absolute",
-              top: 0,
-              bottom: 0,
-              left: `${i * 25}%`,
-              width: "25%",
-              background: FOOTER_BG,
-              // right border of bars 0,1,2 = left dividers at 25%, 50%, 75%
-              // exactly where the footer grid has its column borders
-              borderRight: i < 3 ? "2px solid rgba(0,0,0,0.12)" : "none",
-              overflow: "hidden",
-            }}
+            className="bg-white overflow-hidden border-black/10 border-b last:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0"
           >
-            <FooterNavColumn index={i} />
+            <div className="hidden lg:block h-full">
+              <FooterNavColumn index={i} />
+            </div>
           </div>
         ))}
       </div>
@@ -981,7 +938,8 @@ function Footer() {
           zIndex: 3,
           opacity: 0,
           pointerEvents: "none",
-          overflow: "hidden",
+          overflowY: "auto",
+          overflowX: "hidden",
         }}
       >
         <FooterContent />

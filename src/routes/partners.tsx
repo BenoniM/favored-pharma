@@ -157,7 +157,7 @@ function Partners() {
             muted 
             loop 
             playsInline
-            className="w-full h-[50vh] sm:h-[70vh] lg:h-[80vh] object-cover"
+            className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover"
           >
             <source src="https://www.pexels.com/download/video/8851864/" type="video/mp4" />
           </video>

@@ -136,7 +136,7 @@ function About() {
             muted 
             loop 
             playsInline
-            className="w-full h-[50vh] sm:h-[70vh] lg:h-[80vh] object-cover"
+            className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover"
           >
             <source src="https://www.pexels.com/download/video/7033928/" type="video/mp4" />
           </video>
@@ -157,20 +157,20 @@ function About() {
           <div className="grid lg:grid-cols-3 gap-5 min-h-screen">
 
             {/* ── LEFT COLUMN ── */}
-            <div className="flex flex-col gap-4 sm:gap-5">
+            <div className="flex flex-row lg:flex-col gap-3 sm:gap-5">
 
               {/* TOP-LEFT: 20+ Years — number top / icon mid / tag bottom */}
-              <Reveal delay={0.1} className="flex-[3] flex">
-                <div className="w-full rounded-[2rem] bg-[var(--brand)]/10 flex flex-col items-center justify-between py-10 px-8 text-center relative overflow-hidden group">
+              <Reveal delay={0.1} className="flex-[4] lg:flex-[3] flex">
+                <div className="w-full rounded-[1.5rem] sm:rounded-[2rem] bg-[var(--brand)]/10 flex flex-col items-center justify-between py-6 sm:py-10 px-4 sm:px-8 text-center relative overflow-hidden group">
                   {/* Number — top */}
-                  <div className="font-display text-[6rem] leading-none text-[var(--brand)] tracking-tighter">
+                  <div className="font-display text-[4rem] sm:text-[6rem] leading-none text-[var(--brand)] tracking-tighter">
                     20+
                   </div>
 
                   {/* Icon — middle */}
-                  <div className="flex-1 flex items-center justify-center">
-                    <div className="w-24 h-24 rounded-full border-2 border-[var(--brand)]/20 bg-[var(--brand)]/12 backdrop-blur-sm grid place-items-center shadow-sm group-hover:scale-110 transition-transform duration-500">
-                      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 text-[var(--brand)]">
+                  <div className="flex-1 flex items-center justify-center my-4 sm:my-0">
+                    <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-2 border-[var(--brand)]/20 bg-[var(--brand)]/12 backdrop-blur-sm grid place-items-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+                      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--brand)]">
                         <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5"/>
                         <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
@@ -178,15 +178,15 @@ function About() {
                   </div>
 
                   {/* Pill tag — bottom */}
-                  <div className="px-6 py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-sm font-medium tracking-wide">
+                  <div className="px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-xs sm:text-base font-medium tracking-wide">
                     Years of service
                   </div>
                 </div>
               </Reveal>
 
               {/* BOTTOM-LEFT: Video box */}
-              <Reveal delay={0.2} className="flex-[2] flex min-h-[260px]">
-                <div className="w-full rounded-[2rem] overflow-hidden relative group">
+              <Reveal delay={0.2} className="flex-[3] lg:flex-[2] flex min-h-[180px] sm:min-h-[260px]">
+                <div className="w-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden relative group">
                   <video
                     autoPlay muted loop playsInline
                     className="absolute inset-0 w-full h-full object-cover"
@@ -195,8 +195,8 @@ function About() {
                   {/* subtle dark scrim */}
                   <div className="absolute inset-0 bg-[var(--ink)]/20" />
                   {/* pill badge */}
-                  <div className="absolute bottom-5 left-1/2 -translate-x-1/2">
-                    <div className="px-5 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm font-medium whitespace-nowrap">
+                  <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2">
+                    <div className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs sm:text-base font-medium whitespace-nowrap">
                       Nationwide delivery
                     </div>
                   </div>
@@ -209,12 +209,12 @@ function About() {
               <Reveal className="flex-1 flex" delay={0.3}>
                 <div className="w-full rounded-[2rem] bg-[var(--brand)]/10 p-10 sm:p-14 flex flex-col text-center relative overflow-hidden group">
                   {/* Header */}
-                  <div className="mx-auto flex flex-col items-center gap-3 mb-10">
-                    <div className="font-display text-2xl text-[var(--ink)]">Our Story</div>
+                  <div className="mx-auto flex flex-col items-center gap-3 mb-8 sm:mb-10">
+                    <div className="font-display text-3xl sm:text-4xl text-[var(--ink)]">Our Story</div>
                   </div>
 
                   {/* Body */}
-                  <div className="flex-1 flex flex-col justify-center space-y-6 text-[var(--ink)]/75 text-[1.05rem] leading-relaxed">
+                  <div className="flex-1 flex flex-col justify-center space-y-6 text-[var(--ink)]/80 text-lg sm:text-xl leading-relaxed font-medium">
                     <p>
                       Favored PLC was founded on a simple belief: a healthcare system is only as strong as
                       the supply chain behind it. When a hospital runs out of an essential medicine, the
@@ -228,8 +228,8 @@ function About() {
                   </div>
 
                   {/* Pull-quote */}
-                  <div className="mt-10 pt-10 border-t border-[var(--ink)]/8 relative z-10">
-                    <p className="font-display text-[1.65rem] text-[var(--ink)] leading-[1.2]">
+                  <div className="mt-8 sm:mt-10 pt-8 sm:pt-10 border-t border-[var(--ink)]/8 relative z-10">
+                    <p className="font-display text-2xl sm:text-[2rem] text-[var(--ink)] leading-[1.2]">
                       "We don't sell boxes.<br/>We move outcomes."
                     </p>
                   </div>
@@ -238,19 +238,19 @@ function About() {
             </div>
 
             {/* ── RIGHT COLUMN ── */}
-            <div className="flex flex-col gap-4 sm:gap-5">
+            <div className="flex flex-row lg:flex-col gap-3 sm:gap-5">
 
               {/* TOP-RIGHT: Video box */}
-              <Reveal delay={0.4} className="flex-[2] flex min-h-[260px]">
-                <div className="w-full rounded-[2rem] overflow-hidden relative group">
+              <Reveal delay={0.4} className="flex-[3] lg:flex-[2] flex min-h-[180px] sm:min-h-[260px]">
+                <div className="w-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden relative group">
                   <video
                     autoPlay muted loop playsInline
                     className="absolute inset-0 w-full h-full object-cover object-top"
                     src="https://www.pexels.com/download/video/8851865/"
                   />
                   <div className="absolute inset-0 bg-[var(--ink)]/20" />
-                  <div className="absolute bottom-5 left-1/2 -translate-x-1/2">
-                    <div className="px-5 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm font-medium whitespace-nowrap">
+                  <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2">
+                    <div className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs sm:text-base font-medium whitespace-nowrap">
                       Cold-chain certified
                     </div>
                   </div>
@@ -258,18 +258,18 @@ function About() {
               </Reveal>
 
               {/* BOTTOM-RIGHT: 14 Warehouses — number top / icon mid / tag bottom */}
-              <Reveal delay={0.5} className="flex-[3] flex">
-                <div className="w-full rounded-[2rem] bg-[var(--brand)]/10 flex flex-col items-center justify-between py-10 px-8 text-center relative overflow-hidden group">
+              <Reveal delay={0.5} className="flex-[4] lg:flex-[3] flex">
+                <div className="w-full rounded-[1.5rem] sm:rounded-[2rem] bg-[var(--brand)]/10 flex flex-col items-center justify-between py-6 sm:py-10 px-4 sm:px-8 text-center relative overflow-hidden group">
 
                   {/* Number — top */}
-                  <div className="font-display text-[6rem] leading-none text-[var(--brand)] tracking-tighter">
+                  <div className="font-display text-[4rem] sm:text-[6rem] leading-none text-[var(--brand)] tracking-tighter">
                     14
                   </div>
 
                   {/* Icon — middle */}
-                  <div className="flex-1 flex items-center justify-center">
-                    <div className="w-24 h-24 rounded-full border-2 border-[var(--brand)]/20 bg-[var(--brand)]/12 backdrop-blur-sm grid place-items-center shadow-sm group-hover:scale-110 transition-transform duration-500">
-                      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 text-[var(--brand)]">
+                  <div className="flex-1 flex items-center justify-center my-4 sm:my-0">
+                    <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-2 border-[var(--brand)]/20 bg-[var(--brand)]/12 backdrop-blur-sm grid place-items-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+                      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--brand)]">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
                         <polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
                       </svg>
@@ -277,7 +277,7 @@ function About() {
                   </div>
 
                   {/* Pill tag — bottom */}
-                  <div className="px-6 py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-sm font-medium tracking-wide">
+                  <div className="px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-xs sm:text-base font-medium tracking-wide">
                     Warehouses nationwide
                   </div>
                 </div>
