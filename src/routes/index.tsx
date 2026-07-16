@@ -14,6 +14,7 @@ import coldChainImg from "@/assets/institutes/cold-chain.png";
 import deliveryImg from "@/assets/institutes/on-time-delivery.png";
 import qualityImg from "@/assets/institutes/quality-ensured.png";
 import partnersImg from "@/assets/institutes/trusted-partners.png";
+import { company } from "@/lib/company";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -109,8 +110,8 @@ function Hero() {
 // ─────────────────────────────────────────────────────────────────────────────
 function StatsMarquee() {
   const items = [
-    "20+ YEARS EXPERIENCE", "500+ HEALTHCARE PARTNERS", "1,000+ MEDICAL PRODUCTS",
-    "14 WAREHOUSES", "96.4% ON-TIME", "WHO-GMP CERTIFIED", "COLD-CHAIN VALIDATED",
+    `${company.established} ESTABLISHED`, `${company.employeeCount} TEAM MEMBERS`, `${company.productCount} PRODUCTS`,
+    "ALL ETHIOPIAN REGIONS", "PHARMACEUTICAL IMPORT", "MEDICAL SUPPLIES", "HEALTHCARE SOLUTIONS",
   ];
   return (
     <section className="py-8 bg-white overflow-hidden border-b border-black/5">
@@ -246,7 +247,7 @@ function TrustedCollage() {
             <img src={partnersImg} className="absolute inset-0 w-full h-full object-cover" alt="Partners" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            We partner with 500+ hospitals, pharmacies, and clinics - relationships built on trust, reliability, and a shared commitment to care.
+            We build dependable relationships with healthcare institutions, manufacturers, and other stakeholders across Ethiopia.
           </p>
         </div>
         
@@ -266,7 +267,7 @@ function TrustedCollage() {
             <img src={deliveryImg} className="absolute inset-0 w-full h-full object-cover" alt="Delivery" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            With a 96.4% on-time record and 14 strategically placed warehouses, the right product reaches the right place - every time.
+            Reliable sourcing and efficient distribution help the right healthcare solution reach the people who need it.
           </p>
         </div>
       </div>
@@ -382,7 +383,7 @@ function TrustedCollage() {
         >
           <div className="overflow-hidden py-4">
             <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-              We partner with 500+ hospitals, pharmacies, and clinics - relationships built on trust, reliability, and a shared commitment to care.
+              We build dependable relationships with healthcare institutions, manufacturers, and other stakeholders across Ethiopia.
             </p>
           </div>
         </div>
@@ -446,7 +447,7 @@ function TrustedCollage() {
         >
           <div className="overflow-hidden py-4">
             <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-              With a 96.4% on-time record and 14 strategically placed warehouses, the right product reaches the right place - every time.
+              Reliable sourcing and efficient distribution help the right healthcare solution reach the people who need it.
             </p>
           </div>
         </div>
@@ -618,7 +619,7 @@ function FeaturedTeasers() {
 
             <div className="flex flex-col items-center gap-6 md:gap-8 w-full">
               <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-sm">
-                1,000+ medical products in stock.
+                26 pharmaceutical and healthcare products.
               </p>
               <div className="flex flex-wrap justify-center gap-2 md:gap-3">
                 {["Prescription", "OTC", "Devices", "Lab", "Consumables", "Emergency"].map((c) => (

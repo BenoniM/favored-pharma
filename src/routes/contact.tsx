@@ -5,6 +5,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal, PageHero, SectionLabel } from "@/components/site";
 import logoCroppedSvgUrl from "@/assets/logo/Logo-Cropped.svg?url";
+import { company } from "@/lib/company";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -188,18 +189,17 @@ function Contact() {
             {/* Content */}
             <div className="pt-8 md:pr-12 lg:pr-24 md:border-r border-black/10 relative flex flex-col justify-center">
               <div className="text-lg sm:text-xl md:text-2xl text-[var(--ink)]/80 leading-snug tracking-tight flex flex-col items-start gap-1">
-                <AnimatedText>Bole Sub-City,</AnimatedText>
-                <AnimatedText>Addis Ababa</AnimatedText>
-                <AnimatedText>Ethiopia</AnimatedText>
+                <AnimatedText>Addis Ketema Subcity,</AnimatedText>
+                <AnimatedText>Woreda 05, House No. 422/423</AnimatedText>
+                <AnimatedText>Addis Ababa, Ethiopia</AnimatedText>
               </div>
               <div className="absolute right-8 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#bbf7d0]" />
             </div>
 
             <div className="pt-8 md:pl-12 lg:pl-24 flex flex-col justify-center">
               <div className="text-lg sm:text-xl md:text-2xl text-[var(--ink)]/80 leading-snug tracking-tight flex flex-col items-start gap-1">
-                <AnimatedText>Phone - +251 11 000 0000</AnimatedText>
-                <AnimatedText>Mail - hello@favoredplc.com</AnimatedText>
-                <AnimatedText>TIN & VAT - 0000000000</AnimatedText>
+                <AnimatedText>Phone - {company.phones.join(" / ")}</AnimatedText>
+                <AnimatedText>Mail - {company.email}</AnimatedText>
               </div>
             </div>
           </div>

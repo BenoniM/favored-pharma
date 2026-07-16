@@ -23,14 +23,11 @@ import { Reveal } from "@/components/site";
 // ─── Search schema ─────────────────────────────────────────────────────────────
 const categories = [
   "All",
-  "Prescription Medicines",
-  "OTC Products",
-  "Medical Devices",
-  "Diagnostic Equipment",
-  "Laboratory Reagents",
-  "Hospital Furniture",
-  "Medical Consumables",
-  "Emergency Care Supplies",
+  "Medicines",
+  "Medical Supplies",
+  "Medical Equipments",
+  "Nutritional suppliments",
+  "other Healthcare solutions",
 ] as const;
 type Category = (typeof categories)[number];
 
@@ -47,10 +44,10 @@ export const Route = createFileRoute("/products")({
       { title: "Products - Favored PLC Catalog" },
       {
         name: "description",
-        content: "Browse 1,000+ pharmaceutical and medical products across eight categories.",
+        content: "Browse Favored PLC's pharmaceutical and healthcare products across five practical categories.",
       },
       { property: "og:title", content: "Products - Favored PLC" },
-      { property: "og:description", content: "Eight categories. One reliable partner." },
+      { property: "og:description", content: "Five healthcare categories. One reliable partner." },
       { property: "og:url", content: "/products" },
     ],
     links: [{ rel: "canonical", href: "/products" }],
@@ -61,14 +58,11 @@ export const Route = createFileRoute("/products")({
 // ─── Data ──────────────────────────────────────────────────────────────────────
 const catIcons: Record<Category, React.ElementType> = {
   "All": Pill,
-  "Prescription Medicines": Pill,
-  "OTC Products": Thermometer,
-  "Medical Devices": Activity,
-  "Diagnostic Equipment": Microscope,
-  "Laboratory Reagents": FlaskConical,
-  "Hospital Furniture": Building2,
-  "Medical Consumables": Syringe,
-  "Emergency Care Supplies": HeartPulse,
+  "Medicines": Pill,
+  "Medical Supplies": Syringe,
+  "Medical Equipments": Building2,
+  "Nutritional suppliments": Thermometer,
+  "other Healthcare solutions": HeartPulse,
 };
 
 type Product = {
@@ -80,7 +74,9 @@ type Product = {
   tags?: string[];
 };
 
-const allProducts: Product[] = [
+type RawProduct = Omit<Product, "category"> & { category: string };
+
+const rawProducts: RawProduct[] = [
   // Prescription Medicines
   { name: "Amoxicillin 500mg Capsule", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Broad-spectrum penicillin antibiotic — Anti-Infection", tags: ["In Stock", "Featured"] },
   { name: "Atorvastatin 20mg Tablet", category: "Prescription Medicines", manufacturer: "BIOFARM", origin: "Poland", desc: "HMG-CoA reductase inhibitor — Cardiovascular", tags: ["In Stock"] },
@@ -155,6 +151,29 @@ const allProducts: Product[] = [
   { name: "Trauma Dressing Kit (Large)", category: "Emergency Care Supplies", manufacturer: "Various", origin: "Germany", desc: "Haemostatic wound packing & pressure bandage — Trauma", tags: ["In Stock"] },
 ];
 
+const categoryAliases: Record<string, Exclude<Category, "All">> = {
+  "Prescription Medicines": "Medicines",
+  "OTC Products": "Medicines",
+  "Medical Devices": "Medical Equipments",
+  "Diagnostic Equipment": "Medical Equipments",
+  "Laboratory Reagents": "Medical Supplies",
+  "Hospital Furniture": "Medical Equipments",
+  "Medical Consumables": "Medical Supplies",
+  "Emergency Care Supplies": "other Healthcare solutions",
+};
+
+const allProducts: Product[] = rawProducts.map((product) => {
+  const searchable = `${product.name} ${product.desc}`.toLowerCase();
+  const category =
+    searchable.includes("vitamin") ||
+    searchable.includes("multivitamin") ||
+    searchable.includes("supplement")
+      ? "Nutritional suppliments"
+      : categoryAliases[product.category] ?? "other Healthcare solutions";
+
+  return { ...product, category };
+});
+
 const ITEMS_PER_PAGE = 12;
 
 // ─── Component ─────────────────────────────────────────────────────────────────
@@ -213,7 +232,7 @@ function Products() {
             className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
             style={{ letterSpacing: "-0.04em" }}
           >
-            1,000+ products. <span className="text-[var(--brand)]">Eight categories.</span>
+            Healthcare products. <span className="text-[var(--brand)]">Five categories.</span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
             From a single emergency syringe to a fully stocked operating theatre, our catalog is built around what real hospitals, pharmacies, and labs actually run out of.

@@ -7,27 +7,29 @@ import {
   Snowflake,
   Package,
   Network,
+  ShieldCheck,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Reveal, SectionLabel, AnimatedHeadline } from "@/components/site";
+import { company } from "@/lib/company";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Favored PLC - Two Decades of Healthcare Distribution" },
+      { title: "About Favored PLC - Healthcare Distribution in Ethiopia" },
       {
         name: "description",
         content:
-          "How Favored PLC became one of the most trusted pharmaceutical distributors in the region.",
+          "Learn about Favored PLC, a pharmaceutical import and distribution company serving customers across Ethiopia.",
       },
       { property: "og:title", content: "About Favored PLC" },
       {
         property: "og:description",
-        content: "Two decades delivering medicine, equipment, and trust.",
+        content: "Quality pharmaceutical and healthcare solutions within reach.",
       },
       { property: "og:url", content: "/about" },
     ],
@@ -38,52 +40,36 @@ export const Route = createFileRoute("/about")({
 
 const timeline = [
   {
-    year: "2004",
-    title: "Founded in Addis Ababa",
-    body: "Started as a single-warehouse importer of essential medicines.",
+    year: "2020",
+    title: "Favored PLC is established",
+    body: "Favored PLC begins its work as a pharmaceutical import and distribution company in Addis Ababa.",
     icon: Building2,
     metric: "1",
-    metricLabel: "Warehouse",
+    metricLabel: "Company",
   },
   {
-    year: "2009",
-    title: "First regional expansion",
-    body: "Opened distribution hubs in Bahir Dar and Hawassa to serve regional hospitals.",
+    year: "Today",
+    title: "Serving all regions of Ethiopia",
+    body: "The company supplies customers across the country through reliable sourcing, efficient distribution, and strong partnerships.",
     icon: Network,
-    metric: "3",
-    metricLabel: "Hubs",
+    metric: "All",
+    metricLabel: "Regions served",
   },
   {
-    year: "2014",
-    title: "Medical equipment division",
-    body: "Began direct distribution agreements with global OEMs.",
+    year: "Today",
+    title: "A broader healthcare portfolio",
+    body: "The portfolio includes 26 pharmaceutical and healthcare products across medicines, supplies, equipment, nutrition, and critical care.",
     icon: Stethoscope,
-    metric: "40+",
-    metricLabel: "OEM partners",
-  },
-  {
-    year: "2018",
-    title: "WHO-GMP alignment",
-    body: "Cold-chain logistics validated. ISO 9001:2015 certification achieved.",
-    icon: Snowflake,
-    metric: "2-8C",
-    metricLabel: "Chain validated",
-  },
-  {
-    year: "2022",
-    title: "1,000+ SKU milestone",
-    body: "Catalog grows past one thousand medical products in active distribution.",
-    icon: Package,
-    metric: "1,000+",
+    metric: company.productCount,
     metricLabel: "Products",
   },
   {
-    year: "2026",
-    title: "Nationwide today",
-    body: "Six regional hubs, 500+ healthcare partners, one promise.",
-    icon: Rocket,
-    metric: "500+",
-    metricLabel: "Partners",
+    year: "Our focus",
+    title: "Quality care within reach",
+    body: company.mission,
+    icon: Snowflake,
+    metric: "15",
+    metricLabel: "Team members",
   },
 ];
 
@@ -91,7 +77,7 @@ const leadership = [
   { 
     name: "Alemayehu Mekonnen", 
     role: "Founder & Board Chair", 
-    bio: "Alemayehu founded Favored PLC in 2004 with a single warehouse and a mission to close the gap between Ethiopia's hospitals and the medicines they needed. Two decades later, that mission still drives every decision the company makes.", 
+    bio: "Alemayehu founded Favored PLC with a mission to close the gap between Ethiopia's hospitals and the medicines they need.", 
     image: "https://images.pexels.com/photos/7648251/pexels-photo-7648251.jpeg",
     linkedin: "#",
     twitter: null,
@@ -99,7 +85,7 @@ const leadership = [
   { 
     name: "Selamawit Tadesse", 
     role: "Chief Executive Officer", 
-    bio: "Selamawit has spent over 15 years in pharmaceutical supply chain and regulatory affairs across East Africa. She led Favored PLC's WHO-GMP alignment and ISO 9001:2015 certification, and now oversees the company's nationwide distribution strategy.", 
+    bio: "Selamawit leads Favored PLC's pharmaceutical supply chain, regulatory affairs, and nationwide distribution strategy.", 
     image: "https://images.pexels.com/photos/8297149/pexels-photo-8297149.jpeg",
     linkedin: "#",
     twitter: "#",
@@ -107,12 +93,66 @@ const leadership = [
   { 
     name: "Yohannes Hailu", 
     role: "Chief Operations Officer", 
-    bio: "Yohannes has 18 years of experience in cold-chain logistics and warehouse operations. He built out Favored PLC's regional hub network, now spanning fourteen warehouses and six regions across the country.", 
+    bio: "Yohannes oversees Favored PLC's logistics and warehouse operations, helping keep healthcare products moving reliably across the country.", 
     image: "https://images.pexels.com/photos/13801827/pexels-photo-13801827.jpeg",
     linkedin: "#",
     twitter: "#",
   },
 ];
+
+type CompanyValue = (typeof company.values)[number];
+
+function ValueCard({ value }: { value: CompanyValue }) {
+  return (
+    <div
+      className="relative w-full overflow-hidden rounded-[1.5rem] bg-[var(--brand)]/10 px-5 py-6 text-left sm:rounded-[2rem] sm:px-8 sm:py-10"
+      aria-label={`Company value: ${value.title}`}
+    >
+      <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[var(--brand)]/10 blur-2xl" />
+      <div className="relative flex h-full flex-col justify-between">
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--brand)]">Our values</span>
+          <ShieldCheck className="h-5 w-5 text-[var(--brand)]/70" strokeWidth={1.5} />
+        </div>
+        <div className="mt-10 sm:mt-16">
+          <h3 className="font-display text-3xl leading-[0.95] text-[var(--ink)] sm:text-4xl">{value.title.toUpperCase()}</h3>
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-[var(--ink)]/75">{value.body}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ValueVideoCard({ value, src }: { value: CompanyValue; src: string }) {
+  return (
+    <div
+      tabIndex={0}
+      className="group relative w-full overflow-hidden rounded-[1.5rem] bg-[var(--ink)] text-white outline-none ring-[var(--brand)]/50 focus-visible:ring-2 sm:rounded-[2rem]"
+      aria-label={`Company value: ${value.title}`}
+    >
+      <video autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover">
+        <source src={src} type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-[var(--ink)]/35" />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100"
+        style={{ background: "color-mix(in oklab, var(--brand) 10%, white)" }}
+      />
+
+      <div className="absolute inset-x-0 bottom-0 p-5 transition-all duration-500 group-hover:translate-y-3 group-hover:opacity-0 group-focus-visible:translate-y-3 group-focus-visible:opacity-0 sm:p-8">
+        <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-white/70">Our values</div>
+        <h3 className="mt-3 max-w-xs font-display text-3xl leading-[0.95] sm:text-4xl">{value.title.toUpperCase()}</h3>
+        <div className="mt-5 text-xs font-medium uppercase tracking-[0.14em] text-white/60">Hover to read</div>
+      </div>
+
+      <div className="absolute inset-0 flex translate-y-3 flex-col justify-center p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 sm:p-8">
+        <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--brand)]">Our values</div>
+        <h3 className="mt-3 font-display text-3xl leading-[0.95] text-[var(--ink)] sm:text-4xl">{value.title.toUpperCase()}</h3>
+        <p className="mt-4 max-w-sm text-base leading-relaxed text-[var(--ink)]/75 sm:text-lg">{value.body}</p>
+      </div>
+    </div>
+  );
+}
 
 function About() {
   return (
@@ -123,10 +163,10 @@ function About() {
             className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
             style={{ letterSpacing: "-0.04em" }}
           >
-            Healthcare is <span className="text-[var(--brand)]">trust</span>, delivered.
+            Quality healthcare is <span className="text-[var(--brand)]">within reach.</span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
-            For more than twenty years, we have moved medicine across the country with one obsession: the patient on the other end of every box.
+            Since 2020, Favored PLC has helped improve access to quality pharmaceutical products and healthcare solutions across Ethiopia.
           </p>
         </div>
         
@@ -161,10 +201,11 @@ function About() {
 
               {/* TOP-LEFT: 20+ Years — number top / icon mid / tag bottom */}
               <Reveal delay={0.1} className="flex-[4] lg:flex-[3] flex">
+                {false ? (
                 <div className="w-full rounded-[1.5rem] sm:rounded-[2rem] bg-[var(--brand)]/10 flex flex-col items-center justify-between py-6 sm:py-10 px-4 sm:px-8 text-center relative overflow-hidden group">
                   {/* Number — top */}
                   <div className="font-display text-[4rem] sm:text-[6rem] leading-none text-[var(--brand)] tracking-tighter">
-                    20+
+                    {company.established}
                   </div>
 
                   {/* Icon — middle */}
@@ -178,29 +219,18 @@ function About() {
                   </div>
 
                   {/* Pill tag — bottom */}
-                  <div className="px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-xs sm:text-base font-medium tracking-wide">
-                    Years of service
+                <div className="px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-xs sm:text-base font-medium tracking-wide">
+                    Year established
                   </div>
                 </div>
+                ) : (
+                  <ValueCard value={company.values[0]} />
+                )}
               </Reveal>
 
               {/* BOTTOM-LEFT: Video box */}
               <Reveal delay={0.2} className="flex-[3] lg:flex-[2] flex min-h-[180px] sm:min-h-[260px]">
-                <div className="w-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden relative group">
-                  <video
-                    autoPlay muted loop playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
-                    src="https://www.pexels.com/download/video/6130310/"
-                  />
-                  {/* subtle dark scrim */}
-                  <div className="absolute inset-0 bg-[var(--ink)]/20" />
-                  {/* pill badge */}
-                  <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2">
-                    <div className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs sm:text-base font-medium whitespace-nowrap">
-                      Nationwide delivery
-                    </div>
-                  </div>
-                </div>
+                <ValueVideoCard value={company.values[1]} src="https://www.pexels.com/download/video/6130310/" />
               </Reveal>
             </div>
 
@@ -216,21 +246,17 @@ function About() {
                   {/* Body */}
                   <div className="flex-1 flex flex-col justify-center space-y-6 text-[var(--ink)]/80 text-lg sm:text-xl leading-relaxed font-medium">
                     <p>
-                      Favored PLC was founded on a simple belief: a healthcare system is only as strong as
-                      the supply chain behind it. When a hospital runs out of an essential medicine, the
-                      failure is not pharmaceutical — it is logistical.
+                      {company.profile}
                     </p>
                     <p>
-                      We started with one warehouse, a handful of import licences, and a long list of
-                      hospitals that had been let down. Two decades later, we serve over 500 partners
-                      across the country, and the principle has not changed.
+                      Our work is guided by integrity, trusted quality, responsive customer service, and operational excellence.
                     </p>
                   </div>
 
                   {/* Pull-quote */}
                   <div className="mt-8 sm:mt-10 pt-8 sm:pt-10 border-t border-[var(--ink)]/8 relative z-10">
                     <p className="font-display text-2xl sm:text-[2rem] text-[var(--ink)] leading-[1.2]">
-                      "We don't sell boxes.<br/>We move outcomes."
+                      "Trusted healthcare solutions.<br/>Within reach."
                     </p>
                   </div>
                 </div>
@@ -242,28 +268,17 @@ function About() {
 
               {/* TOP-RIGHT: Video box */}
               <Reveal delay={0.4} className="flex-[3] lg:flex-[2] flex min-h-[180px] sm:min-h-[260px]">
-                <div className="w-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden relative group">
-                  <video
-                    autoPlay muted loop playsInline
-                    className="absolute inset-0 w-full h-full object-cover object-top"
-                    src="https://www.pexels.com/download/video/8851865/"
-                  />
-                  <div className="absolute inset-0 bg-[var(--ink)]/20" />
-                  <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2">
-                    <div className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs sm:text-base font-medium whitespace-nowrap">
-                      Cold-chain certified
-                    </div>
-                  </div>
-                </div>
+                <ValueVideoCard value={company.values[2]} src="https://www.pexels.com/download/video/8851865/" />
               </Reveal>
 
               {/* BOTTOM-RIGHT: 14 Warehouses — number top / icon mid / tag bottom */}
               <Reveal delay={0.5} className="flex-[4] lg:flex-[3] flex">
+                {false ? (
                 <div className="w-full rounded-[1.5rem] sm:rounded-[2rem] bg-[var(--brand)]/10 flex flex-col items-center justify-between py-6 sm:py-10 px-4 sm:px-8 text-center relative overflow-hidden group">
 
                   {/* Number — top */}
                   <div className="font-display text-[4rem] sm:text-[6rem] leading-none text-[var(--brand)] tracking-tighter">
-                    14
+                    {company.productCount}
                   </div>
 
                   {/* Icon — middle */}
@@ -277,10 +292,13 @@ function About() {
                   </div>
 
                   {/* Pill tag — bottom */}
-                  <div className="px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-xs sm:text-base font-medium tracking-wide">
-                    Warehouses nationwide
+                <div className="px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/20 text-xs sm:text-base font-medium tracking-wide">
+                    Products in portfolio
                   </div>
                 </div>
+                ) : (
+                  <ValueCard value={company.values[3]} />
+                )}
               </Reveal>
             </div>
 
@@ -290,7 +308,7 @@ function About() {
 
       <EditorialTimeline />
 
-      <NonNegotiablesSection />
+      <MissionVisionSection />
 
       <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-[1440px] px-6">
@@ -308,11 +326,17 @@ function About() {
                   <div className="group flex flex-col h-full">
                     {/* Image Container */}
                     <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-[var(--mist)]">
-                      <img 
-                        src={p.image} 
-                        alt={p.name} 
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
+                      {p.image ? (
+                        <img
+                          src={p.image}
+                          alt={p.name}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 grid place-items-center bg-[var(--brand)]/10">
+                          <span className="font-display text-8xl text-[var(--brand)]/40">LT</span>
+                        </div>
+                      )}
 
                       {/* Overlay panel — slides up from below, meets the outside caption as it travels up */}
                       <div
@@ -359,36 +383,23 @@ function About() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Non-Negotiables — full-screen video container with stacked accordion cards
+// Mission and vision — full-screen video container with stacked hover cards
 // ─────────────────────────────────────────────────────────────────────────────
-function NonNegotiablesSection() {
+function MissionVisionSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // Pillar colours from the home page PillarsTeaser
-  const nonneg = [
+  const missionVision = [
     {
-      title: "Patient First",
-      desc: "Every shipment ends with a human being. We act like it. From cold-chain validation to last-mile delivery, the patient is our north star.",
+      title: "Mission",
+      desc: company.mission,
       color: "#018541",
       borderRadius: "9999px",
     },
     {
-      title: "Uncompromising Quality",
-      desc: "We refuse what we wouldn't give our own family. Every product undergoes rigorous WHO-GMP aligned quality assurance — no exceptions.",
+      title: "Vision",
+      desc: company.vision,
       color: "#042A27",
-      borderRadius: "1.25rem",
-    },
-    {
-      title: "Open Sourcing",
-      desc: "Full chain-of-custody. Country of origin disclosed for every lot. We believe transparency is the foundation of trust in healthcare.",
-      color: "#009F5C",
-      borderRadius: "9999px",
-    },
-    {
-      title: "Always Improving",
-      desc: "We measure ourselves on patient outcomes, not invoices. Continuous improvement is woven into every process, every quarter.",
-      color: "#03332F",
       borderRadius: "1.25rem",
     },
   ];
@@ -401,12 +412,12 @@ function NonNegotiablesSection() {
       {/* ── Title & description — outside the video box */}
       <div className="mx-auto max-w-[1440px] px-2 mb-10 sm:mb-14">
         <Reveal>
-          <SectionLabel>Values</SectionLabel>
+          <SectionLabel>Mission &amp; vision</SectionLabel>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">
-            Four non&#8209;negotiables.
+            The direction we share.
           </h2>
           <p className="mt-4 max-w-xl text-sm sm:text-base text-[var(--ink)]/60 leading-relaxed">
-            The beliefs that have never changed in twenty years of healthcare delivery.
+            Our mission and vision guide how Favored PLC brings quality healthcare solutions within reach.
           </p>
         </Reveal>
       </div>
@@ -436,23 +447,25 @@ function NonNegotiablesSection() {
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-8">
           {/* Inner container fits the widest text, buttons stretch to fill it */}
           <div className="flex flex-col w-fit max-w-3xl">
-          {nonneg.map((item, i) => {
+          {missionVision.map((item, i) => {
             const isOpen = openIndex === i;
             return (
               <button
                 key={item.title}
                 className="focus:outline-none w-full"
                 onMouseEnter={() => setOpenIndex(i)}
+                onFocus={() => setOpenIndex(i)}
                 onMouseLeave={(e) => {
                   setOpenIndex(null);
-                  const inner = e.currentTarget.querySelector('.nonneg-card-inner') as HTMLElement;
+                  const inner = e.currentTarget.querySelector('.mission-vision-card-inner') as HTMLElement;
                   if (inner) inner.style.transform = "translate(0px, 0px)";
                 }}
+                onBlur={() => setOpenIndex(null)}
                 onMouseMove={(e) => {
                   const rect = e.currentTarget.getBoundingClientRect();
                   const cx = (e.clientX - rect.left) / rect.width - 0.5;
                   const cy = (e.clientY - rect.top) / rect.height - 0.5;
-                  const inner = e.currentTarget.querySelector('.nonneg-card-inner') as HTMLElement;
+                  const inner = e.currentTarget.querySelector('.mission-vision-card-inner') as HTMLElement;
                   if (inner) {
                     // Playful, slightly exaggerated parallax with no random jitter
                     inner.style.transform = `translate(${cx * 70}px, ${cy * 35}px)`;
@@ -461,7 +474,7 @@ function NonNegotiablesSection() {
                 aria-expanded={isOpen}
               >
                 <div
-                  className="nonneg-card-inner"
+                  className="mission-vision-card-inner"
                   style={{
                     borderRadius: item.borderRadius,
                     background: item.color,
@@ -609,7 +622,8 @@ function EditorialTimeline() {
   return (
     <section
       ref={ref}
-      className="relative min-h-[640vh] overflow-hidden bg-gradient-to-b from-white via-[var(--mist)] to-white text-[var(--ink)]"
+      className="relative overflow-hidden bg-gradient-to-b from-white via-[var(--mist)] to-white text-[var(--ink)]"
+      style={{ minHeight: `${timeline.length * 100}vh` }}
     >
       <div className="sui-scroll-stage relative h-screen min-h-[760px] overflow-hidden">
         <div className="relative mx-auto h-full max-w-[1440px] px-6 py-8 sm:px-8 sm:py-10 lg:px-12">
@@ -617,7 +631,7 @@ function EditorialTimeline() {
             <Reveal>
               <SectionLabel>Editorial Timeline</SectionLabel>
               <AnimatedHeadline
-                text="Two decades, one direction."
+                text="One direction: quality care within reach."
                 as="h2"
                 className="mt-3 font-display text-2xl leading-[0.95] text-[var(--ink)] sm:text-3xl lg:text-4xl"
               />
@@ -654,7 +668,7 @@ function EditorialTimeline() {
                   : "lg:left-12 lg:right-auto lg:text-right";
               return (
                 <article
-                  key={t.year}
+                  key={`${t.year}-${i}`}
                   className={`sui-scroll-card absolute inset-x-6 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2rem] border border-[var(--brand)]/15 bg-[var(--brand)]/10 shadow-[var(--shadow-card)] backdrop-blur-xl sm:inset-x-8 lg:inset-x-auto lg:w-[calc(50%-160px)] lg:max-w-[500px] ${sideClass}`}
                 >
                   <div className="flex items-center border-b border-black/5">
