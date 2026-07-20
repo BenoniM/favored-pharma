@@ -177,7 +177,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const location = useRouterState({ select: (s) => s.location });
+  const pathname = location.pathname;
+  const hash = location.hash;
   const progressBarRef = useRef<HTMLDivElement>(null);
   const outletRef = useRef<HTMLDivElement>(null);
 
@@ -202,11 +204,31 @@ function RootComponent() {
     // The quality page uses a pinned ScrollTrigger; without this, ghost spacers
     // from the previous visit linger and cause layout glitches / footer clipping.
     ScrollTrigger.killAll();
-    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    
+    if (typeof window !== "undefined") {
+      if (hash) {
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: "instant" });
+        }, 50);
+      } else {
+        window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+      }
+    }
+    
     if (!outletRef.current) return;
     const el = outletRef.current;
     gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "all" });
   }, [pathname]);
+  
+  useEffect(() => {
+    if (typeof window !== "undefined" && hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 50);
+    }
+  }, [hash]);
 
   // Ensure ScrollTrigger updates if images or dynamic content changes the body height
   useEffect(() => {
@@ -547,11 +569,11 @@ const FOOTER_COLS = [
   {
     label: "PRODUCTS",
     links: [
-      { label: "Prescription Medicines", to: "/products" },
-      { label: "OTC & Consumer Health", to: "/products" },
-      { label: "Medical Devices", to: "/products" },
-      { label: "Laboratory Supplies", to: "/products" },
-      { label: "Hospital Consumables", to: "/products" },
+      { label: "Medicines", to: "/products", search: { cat: "Medicines" }, hash: "catalog-section" },
+      { label: "Medical Supplies", to: "/products", search: { cat: "Medical Supplies" }, hash: "catalog-section" },
+      { label: "Medical Equipments", to: "/products", search: { cat: "Medical Equipments" }, hash: "catalog-section" },
+      { label: "Nutritional Suppliments", to: "/products", search: { cat: "Nutritional suppliments" }, hash: "catalog-section" },
+      { label: "Other Healthcare Solutions", to: "/products", search: { cat: "other Healthcare solutions" }, hash: "catalog-section" },
     ],
   },
   {
@@ -587,6 +609,8 @@ function FooterNavColumn({ index }: { index: number }) {
             <li key={link.label}>
               <Link
                 to={link.to as any}
+                search={(link as any).search}
+                hash={(link as any).hash}
                 className="text-[#03332F] hover:text-[#009F5C] transition-colors duration-300"
                 style={{
                   fontSize: 12,
