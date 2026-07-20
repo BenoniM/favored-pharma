@@ -399,6 +399,8 @@ function ScrollProcess() {
         end: `+=${STEPS.length * 100}%`,
         scrub: true,
         anticipatePin: 1,
+        invalidateOnRefresh: true,
+        fastScrollEnd: true,
         onUpdate: (self) => {
           setStep(Math.round(self.progress * (STEPS.length - 1)));
         },

@@ -230,7 +230,7 @@ function About() {
 
               {/* BOTTOM-LEFT: Video box */}
               <Reveal delay={0.2} className="flex-[3] lg:flex-[2] flex min-h-[180px] sm:min-h-[260px]">
-                <ValueVideoCard value={company.values[1]} src="https://www.pexels.com/download/video/6130310/" />
+                <ValueVideoCard value={company.values[1]} src="https://www.pexels.com/download/video/8325857/" />
               </Reveal>
             </div>
 
@@ -268,7 +268,7 @@ function About() {
 
               {/* TOP-RIGHT: Video box */}
               <Reveal delay={0.4} className="flex-[3] lg:flex-[2] flex min-h-[180px] sm:min-h-[260px]">
-                <ValueVideoCard value={company.values[2]} src="https://www.pexels.com/download/video/8851865/" />
+                <ValueVideoCard value={company.values[2]} src="https://www.pexels.com/download/video/7706816/" />
               </Reveal>
 
               {/* BOTTOM-RIGHT: 14 Warehouses — number top / icon mid / tag bottom */}

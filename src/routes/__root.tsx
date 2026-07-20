@@ -198,6 +198,10 @@ function RootComponent() {
   // GSAP route transition — opacity ONLY, never y/transform on this wrapper
   // A transform on the outlet wrapper permanently breaks position:sticky on children
   useEffect(() => {
+    // Kill all ScrollTriggers (including pin spacers) before the new page mounts.
+    // The quality page uses a pinned ScrollTrigger; without this, ghost spacers
+    // from the previous visit linger and cause layout glitches / footer clipping.
+    ScrollTrigger.killAll();
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
     if (!outletRef.current) return;
     const el = outletRef.current;
