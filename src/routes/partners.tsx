@@ -452,7 +452,7 @@ function NetworkMap() {
           <SectionLabel>Interactive Network</SectionLabel>
           <h2 className="font-display text-3xl sm:text-4xl">
             Six hubs. Fourteen warehouses.{" "}
-            <span className="text-[var(--brand)]">Click any node.</span>
+            <span className="text-[var(--brand)]">Hover any node.</span>
           </h2>
         </Reveal>
 
@@ -473,8 +473,9 @@ function NetworkMap() {
                       <button
                         key={h.city}
                         type="button"
-                        onClick={() => setSelected(h)}
-                        className="gsap-network-node absolute z-20 text-[#228b22]"
+                        onMouseEnter={() => setSelected(h)}
+                        onFocus={() => setSelected(h)}
+                        className="gsap-network-node absolute z-20 text-[#228b22] cursor-default"
                         style={{
                           left: `${h.x}%`,
                           top: `${h.y}%`,
@@ -482,7 +483,7 @@ function NetworkMap() {
                           transformOrigin: "bottom center",
                           transition: "transform 160ms ease",
                         }}
-                        aria-label={`Select ${h.city}`}
+                        aria-label={`View ${h.city} hub details`}
                       >
                         <MapPin
                           className={`h-5 w-5 sm:h-6 sm:w-6 ${isSel ? "fill-[#228b22] stroke-white" : "fill-white stroke-[#228b22]"}`}
