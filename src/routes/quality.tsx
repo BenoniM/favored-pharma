@@ -174,11 +174,12 @@ function CertificationsTabs() {
                 <button
                   key={c.name}
                   onClick={() => setActive(i)}
+                  onMouseEnter={() => setActive(i)}
                   className={`relative flex-1 min-w-[140px] flex items-center justify-center gap-2 px-4 py-5 text-sm sm:text-base font-medium transition-colors ${
                     isActive
                       ? "bg-[#EAF6EF] text-[var(--ink)]"
                       : "bg-primary text-white/70 hover:text-white"
-                  } ${i !== 0 ? "border-l border-black/5" : ""}`}
+                  } ${i !== 0 ? "border-l-2 border-[#EAF6EF]" : ""}`}
                 >
                   <span
                     className={`h-2 w-2 rounded-full transition-colors ${
@@ -274,6 +275,7 @@ function StandardsShowcase() {
                     <button
                       key={s.t}
                       onClick={() => setActive(i)}
+                      onMouseEnter={() => setActive(i)}
                       className={`w-full text-left rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                         isActive
                           ? "bg-[var(--brand)] text-white"
@@ -307,7 +309,7 @@ function Quality() {
             className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
             style={{ letterSpacing: "-0.04em" }}
           >
-            Zero margin for error when <span className="text-[var(--brand)]">the stakes are highest.</span>
+            Uncompromising quality when <span className="text-[var(--brand)]">the stakes are highest.</span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
             When it comes to early-stage development and critical care, a supply chain is only as strong as its weakest checkpoint. Every shipment of life-saving medicine passes through a strictly documented and independently verified process.
