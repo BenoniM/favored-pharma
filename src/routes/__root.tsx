@@ -210,12 +210,12 @@ function RootComponent() {
         window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
       }
     }
-    
+
     if (!outletRef.current) return;
     const el = outletRef.current;
     gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "all" });
   }, [pathname]);
-  
+
   useEffect(() => {
     if (typeof window !== "undefined" && hash) {
       setTimeout(() => {
@@ -307,18 +307,16 @@ function Nav() {
 
   return (
     <header
-      className={`fixed z-50 transition-all duration-500 ${
-        effectiveScrolled ? "top-4 inset-x-4 sm:inset-x-8" : "top-0 inset-x-0"
-      }`}
+      className={`fixed z-50 transition-all duration-500 ${effectiveScrolled ? "top-4 inset-x-4 sm:inset-x-8" : "top-0 inset-x-0"
+        }`}
       style={{ transform: hidden ? "translateY(-150%)" : "translateY(0)" }}
     >
       <div className="mx-auto max-w-[1440px]">
         <div
-          className={`flex items-center transition-all duration-300 ${
-            effectiveScrolled
+          className={`flex items-center transition-all duration-300 ${effectiveScrolled
               ? "bg-white px-6 sm:px-8 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-black/5 rounded-full"
               : "px-6 sm:px-10 py-5"
-          }`}
+            }`}
         >
           {/* Logo */}
           <Link to="/" className="shrink-0 flex items-center">
@@ -339,11 +337,10 @@ function Nav() {
               <Link
                 key={l.to}
                 to={l.to}
-                className={`text-base font-medium transition-colors ${
-                  onDark
+                className={`text-base font-medium transition-colors ${onDark
                     ? "text-white hover:text-white"
                     : "text-[var(--ink)] hover:text-[var(--ink)]"
-                } data-[status=active]:text-[var(--brand)] data-[status=active]:font-semibold`}
+                  } data-[status=active]:text-[var(--brand)] data-[status=active]:font-semibold`}
                 activeProps={{ "data-status": "active" } as any}
               >
                 {l.label}
@@ -355,19 +352,17 @@ function Nav() {
           <div className="ml-auto flex items-center gap-3">
             <Link
               to="/contact"
-              className={`hidden sm:inline-flex items-center gap-1.5 text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 ${
-                onDark
+              className={`hidden sm:inline-flex items-center gap-1.5 text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 ${onDark
                   ? "bg-white text-black hover:bg-gray-100"
                   : "bg-black text-white hover:bg-gray-800"
-              }`}
+                }`}
             >
               Contact Us
             </Link>
             <button
               onClick={() => setOpen(!open)}
-              className={`lg:hidden p-2 relative w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 ${
-                onDark ? "text-white" : "text-[var(--brand)]"
-              }`}
+              className={`lg:hidden p-2 relative w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 ${onDark ? "text-white" : "text-[var(--brand)]"
+                }`}
               aria-label="Menu"
               aria-expanded={open}
             >
@@ -380,21 +375,19 @@ function Nav() {
 
       {/* Mobile menu backdrop */}
       {typeof document !== "undefined" && createPortal(
-        <div 
-          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-[40] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-            open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-          }`}
-          onClick={() => setOpen(false)} 
+        <div
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-[40] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
+          onClick={() => setOpen(false)}
           aria-hidden="true"
         />,
         document.body
       )}
-      
+
       {/* Mobile menu dropdown */}
-      <div 
-        className={`mx-auto max-w-[1440px] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] absolute inset-x-0 top-full pt-2 sm:pt-4 origin-top ${
-          open ? "opacity-100 pointer-events-auto translate-y-0 scale-y-100" : "opacity-0 pointer-events-none -translate-y-4 scale-y-95"
-        }`}
+      <div
+        className={`mx-auto max-w-[1440px] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] absolute inset-x-0 top-full pt-2 sm:pt-4 origin-top ${open ? "opacity-100 pointer-events-auto translate-y-0 scale-y-100" : "opacity-0 pointer-events-none -translate-y-4 scale-y-95"
+          }`}
       >
         <div className="rounded-3xl bg-white p-8 shadow-[0_20px_40px_rgb(0,0,0,0.1)] border border-black/5 flex flex-col gap-6 w-full">
           <div className="flex flex-col gap-5 mt-2">
@@ -417,7 +410,7 @@ function Nav() {
               );
             })}
           </div>
-          
+
           <div className="mt-4 pt-8 border-t border-black/5 flex flex-col gap-5">
             <div>
               <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/40 mb-3">Contact</div>

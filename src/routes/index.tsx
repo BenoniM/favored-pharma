@@ -65,39 +65,41 @@ function Hero() {
         className="absolute inset-0"
         style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.2) 100%)" }}
       />
-      <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-10 pb-16 sm:pb-20 max-w-[1440px] mx-auto">
-        <div className="gsap-hero-reveal">
-          <h1
-            className="text-white leading-[1.05]"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.5rem, 5.5vw, 3.5rem)",
-              fontWeight: 600,
-              letterSpacing: "-0.02em",
-              maxWidth: "800px",
-            }}
-          >
-            Trusted Pharmaceutical{" "}
-            &amp; Healthcare Solutions
-            <br />
-            for a Better Tomorrow.
-          </h1>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 text-[15px] font-semibold text-white bg-primary px-8 py-3.5 hover:bg-primary/80 hover:scale-105 transition-all"
-              style={{ borderRadius: 9999 }}
+      <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-8 lg:px-12 pb-16 sm:pb-20">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="gsap-hero-reveal">
+            <h1
+              className="text-white leading-[1.05]"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(2.5rem, 5.5vw, 3.5rem)",
+                fontWeight: 600,
+                letterSpacing: "-0.02em",
+                maxWidth: "800px",
+              }}
             >
-              Explore Products
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 text-[15px] font-semibold text-white px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-105 transition-all"
-              style={{ borderRadius: 9999 }}
-            >
-              Contact Us
-            </Link>
+              Trusted Pharmaceutical{" "}
+              &amp; Healthcare Solutions
+              <br />
+              for a Better Tomorrow.
+            </h1>
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-2 text-[15px] font-semibold text-white bg-primary px-8 py-3.5 hover:bg-primary/80 hover:scale-105 transition-all"
+                style={{ borderRadius: 9999 }}
+              >
+                Explore Products
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 text-[15px] font-semibold text-white px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-105 transition-all"
+                style={{ borderRadius: 9999 }}
+              >
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -195,8 +197,8 @@ function TrustedCollage() {
   return (
     <div ref={wrapperRef}>
       {/* Heading — scrolls away, NOT pinned */}
-      <div className="bg-white border-t border-black/5 pt-24 sm:pt-32 pb-12">
-        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div className="bg-white border-t border-black/5 pt-24 sm:pt-32 pb-12 px-6 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1440px] flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <Reveal className="max-w-3xl">
             <SectionLabel>Trusted By Institutions</SectionLabel>
             <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">
@@ -524,8 +526,8 @@ function PillarsTeaser() {
   };
 
   return (
-    <section className="bg-white py-24 sm:py-32" ref={containerRef}>
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
+    <section className="bg-white py-24 sm:py-32 px-6 sm:px-8 lg:px-12" ref={containerRef}>
+      <div className="mx-auto max-w-[1440px]">
         <Reveal className="max-w-3xl">
           <SectionLabel>Solutions</SectionLabel>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">Four pillars of dependable supply.</h2>
