@@ -160,6 +160,67 @@ function ValueVideoCard({ value, src }: { value: CompanyValue; src: string }) {
   );
 }
 
+function LeadershipCard({ p, i }: { p: typeof leadership[0]; i: number }) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <Reveal delay={i * 0.05}>
+      <div 
+        className="group flex flex-col h-full cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/50 rounded-[2rem]"
+        onClick={() => setIsOpen(!isOpen)}
+        tabIndex={0}
+      >
+        {/* Image Container */}
+        <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-[var(--mist)]">
+          {p.image ? (
+            <img
+              src={p.image}
+              alt={p.name}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 grid place-items-center bg-[var(--brand)]/10">
+              <span className="font-display text-8xl text-[var(--brand)]/40">LT</span>
+            </div>
+          )}
+
+          {/* Overlay panel — slides up from below, meets the outside caption as it travels up */}
+          <div
+            className={`absolute inset-0 z-10 flex flex-col justify-end translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isOpen ? '!translate-y-0' : ''}`}
+          >
+            <div className="absolute inset-0 bg-white" />
+            <div className="absolute inset-0 bg-[var(--brand)]/10" />
+
+            <div className="relative px-6 sm:px-8 py-6 sm:py-8 w-full">
+              <h3 className="font-semibold text-[1.05rem] text-[var(--ink)] mb-0.5 tracking-tight">
+                {p.name}
+              </h3>
+              <p className="text-[0.9rem] text-[var(--ink)]/50 mb-3">
+                {p.role}
+              </p>
+              <p className="text-[0.85rem] text-[var(--ink)]/80 leading-[1.6]">
+                {p.bio}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Outside caption — same padding/typography as the inside version, so it lines up exactly.
+            On hover it travels upward and fades, reading as if it's being pulled up into the overlay. */}
+        <div
+          className={`px-6 sm:px-8 pt-4 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-6 group-hover:opacity-0 ${isOpen ? '!-translate-y-6 !opacity-0' : ''}`}
+        >
+          <h3 className="font-semibold text-[1.05rem] text-[var(--ink)] mb-0.5 tracking-tight">
+            {p.name}
+          </h3>
+          <p className="text-[0.9rem] text-[var(--ink)]/50">
+            {p.role}
+          </p>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
 function About() {
   return (
     <main className="bg-white text-[var(--ink)] overflow-x-hidden">
@@ -325,62 +386,9 @@ function About() {
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-            {leadership.map((p, i) => {
-              const alignRight = i % 2 === 1;
-              return (
-                <Reveal key={p.name} delay={i * 0.05}>
-                  <div className="group flex flex-col h-full">
-                    {/* Image Container */}
-                    <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-[var(--mist)]">
-                      {p.image ? (
-                        <img
-                          src={p.image}
-                          alt={p.name}
-                          className="absolute inset-0 w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 grid place-items-center bg-[var(--brand)]/10">
-                          <span className="font-display text-8xl text-[var(--brand)]/40">LT</span>
-                        </div>
-                      )}
-
-                      {/* Overlay panel — slides up from below, meets the outside caption as it travels up */}
-                      <div
-                        className={`absolute inset-0 z-10 flex flex-col justify-end translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]`}
-                      >
-                        <div className="absolute inset-0 bg-white" />
-                        <div className="absolute inset-0 bg-[var(--brand)]/10" />
-
-                        <div className="relative px-6 sm:px-8 py-6 sm:py-8 w-full">
-                          <h3 className="font-semibold text-[1.05rem] text-[var(--ink)] mb-0.5 tracking-tight">
-                            {p.name}
-                          </h3>
-                          <p className="text-[0.9rem] text-[var(--ink)]/50 mb-3">
-                            {p.role}
-                          </p>
-                          <p className="text-[0.85rem] text-[var(--ink)]/80 leading-[1.6]">
-                            {p.bio}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Outside caption — same padding/typography as the inside version, so it lines up exactly.
-                        On hover it travels upward and fades, reading as if it's being pulled up into the overlay. */}
-                    <div
-                      className={`px-6 sm:px-8 pt-4 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-6 group-hover:opacity-0`}
-                    >
-                      <h3 className="font-semibold text-[1.05rem] text-[var(--ink)] mb-0.5 tracking-tight">
-                        {p.name}
-                      </h3>
-                      <p className="text-[0.9rem] text-[var(--ink)]/50">
-                        {p.role}
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
+            {leadership.map((p, i) => (
+              <LeadershipCard key={p.name} p={p} i={i} />
+            ))}
           </div>
         </div>
       </section>
@@ -458,15 +466,12 @@ function MissionVisionSection() {
             return (
               <button
                 key={item.title}
-                className="focus:outline-none w-full"
-                onMouseEnter={() => setOpenIndex(i)}
-                onFocus={() => setOpenIndex(i)}
+                className="group focus:outline-none w-full"
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 onMouseLeave={(e) => {
-                  setOpenIndex(null);
                   const inner = e.currentTarget.querySelector('.mission-vision-card-inner') as HTMLElement;
                   if (inner) inner.style.transform = "translate(0px, 0px)";
                 }}
-                onBlur={() => setOpenIndex(null)}
                 onMouseMove={(e) => {
                   const rect = e.currentTarget.getBoundingClientRect();
                   const cx = (e.clientX - rect.left) / rect.width - 0.5;
@@ -480,14 +485,11 @@ function MissionVisionSection() {
                 aria-expanded={isOpen}
               >
                 <div
-                  className="mission-vision-card-inner"
+                  className={`mission-vision-card-inner text-center px-[3.5rem] py-[3.25rem] group-hover:pt-[3rem] group-hover:pb-[3.25rem] ${isOpen ? '!pt-[3rem] !pb-[3.25rem]' : ''}`}
                   style={{
                     borderRadius: item.borderRadius,
                     background: item.color,
-                    padding: isOpen ? "3rem 3.5rem 3.25rem" : "3.25rem 3.5rem",
-                    // Playful bouncy transition for the transform
                     transition: "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), padding 0.42s cubic-bezier(0.23,1,0.32,1), border-radius 0.4s ease",
-                    textAlign: "center",
                   }}
                 >
                   <span
@@ -500,10 +502,8 @@ function MissionVisionSection() {
                     {item.title}
                   </span>
                   <div
+                    className={`overflow-hidden max-h-0 opacity-0 group-hover:max-h-[180px] group-hover:opacity-100 ${isOpen ? '!max-h-[180px] !opacity-100' : ''}`}
                     style={{
-                      maxHeight: isOpen ? "180px" : "0px",
-                      opacity: isOpen ? 1 : 0,
-                      overflow: "hidden",
                       transition: "max-height 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.3s ease",
                     }}
                   >
