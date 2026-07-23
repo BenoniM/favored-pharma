@@ -124,10 +124,13 @@ function ValueCard({ value }: { value: CompanyValue }) {
 }
 
 function ValueVideoCard({ value, src }: { value: CompanyValue; src: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div
       tabIndex={0}
-      className="group relative w-full overflow-hidden rounded-[1.5rem] bg-[var(--ink)] text-white outline-none ring-[var(--brand)]/50 focus-visible:ring-2 sm:rounded-[2rem]"
+      onClick={() => setIsOpen(!isOpen)}
+      className="group relative w-full cursor-pointer overflow-hidden rounded-[1.5rem] bg-[var(--ink)] text-white outline-none ring-[var(--brand)]/50 focus-visible:ring-2 sm:rounded-[2rem]"
       aria-label={`Company value: ${value.title}`}
     >
       <video autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover">
@@ -135,17 +138,20 @@ function ValueVideoCard({ value, src }: { value: CompanyValue; src: string }) {
       </video>
       <div className="absolute inset-0 bg-[var(--ink)]/35" />
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100"
+        className={`pointer-events-none absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100 ${isOpen ? "!opacity-100" : ""}`}
         style={{ background: "color-mix(in oklab, var(--brand) 10%, white)" }}
       />
 
-      <div className="absolute inset-x-0 bottom-0 p-5 transition-all duration-500 group-hover:translate-y-3 group-hover:opacity-0 group-focus-visible:translate-y-3 group-focus-visible:opacity-0 sm:p-8">
+      <div className={`absolute inset-x-0 bottom-0 p-5 transition-all duration-500 sm:p-8 translate-y-0 opacity-100 group-hover:translate-y-3 group-hover:opacity-0 ${isOpen ? "!translate-y-3 !opacity-0" : ""}`}>
         <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-white/70">Our values</div>
         <h3 className="mt-3 max-w-xs font-display text-3xl leading-[0.95] sm:text-4xl">{value.title.toUpperCase()}</h3>
-        <div className="mt-5 text-xs font-medium uppercase tracking-[0.14em] text-white/60">Hover to read</div>
+        <div className="mt-5 text-xs font-medium uppercase tracking-[0.14em] text-white/60">
+          <span className="sm:hidden">Click to read</span>
+          <span className="hidden sm:inline">Hover to read</span>
+        </div>
       </div>
 
-      <div className="absolute inset-0 flex translate-y-3 flex-col justify-center p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 sm:p-8">
+      <div className={`absolute inset-0 flex flex-col justify-center p-5 transition-all duration-500 sm:p-8 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 ${isOpen ? "!translate-y-0 !opacity-100" : ""}`}>
         <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--brand)]">Our values</div>
         <h3 className="mt-3 font-display text-3xl leading-[0.95] text-[var(--ink)] sm:text-4xl">{value.title.toUpperCase()}</h3>
         <p className="mt-4 max-w-sm text-base leading-relaxed text-[var(--ink)]/75 sm:text-lg">{value.body}</p>
@@ -197,7 +203,7 @@ function About() {
           <div className="grid lg:grid-cols-3 gap-5 min-h-screen">
 
             {/* ── LEFT COLUMN ── */}
-            <div className="flex flex-row lg:flex-col gap-3 sm:gap-5">
+            <div className="flex flex-col gap-3 sm:gap-5">
 
               {/* TOP-LEFT: 20+ Years — number top / icon mid / tag bottom */}
               <Reveal delay={0.1} className="flex-[4] lg:flex-[3] flex">
@@ -229,7 +235,7 @@ function About() {
               </Reveal>
 
               {/* BOTTOM-LEFT: Video box */}
-              <Reveal delay={0.2} className="flex-[3] lg:flex-[2] flex min-h-[180px] sm:min-h-[260px]">
+              <Reveal delay={0.2} className="flex-[3] lg:flex-[2] flex min-h-[340px] sm:min-h-[260px]">
                 <ValueVideoCard value={company.values[1]} src="https://www.pexels.com/download/video/8325857/" />
               </Reveal>
             </div>
@@ -264,10 +270,10 @@ function About() {
             </div>
 
             {/* ── RIGHT COLUMN ── */}
-            <div className="flex flex-row lg:flex-col gap-3 sm:gap-5">
+            <div className="flex flex-col gap-3 sm:gap-5">
 
               {/* TOP-RIGHT: Video box */}
-              <Reveal delay={0.4} className="flex-[3] lg:flex-[2] flex min-h-[180px] sm:min-h-[260px]">
+              <Reveal delay={0.4} className="flex-[3] lg:flex-[2] flex min-h-[340px] sm:min-h-[260px]">
                 <ValueVideoCard value={company.values[2]} src="https://www.pexels.com/download/video/7706816/" />
               </Reveal>
 
