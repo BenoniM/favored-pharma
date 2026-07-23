@@ -59,7 +59,7 @@ function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
         aria-hidden
       >
-        <source /* src="/hero-video.mp4"   */src={heroVideo} type="video/mp4" />
+        <source /* src="/hero-video.mp4"   */src="https://www.pexels.com/download/video/8909855/" type="video/mp4" />
       </video>
       <div
         className="absolute inset-0"
@@ -202,7 +202,7 @@ function TrustedCollage() {
           <Reveal className="max-w-3xl">
             <SectionLabel>Trusted By Institutions</SectionLabel>
             <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">
-              From hospital wards to neighborhood pharmacies we keep healthcare moving.
+              Where life-critical pharmaceuticals meet the institutions that cannot afford to wait.
             </h2>
           </Reveal>
           <Link to="/partners" className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ink)] hover:text-[var(--brand)] shrink-0">
@@ -214,62 +214,62 @@ function TrustedCollage() {
       {/* Mobile Stacked Version */}
       <div className="lg:hidden w-full bg-white px-6 sm:px-8 pb-20 flex flex-col gap-12 pt-8">
         <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Premium<br />Healthcare</h3>
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Born<br />Ready</h3>
           <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
             <img src="https://images.pexels.com/photos/13176452/pexels-photo-13176452.jpeg" className="absolute inset-0 w-full h-full object-cover" alt="Healthcare Professionals" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            We source premium medical supplies from globally certified manufacturers, ensuring every clinic has access to top-tier essentials.
+            Every birth deserves the best possible start. We supply the medicines, supplements, and obstetric essentials that keep mothers and newborns safe through every stage of the journey.
           </p>
         </div>
         
         <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Quality<br />Ensured</h3>
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Small Bodies,<br />Big Stakes</h3>
           <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
             <img src={qualityImg} className="absolute inset-0 w-full h-full object-cover" alt="Laboratory" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            Every product undergoes rigorous quality assurance checks, ensuring adherence to WHO-GMP standards for maximum patient safety.
+            From first vaccinations to precision paediatric doses, we import the formulations children need — and the hormone therapies that give families a fighting chance to begin.
           </p>
         </div>
         
         <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Cold-chain<br />Ready</h3>
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">When Seconds<br />Count</h3>
           <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
             <img src={coldChainImg} className="absolute inset-0 w-full h-full object-cover" alt="Cold-chain logistics" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            Our logistics network guarantees temperature-controlled transit so vaccines and biologics arrive safely and on schedule nationwide.
+            Life doesn't wait. Our critical-care portfolio — resuscitation drugs, IV solutions, and emergency consumables — is stocked and ready before the alarm ever sounds.
           </p>
         </div>
         
         <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Trusted<br />Partners</h3>
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Source<br />to Shelf</h3>
           <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
             <img src={partnersImg} className="absolute inset-0 w-full h-full object-cover" alt="Partners" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            We build dependable relationships with healthcare institutions, manufacturers, and other stakeholders across Ethiopia.
+            We trace every product back to its factory floor — partnering only with manufacturers who meet international benchmarks, so you never have to question what's in the vial.
           </p>
         </div>
         
         <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">24 / 7<br />Support</h3>
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Temperature<br />Never Lies</h3>
           <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
             <img src={supportImg} className="absolute inset-0 w-full h-full object-cover" alt="Support" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            Our teams are available round-the-clock to ensure your supply chain never stops - no matter the time or place.
+            Biologics and hormone therapies lose their power in the wrong conditions. Our cold-chain infrastructure keeps every product potent from the manufacturer's door to yours.
           </p>
         </div>
         
         <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">On-Time<br />Delivery</h3>
+          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">No Gaps,<br />Ever</h3>
           <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
             <img src={deliveryImg} className="absolute inset-0 w-full h-full object-cover" alt="Delivery" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            Reliable sourcing and efficient distribution help the right healthcare solution reach the people who need it.
+            A gap in the formulary is not a healthcare option. We own the full import cycle — customs, warehousing, last-mile — so your shelves stay full and your patients stay covered.
           </p>
         </div>
       </div>
@@ -288,7 +288,7 @@ function TrustedCollage() {
           <div className="p-4 lg:p-6">
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-end text-right">
               <div className="overflow-hidden py-2">
-                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Premium<br />Healthcare</h3>
+                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Born<br />Ready</h3>
               </div>
             </div>
           </div>
@@ -305,7 +305,7 @@ function TrustedCollage() {
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
               <div className="overflow-hidden py-4">
                 <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  We source premium medical supplies from globally certified manufacturers, ensuring every clinic has access to top-tier essentials.
+                  Every birth deserves the best possible start. We supply the medicines, supplements, and obstetric essentials that keep mothers and newborns safe through every stage of the journey.
                 </p>
               </div>
             </div>
@@ -316,7 +316,7 @@ function TrustedCollage() {
           <div className="p-4 lg:p-6">
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-end text-right">
               <div className="overflow-hidden py-2">
-                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Quality<br />Ensured</h3>
+                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Small Bodies,<br />Big Stakes</h3>
               </div>
             </div>
           </div>
@@ -333,7 +333,7 @@ function TrustedCollage() {
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
               <div className="overflow-hidden py-4">
                 <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  Every product undergoes rigorous quality assurance checks, ensuring adherence to WHO-GMP standards for maximum patient safety.
+                  From first vaccinations to precision paediatric doses, we import the formulations children need — and the hormone therapies that give families a fighting chance to begin.
                 </p>
               </div>
             </div>
@@ -347,7 +347,7 @@ function TrustedCollage() {
           <div className="p-4 lg:p-6">
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-end text-right">
               <div className="overflow-hidden py-2">
-                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Cold-chain<br />Ready</h3>
+                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">When Seconds<br />Count</h3>
               </div>
             </div>
           </div>
@@ -364,7 +364,7 @@ function TrustedCollage() {
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
               <div className="overflow-hidden py-4">
                 <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  Our logistics network guarantees temperature-controlled transit so vaccines and biologics arrive safely and on schedule nationwide.
+                  Life doesn't wait. Our critical-care portfolio — resuscitation drugs, IV solutions, and emergency consumables — is stocked and ready before the alarm ever sounds.
                 </p>
               </div>
             </div>
@@ -383,7 +383,7 @@ function TrustedCollage() {
         >
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-end text-right">
             <div className="overflow-hidden py-2">
-              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Trusted<br />Partners</h3>
+              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Source<br />to Shelf</h3>
             </div>
           </div>
         </div>
@@ -408,7 +408,7 @@ function TrustedCollage() {
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
             <div className="overflow-hidden py-4">
               <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                We build dependable relationships with healthcare institutions, manufacturers, and other stakeholders across Ethiopia.
+                We trace every product back to its factory floor — partnering only with manufacturers who meet international benchmarks, so you never have to question what's in the vial.
               </p>
             </div>
           </div>
@@ -421,7 +421,7 @@ function TrustedCollage() {
         >
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-end text-right">
             <div className="overflow-hidden py-2">
-              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">24 / 7<br />Support</h3>
+              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Temperature<br />Never Lies</h3>
             </div>
           </div>
         </div>
@@ -446,7 +446,7 @@ function TrustedCollage() {
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
             <div className="overflow-hidden py-4">
               <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                Our teams are available round-the-clock to ensure your supply chain never stops - no matter the time or place.
+                Biologics and hormone therapies lose their power in the wrong conditions. Our cold-chain infrastructure keeps every product potent from the manufacturer's door to yours.
               </p>
             </div>
           </div>
@@ -459,7 +459,7 @@ function TrustedCollage() {
         >
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-end text-right">
             <div className="overflow-hidden py-2">
-              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">On-Time<br />Delivery</h3>
+              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">No Gaps,<br />Ever</h3>
             </div>
           </div>
         </div>
@@ -484,7 +484,7 @@ function TrustedCollage() {
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
             <div className="overflow-hidden py-4">
               <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                Reliable sourcing and efficient distribution help the right healthcare solution reach the people who need it.
+                A gap in the formulary is not a healthcare option. We own the full import cycle — customs, warehousing, last-mile — so your shelves stay full and your patients stay covered.
               </p>
             </div>
           </div>
@@ -870,5 +870,4 @@ function Home() {
     </main>
   );
 }
-
 

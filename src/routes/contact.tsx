@@ -137,7 +137,7 @@ function Contact() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover scale-110 pointer-events-none"
         >
-          <source src="https://www.pexels.com/download/video/10577610/" type="video/mp4" />
+          <source src="https://www.pexels.com/download/video/7173151/" type="video/mp4" />
         </video>
 
         {/* Glass Overlay */}

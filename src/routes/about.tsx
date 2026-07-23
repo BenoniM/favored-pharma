@@ -245,7 +245,7 @@ function About() {
             playsInline
             className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover"
           >
-            <source src="https://www.pexels.com/download/video/7033928/" type="video/mp4" />
+            <source src="https://www.pexels.com/download/video/5853201/" type="video/mp4" />
           </video>
         </div>
       </section>
@@ -681,7 +681,7 @@ function EditorialTimeline() {
                     <div className="grid h-14 w-14 shrink-0 place-items-center border-r border-black/5 bg-[var(--brand)]/10 font-mono text-sm font-semibold text-[var(--ink)] sm:h-16 sm:w-16">
                       {String(i + 1).padStart(2, "0")}
                     </div>
-                    <h3 className="sui-scroll-reveal px-4 font-mono text-xs uppercase tracking-[0.02em] text-[var(--ink)] sm:px-5 sm:text-sm">
+                    <h3 className="sui-scroll-reveal px-4 font-mono text-base uppercase tracking-[0.02em] text-[var(--ink)] sm:px-5 sm:text-lg lg:text-base">
                       {t.title}
                     </h3>
                   </div>

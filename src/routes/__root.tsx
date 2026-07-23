@@ -24,7 +24,7 @@ import logoImg from "@/assets/logo/Logo.png";
 import logoCroppedSvgUrl from "@/assets/logo/Logo-Cropped.svg?url";
 import logoCroppedPngUrl from "@/assets/logo/Logo-Cropped.png";
 
-const CTA_BG_URL = "https://images.pexels.com/photos/7615614/pexels-photo-7615614.jpeg";
+const CTA_BG_URL = "https://images.pexels.com/photos/7615415/pexels-photo-7615415.jpeg";
 
 function NotFoundComponent() {
   return (
@@ -619,87 +619,80 @@ function FooterNavColumn({ index }: { index: number }) {
   }
 
   return (
-    <div className="px-6 py-8 sm:px-8 sm:py-10 lg:px-7 lg:pt-20 lg:pb-9 h-full flex flex-col">
-      <p
-        style={{
-          fontSize: 10,
-          fontFamily: "var(--font-mono)",
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          color: "rgba(0,0,0,0.36)",
-          marginBottom: "0.875rem",
-          lineHeight: 1.75,
-        }}
-      >
-        IF YOU HAVE ANY QUESTIONS
-        <br />
-        FEEL FREE TO CONTACT US:
-      </p>
-      <a
-        href="mailto:hello@favoredplc.com"
-        style={{
-          display: "block",
-          fontSize: 15,
-          fontWeight: 700,
-          color: "#03332F",
-          textDecoration: "none",
-          fontFamily: "var(--font-display)",
-          marginBottom: "1.75rem",
-          letterSpacing: "-0.01em",
-        }}
-      >
-        HELLO@FAVOREDPLC.COM
-      </a>
-
-      <p
-        style={{
-          fontSize: 10,
-          fontFamily: "var(--font-mono)",
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          color: "rgba(0,0,0,0.36)",
-          marginBottom: "0.6rem",
-        }}
-      >
-        NEWSLETTER
-      </p>
-      <div
-        style={{
-          display: "flex",
-          border: "1px solid rgba(0,0,0,0.12)",
-          background: "white",
-          marginBottom: "1.25rem",
-          borderRadius: 9999,
-          overflow: "hidden",
-        }}
-      >
-        <input
-          type="email"
-          placeholder="your@email.com"
+    <div className="px-6 py-8 sm:px-8 sm:py-10 lg:px-7 lg:pt-20 lg:pb-9 h-full flex flex-col gap-6">
+      {/* Phone */}
+      <div>
+        <p
           style={{
-            flex: 1,
-            padding: "1rem 1.25rem",
-            fontSize: 14,
-            border: "none",
-            outline: "none",
-            background: "transparent",
-            color: "#03332F",
-            fontFamily: "var(--font-sans)",
-          }}
-        />
-        <button
-          type="submit"
-          style={{
-            padding: "1rem 1.5rem",
-            background: "#009F5C",
-            border: "none",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
+            fontSize: 10,
+            fontFamily: "var(--font-mono)",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "rgba(0,0,0,0.36)",
+            marginBottom: "0.6rem",
           }}
         >
-          <ArrowRight style={{ width: 16, height: 16, color: "white" }} />
-        </button>
+          PHONE
+        </p>
+        <a
+          href="tel:+251912156409"
+          style={{
+            display: "block",
+            fontSize: 14,
+            fontWeight: 600,
+            color: "#03332F",
+            textDecoration: "none",
+            fontFamily: "var(--font-display)",
+            letterSpacing: "-0.01em",
+            marginBottom: "0.3rem",
+          }}
+        >
+          +251 912 156 409
+        </a>
+        <a
+          href="tel:+251991315630"
+          style={{
+            display: "block",
+            fontSize: 14,
+            fontWeight: 600,
+            color: "#03332F",
+            textDecoration: "none",
+            fontFamily: "var(--font-display)",
+            letterSpacing: "-0.01em",
+          }}
+        >
+          +251 991 315 630
+        </a>
+      </div>
+
+      {/* Email */}
+      <div>
+        <p
+          style={{
+            fontSize: 10,
+            fontFamily: "var(--font-mono)",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "rgba(0,0,0,0.36)",
+            marginBottom: "0.6rem",
+          }}
+        >
+          MAIL
+        </p>
+        <a
+          href="mailto:favoredplc@gmail.com"
+          style={{
+            display: "block",
+            fontSize: 14,
+            fontWeight: 600,
+            color: "#03332F",
+            textDecoration: "none",
+            fontFamily: "var(--font-display)",
+            letterSpacing: "-0.01em",
+          }}
+        >
+          favoredplc@gmail.com
+        </a>
       </div>
     </div>
   );
