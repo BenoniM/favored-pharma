@@ -290,12 +290,14 @@ function TrustedCollage() {
               <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Premium<br />Healthcare</h3>
             </div>
           </div>
-          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible">
-            <img
-              src="https://images.pexels.com/photos/13176452/pexels-photo-13176452.jpeg"
-              className="img-a absolute inset-0 w-full h-full object-cover"
-              alt="Healthcare Professionals"
-            />
+          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible p-4 lg:p-6">
+            <div className="relative w-full h-full rounded-3xl overflow-hidden">
+              <img
+                src="https://images.pexels.com/photos/13176452/pexels-photo-13176452.jpeg"
+                className="img-a absolute inset-0 w-full h-full object-cover"
+                alt="Healthcare Professionals"
+              />
+            </div>
           </div>
           <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none">
             <div className="overflow-hidden py-4">
@@ -312,12 +314,14 @@ function TrustedCollage() {
               <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Quality<br />Ensured</h3>
             </div>
           </div>
-          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible">
-            <img
-              src={qualityImg}
-              className="img-a absolute inset-0 w-full h-full object-cover"
-              alt="Laboratory"
-            />
+          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible p-4 lg:p-6">
+            <div className="relative w-full h-full rounded-3xl overflow-hidden">
+              <img
+                src={qualityImg}
+                className="img-a absolute inset-0 w-full h-full object-cover"
+                alt="Laboratory"
+              />
+            </div>
           </div>
           <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none">
             <div className="overflow-hidden py-4">
@@ -337,12 +341,14 @@ function TrustedCollage() {
               <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Cold-chain<br />Ready</h3>
             </div>
           </div>
-          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible">
-            <img
-              src={coldChainImg}
-              className="img-a absolute inset-0 w-full h-full object-cover"
-              alt="Cold-chain logistics"
-            />
+          <div className="border-r border-b border-[#228B22]/25 relative overflow-visible p-4 lg:p-6">
+            <div className="relative w-full h-full rounded-3xl overflow-hidden">
+              <img
+                src={coldChainImg}
+                className="img-a absolute inset-0 w-full h-full object-cover"
+                alt="Cold-chain logistics"
+              />
+            </div>
           </div>
           <div className="border-r border-b border-[#228B22]/25 p-6 lg:p-10 flex items-center pointer-events-none">
             <div className="overflow-hidden py-4">
@@ -369,14 +375,16 @@ function TrustedCollage() {
         </div>
         {/* ROW 1 ── col2 img-b */}
         <div
-          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible"
+          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible p-4 lg:p-6"
           style={{ left: col(2), top: row(1), width: W, height: H }}
         >
-          <img
-            src={partnersImg}
-            className="img-b absolute inset-0 w-full h-full object-cover"
-            alt="Partners"
-          />
+          <div className="relative w-full h-full rounded-3xl overflow-hidden">
+            <img
+              src={partnersImg}
+              className="img-b absolute inset-0 w-full h-full object-cover"
+              alt="Partners"
+            />
+          </div>
         </div>
         {/* ROW 1 col3 desc-b */}
         <div
@@ -401,14 +409,16 @@ function TrustedCollage() {
         </div>
         {/* ROW 2 ── col4 img-b */}
         <div
-          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible"
+          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible p-4 lg:p-6"
           style={{ left: col(4), top: row(2), width: W, height: H }}
         >
-          <img
-            src={supportImg}
-            className="img-b absolute inset-0 w-full h-full object-cover"
-            alt="Support"
-          />
+          <div className="relative w-full h-full rounded-3xl overflow-hidden">
+            <img
+              src={supportImg}
+              className="img-b absolute inset-0 w-full h-full object-cover"
+              alt="Support"
+            />
+          </div>
         </div>
         {/* ROW 2 col5 desc-b */}
         <div
@@ -433,14 +443,16 @@ function TrustedCollage() {
         </div>
         {/* ROW 3 ── col3 img-b */}
         <div
-          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible"
+          className="slide-b-cell absolute border-r border-b border-[#228B22]/25 overflow-visible p-4 lg:p-6"
           style={{ left: col(3), top: row(3), width: W, height: H }}
         >
-          <img
-            src={deliveryImg}
-            className="img-b absolute inset-0 w-full h-full object-cover"
-            alt="Delivery"
-          />
+          <div className="relative w-full h-full rounded-3xl overflow-hidden">
+            <img
+              src={deliveryImg}
+              className="img-b absolute inset-0 w-full h-full object-cover"
+              alt="Delivery"
+            />
+          </div>
         </div>
         {/* ROW 3 col4 desc-b */}
         <div
