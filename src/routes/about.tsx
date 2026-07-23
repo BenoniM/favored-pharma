@@ -230,10 +230,10 @@ function About() {
             className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
             style={{ letterSpacing: "-0.04em" }}
           >
-            Quality healthcare is <span className="text-[var(--brand)]">within reach.</span>
+            Protecting life <span className="text-[var(--brand)]">from its very first breath.</span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
-            Since 2020, Favored PLC has helped improve access to quality pharmaceutical products and healthcare solutions across Ethiopia.
+            Since 2020, Favored PLC has stood beside Ethiopian healthcare providers—delivering the vital medicines and specialized equipment required to nurture new life, support early growth, and sustain patients through their most critical hours.
           </p>
         </div>
         

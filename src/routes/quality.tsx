@@ -307,10 +307,10 @@ function Quality() {
             className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
             style={{ letterSpacing: "-0.04em" }}
           >
-            Built on quality, <span className="text-[var(--brand)]">safety, and trust.</span>
+            Zero margin for error when <span className="text-[var(--brand)]">the stakes are highest.</span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
-            A pharmaceutical supply chain is only as strong as its weakest checkpoint. Every shipment that leaves our warehouses passes through a documented, auditable, and independently verified process.
+            When it comes to early-stage development and critical care, a supply chain is only as strong as its weakest checkpoint. Every shipment of life-saving medicine passes through a strictly documented and independently verified process.
           </p>
         </div>
         

@@ -60,9 +60,9 @@ const catIcons: Record<Category, React.ElementType> = {
   "All": Pill,
   "Medicines": Pill,
   "Medical Supplies": Syringe,
-  "Medical Equipments": Building2,
-  "Nutritional suppliments": Thermometer,
-  "other Healthcare solutions": HeartPulse,
+  "Medical Equipments": Activity,
+  "Nutritional suppliments": HeartPulse,
+  "other Healthcare solutions": FlaskConical,
 };
 
 type Product = {
@@ -77,100 +77,78 @@ type Product = {
 type RawProduct = Omit<Product, "category"> & { category: string };
 
 const rawProducts: RawProduct[] = [
-  // Prescription Medicines
-  { name: "Amoxicillin 500mg Capsule", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Broad-spectrum penicillin antibiotic — Anti-Infection", tags: ["In Stock", "Featured"] },
-  { name: "Atorvastatin 20mg Tablet", category: "Prescription Medicines", manufacturer: "BIOFARM", origin: "Poland", desc: "HMG-CoA reductase inhibitor — Cardiovascular", tags: ["In Stock"] },
-  { name: "Metformin 850mg Tablet", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Biguanide anti-diabetic — Endocrinology & Metabolism", tags: ["In Stock", "Featured"] },
-  { name: "Amlodipine 5mg Tablet", category: "Prescription Medicines", manufacturer: "BIOFARM", origin: "Poland", desc: "Calcium channel blocker — Cardiovascular", tags: ["In Stock"] },
-  { name: "Metoprolol Succinate 25mg CR", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Beta-1 selective blocker — Cardiovascular", tags: ["In Stock"] },
-  { name: "Metoprolol Succinate 50mg CR", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Beta-1 selective blocker — Cardiovascular", tags: ["In Stock"] },
-  { name: "Rosuvastatin 10mg Tablet", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Statin lipid-lowering agent — Cardiovascular", tags: ["In Stock"] },
-  { name: "Pantoprazole 40mg EC Tablet", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Proton pump inhibitor — Gastroenterology", tags: ["In Stock", "Featured"] },
-  { name: "Cefixime 400mg FCT", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Third-generation cephalosporin — Anti-Infection", tags: ["In Stock"] },
-  { name: "Meloxicam 15mg Tablet", category: "Prescription Medicines", manufacturer: "BIOFARM", origin: "Poland", desc: "Selective COX-2 inhibitor NSAID — Rheumatology & Pain", tags: ["In Stock"] },
-  { name: "Desloratadine 5mg Tablet", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Non-sedating antihistamine — Anti-Allergy", tags: ["In Stock"] },
-  { name: "Valsartan + Hydrochlorothiazide 160/12.5mg", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "ARB + diuretic combination — Cardiovascular", tags: ["In Stock"] },
-  { name: "Vildagliptin + Metformin 50/850mg", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "DPP-4 inhibitor combination — Endocrinology", tags: ["In Stock"] },
-  { name: "Tadalafil 20mg Tablet", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "PDE-5 inhibitor — Urology & Sexual Health", tags: ["In Stock"] },
-  { name: "Sodium Hyaluronate 10mg/ml Injection", category: "Prescription Medicines", manufacturer: "Virchow", origin: "India", desc: "Intra-articular viscosupplement — Rheumatology & Orthopedics", tags: ["In Stock"] },
-  { name: "Doxylamine + Pyridoxine DR Tablet", category: "Prescription Medicines", manufacturer: "ILKO", origin: "Turkey", desc: "Anti-emetic combination — OBGYN", tags: ["In Stock"] },
+  // ── Maternity ────────────────────────────────────────────────────────────────
+  { name: "Ferrous Sulphate + Folic Acid Tablet", category: "Maternity", manufacturer: "ILKO", origin: "Turkey", desc: "Iron and folate supplement for pregnancy — Antenatal Care", tags: ["In Stock", "Featured"] },
+  { name: "Oxytocin 10IU/ml Injection", category: "Maternity", manufacturer: "Virchow", origin: "India", desc: "Uterotonic agent for labour induction and PPH prevention — Obstetrics", tags: ["In Stock", "Cold Chain", "Featured"] },
+  { name: "Misoprostol 200mcg Tablet", category: "Maternity", manufacturer: "ILKO", origin: "Turkey", desc: "Prostaglandin E1 for PPH prevention and cervical ripening — Obstetrics", tags: ["In Stock", "Featured"] },
+  { name: "Magnesium Sulphate 50% Injection", category: "Maternity", manufacturer: "Virchow", origin: "India", desc: "First-line treatment for eclampsia and pre-eclampsia — Obstetrics", tags: ["In Stock"] },
+  { name: "Doxylamine + Pyridoxine DR Tablet", category: "Maternity", manufacturer: "ILKO", origin: "Turkey", desc: "Anti-emetic combination for nausea of pregnancy — OBGYN", tags: ["In Stock"] },
+  { name: "Calcium Carbonate 500mg + Vitamin D3 Tablet", category: "Maternity", manufacturer: "BIOFARM", origin: "Poland", desc: "Calcium and vitamin D supplementation in pregnancy — Antenatal Care", tags: ["In Stock"] },
+  { name: "Nifedipine 10mg Capsule", category: "Maternity", manufacturer: "ILKO", origin: "Turkey", desc: "Calcium-channel blocker for acute hypertension in pregnancy — Obstetrics", tags: ["In Stock"] },
+  { name: "Hydralazine 20mg Injection", category: "Maternity", manufacturer: "Virchow", origin: "India", desc: "Vasodilator for severe hypertension in pregnancy — Obstetrics", tags: ["In Stock"] },
+  { name: "Betamethasone 12mg Injection (Antenatal Corticosteroid)", category: "Maternity", manufacturer: "Virchow", origin: "India", desc: "Antenatal corticosteroid for fetal lung maturation — Neonatology", tags: ["In Stock", "Cold Chain"] },
+  { name: "Tranexamic Acid 1g/10ml Injection", category: "Maternity", manufacturer: "ILKO", origin: "Turkey", desc: "Antifibrinolytic for postpartum haemorrhage — Obstetrics", tags: ["In Stock", "Featured"] },
+  { name: "Methyldopa 250mg Tablet", category: "Maternity", manufacturer: "BIOFARM", origin: "Poland", desc: "Centrally acting antihypertensive safe in pregnancy — OBGYN", tags: ["In Stock"] },
+  { name: "Amoxicillin-Clavulanate 875/125mg Tablet", category: "Maternity", manufacturer: "ILKO", origin: "Turkey", desc: "Broad-spectrum antibiotic for obstetric infections — Anti-Infective", tags: ["In Stock"] },
 
-  // OTC Products
-  { name: "Paracetamol 500mg Tablet", category: "OTC Products", manufacturer: "Various", origin: "Ethiopia", desc: "Analgesic & antipyretic — Pain & Fever", tags: ["In Stock", "Featured"] },
-  { name: "Vitamin C 1000mg Effervescent", category: "OTC Products", manufacturer: "Various", origin: "Ethiopia", desc: "Antioxidant supplement — Vitamins & Supplements", tags: ["In Stock"] },
-  { name: "Antacid Suspension 200ml", category: "OTC Products", manufacturer: "Various", origin: "Ethiopia", desc: "Aluminium hydroxide + magnesium hydroxide — GI Relief", tags: ["In Stock"] },
-  { name: "Oral Rehydration Salts Sachet", category: "OTC Products", manufacturer: "Various", origin: "Ethiopia", desc: "Electrolyte replacement — Hydration", tags: ["In Stock"] },
-  { name: "Multivitamin + Mineral Tablet", category: "OTC Products", manufacturer: "Various", origin: "Ethiopia", desc: "Daily nutritional supplement — Vitamins & Supplements", tags: ["In Stock"] },
+  // ── Children & Fertility ─────────────────────────────────────────────────────
+  { name: "Amoxicillin 250mg/5ml Oral Suspension", category: "Children & Fertility", manufacturer: "ILKO", origin: "Turkey", desc: "Penicillin antibiotic suspension for paediatric infections — Paediatrics", tags: ["In Stock", "Featured"] },
+  { name: "Paracetamol 120mg/5ml Syrup", category: "Children & Fertility", manufacturer: "Various", origin: "Ethiopia", desc: "Paediatric antipyretic and analgesic syrup — Paediatrics", tags: ["In Stock", "Featured"] },
+  { name: "Zinc Sulphate 20mg Dispersible Tablet", category: "Children & Fertility", manufacturer: "Various", origin: "India", desc: "Zinc for diarrhoea management in under-5s — Paediatrics", tags: ["In Stock"] },
+  { name: "Oral Rehydration Salts (ORS) Sachet", category: "Children & Fertility", manufacturer: "Various", origin: "Ethiopia", desc: "WHO-formulated electrolyte replacement — Paediatric Hydration", tags: ["In Stock"] },
+  { name: "Vitamin A 200,000 IU Capsule", category: "Children & Fertility", manufacturer: "Various", origin: "India", desc: "High-dose vitamin A supplementation — Paediatrics", tags: ["In Stock"] },
+  { name: "Albendazole 400mg Chewable Tablet", category: "Children & Fertility", manufacturer: "ILKO", origin: "Turkey", desc: "Broad-spectrum anthelmintic for children — Paediatrics", tags: ["In Stock"] },
+  { name: "Ibuprofen 100mg/5ml Suspension", category: "Children & Fertility", manufacturer: "ILKO", origin: "Turkey", desc: "Paediatric NSAID antipyretic and anti-inflammatory — Paediatrics", tags: ["In Stock"] },
+  { name: "Clomiphene Citrate 50mg Tablet", category: "Children & Fertility", manufacturer: "ILKO", origin: "Turkey", desc: "Selective oestrogen receptor modulator for ovulation induction — Fertility", tags: ["In Stock", "Featured"] },
+  { name: "Progesterone 200mg Vaginal Capsule", category: "Children & Fertility", manufacturer: "BIOFARM", origin: "Poland", desc: "Luteal phase support in ART and recurrent miscarriage — Fertility", tags: ["In Stock", "Cold Chain"] },
+  { name: "Gonadotrophin (hCG) 5000 IU Injection", category: "Children & Fertility", manufacturer: "Virchow", origin: "India", desc: "Trigger injection for final oocyte maturation — Fertility", tags: ["In Stock", "Cold Chain", "Featured"] },
+  { name: "Letrozole 2.5mg Tablet", category: "Children & Fertility", manufacturer: "ILKO", origin: "Turkey", desc: "Aromatase inhibitor for ovulation induction — Fertility", tags: ["In Stock"] },
+  { name: "Multivitamin Paediatric Drops (30ml)", category: "Children & Fertility", manufacturer: "Various", origin: "India", desc: "Daily micronutrient drops for infants and toddlers — Paediatrics", tags: ["In Stock"] },
+  { name: "Cetirizine 5mg/5ml Syrup", category: "Children & Fertility", manufacturer: "ILKO", origin: "Turkey", desc: "Non-sedating antihistamine syrup for paediatric allergies — Paediatrics", tags: ["In Stock"] },
 
-  // Medical Devices
-  { name: "Digital Blood Pressure Monitor (Upper Arm)", category: "Medical Devices", manufacturer: "BOSCH+SOHN", origin: "Germany", desc: "Oscillometric BP measurement with memory — Diagnostic Equipment", tags: ["In Stock", "Featured"] },
-  { name: "Adult & Paediatric Stethoscope", category: "Medical Devices", manufacturer: "Luxamed", origin: "Germany", desc: "Dual-head acoustic stethoscope — Auscultation", tags: ["In Stock"] },
-  { name: "Cardiology Stethoscope", category: "Medical Devices", manufacturer: "Luxamed", origin: "Germany", desc: "High-sensitivity cardiology stethoscope — Auscultation", tags: ["In Stock", "New"] },
-  { name: "Pulse Oximeter (Fingertip)", category: "Medical Devices", manufacturer: "Various", origin: "Germany", desc: "SpO2 and pulse rate measurement — Monitoring", tags: ["In Stock"] },
-  { name: "ECG Machine (12-Lead)", category: "Medical Devices", manufacturer: "Various", origin: "Germany", desc: "Hospital-grade 12-lead electrocardiograph — Cardiology", tags: ["In Stock", "Featured"] },
+  // ── ICU / Emergency ──────────────────────────────────────────────────────────
+  { name: "Epinephrine (Adrenaline) 1mg/ml Injection", category: "ICU / Emergency", manufacturer: "Virchow", origin: "India", desc: "First-line vasopressor for anaphylaxis and cardiac arrest — Emergency", tags: ["In Stock", "Featured"] },
+  { name: "Normal Saline 0.9% IV Fluid 500ml", category: "ICU / Emergency", manufacturer: "Various", origin: "Ethiopia", desc: "Isotonic crystalloid for volume resuscitation — Resuscitation", tags: ["In Stock"] },
+  { name: "Ringer's Lactate IV Fluid 500ml", category: "ICU / Emergency", manufacturer: "Various", origin: "Ethiopia", desc: "Balanced crystalloid for trauma and surgical resuscitation — Resuscitation", tags: ["In Stock", "Featured"] },
+  { name: "Dextrose 5% IV Fluid 500ml", category: "ICU / Emergency", manufacturer: "Various", origin: "Ethiopia", desc: "Isotonic glucose solution for hypoglycaemia and hydration — ICU", tags: ["In Stock"] },
+  { name: "Morphine Sulphate 10mg/ml Injection", category: "ICU / Emergency", manufacturer: "Virchow", origin: "India", desc: "Opioid analgesic for severe acute pain — Pain Management", tags: ["In Stock", "Cold Chain"] },
+  { name: "Ketamine 500mg/10ml Injection", category: "ICU / Emergency", manufacturer: "Virchow", origin: "India", desc: "Dissociative anaesthetic for procedural sedation — Anaesthesia", tags: ["In Stock"] },
+  { name: "Midazolam 5mg/ml Injection", category: "ICU / Emergency", manufacturer: "ILKO", origin: "Turkey", desc: "Short-acting benzodiazepine for sedation and seizures — ICU", tags: ["In Stock"] },
+  { name: "Norepinephrine 4mg/4ml Injection", category: "ICU / Emergency", manufacturer: "Virchow", origin: "India", desc: "Vasopressor for septic and cardiogenic shock — ICU", tags: ["In Stock", "Cold Chain", "Featured"] },
+  { name: "Dopamine 200mg/5ml Injection", category: "ICU / Emergency", manufacturer: "Virchow", origin: "India", desc: "Inotrope and vasopressor for haemodynamic support — ICU", tags: ["In Stock", "Cold Chain"] },
+  { name: "Furosemide 10mg/ml Injection", category: "ICU / Emergency", manufacturer: "ILKO", origin: "Turkey", desc: "Loop diuretic for acute pulmonary oedema and fluid overload — ICU", tags: ["In Stock"] },
+  { name: "Dexamethasone 4mg/ml Injection", category: "ICU / Emergency", manufacturer: "BIOFARM", origin: "Poland", desc: "Corticosteroid for cerebral oedema, anaphylaxis, and sepsis — ICU", tags: ["In Stock", "Featured"] },
+  { name: "Atropine 1mg/ml Injection", category: "ICU / Emergency", manufacturer: "Virchow", origin: "India", desc: "Anticholinergic for bradycardia and organophosphate poisoning — Emergency", tags: ["In Stock"] },
+  { name: "Sodium Bicarbonate 8.4% Injection", category: "ICU / Emergency", manufacturer: "Various", origin: "India", desc: "Alkalinising agent for metabolic acidosis and cardiac arrest — Emergency", tags: ["In Stock"] },
+  { name: "Heparin Sodium 5000 IU/ml Injection", category: "ICU / Emergency", manufacturer: "Virchow", origin: "India", desc: "Anticoagulant for DVT, PE, and extracorporeal circuits — ICU", tags: ["In Stock", "Cold Chain"] },
+  { name: "Amiodarone 150mg/3ml Injection", category: "ICU / Emergency", manufacturer: "ILKO", origin: "Turkey", desc: "Antiarrhythmic for life-threatening ventricular arrhythmias — Emergency", tags: ["In Stock"] },
+  { name: "Hydrocortisone 100mg Injection", category: "ICU / Emergency", manufacturer: "BIOFARM", origin: "Poland", desc: "Corticosteroid for adrenal crisis, anaphylaxis, and severe asthma — Emergency", tags: ["In Stock"] },
+  { name: "Mannitol 20% IV Solution 250ml", category: "ICU / Emergency", manufacturer: "Various", origin: "India", desc: "Osmotic diuretic for raised intracranial pressure — Neurocritical Care", tags: ["In Stock", "Featured"] },
+  { name: "Propofol 200mg/20ml Emulsion", category: "ICU / Emergency", manufacturer: "BIOFARM", origin: "Poland", desc: "Short-acting IV anaesthetic for ICU sedation — Anaesthesia", tags: ["In Stock", "Cold Chain"] },
 
-  // Diagnostic Equipment
-  { name: "Blood Glucose Test Kit", category: "Diagnostic Equipment", manufacturer: "Fia BioMed", origin: "Germany", desc: "Self-monitoring blood glucose system — Endocrinology", tags: ["In Stock", "Featured"] },
-  { name: "Immunofluorescence Quantitative Analyzer", category: "Diagnostic Equipment", manufacturer: "Getein Biotech", origin: "China", desc: "Point-of-care fluorescence immunoassay analyzer — Laboratory", tags: ["In Stock", "New"] },
-  { name: "Hematology Analyzer (3-Part)", category: "Diagnostic Equipment", manufacturer: "Various", origin: "China", desc: "CBC with 3-part WBC differential — Hematology", tags: ["In Stock"] },
-  { name: "Chemistry Analyzer (Semi-Auto)", category: "Diagnostic Equipment", manufacturer: "Various", origin: "China", desc: "Photometric clinical chemistry analysis — Biochemistry", tags: ["In Stock"] },
+  // ── Maternity Supplies & Equipment ─────────────────────────────────────────────
+  { name: "Umbilical Cord Clamp (Sterile)", category: "Medical Supplies", manufacturer: "SMI", origin: "Belgium", desc: "Disposable sterile umbilical cord clamp — Obstetrics", tags: ["In Stock", "Featured"] },
+  { name: "Amniotic Membrane Perforator (Amnihook)", category: "Medical Supplies", manufacturer: "Various", origin: "India", desc: "Disposable instrument for artificial rupture of membranes — Obstetrics", tags: ["In Stock"] },
+  { name: "Fetal Doppler Ultrasound (Handheld)", category: "Medical Equipments", manufacturer: "BOSCH+SOHN", origin: "Germany", desc: "Portable fetal heart rate monitor — Antenatal Care", tags: ["In Stock", "Featured"] },
+  { name: "Delivery Bed (Adjustable)", category: "Medical Equipments", manufacturer: "Various", origin: "China", desc: "Multi-position obstetric delivery bed — Labour & Delivery", tags: ["In Stock"] },
 
-  // Laboratory Reagents
-  { name: "ELISA Kit — Hepatitis B Surface Antigen", category: "Laboratory Reagents", manufacturer: "Various", origin: "USA", desc: "Enzyme-linked immunosorbent assay — Serology", tags: ["In Stock", "Cold Chain"] },
-  { name: "PCR Master Mix (2×)", category: "Laboratory Reagents", manufacturer: "Various", origin: "USA", desc: "Ready-to-use PCR amplification mix — Molecular Biology", tags: ["In Stock", "Cold Chain", "Featured"] },
-  { name: "PBS Buffer Tablets", category: "Laboratory Reagents", manufacturer: "Various", origin: "Germany", desc: "Phosphate buffered saline tablets — General Laboratory", tags: ["In Stock"] },
-  { name: "Gram Stain Reagent Kit", category: "Laboratory Reagents", manufacturer: "Various", origin: "Germany", desc: "Complete gram staining reagent set — Microbiology", tags: ["In Stock"] },
-  { name: "HIV Rapid Test (Whole Blood/Serum)", category: "Laboratory Reagents", manufacturer: "Various", origin: "South Korea", desc: "One-step immunochromatographic assay — Serology", tags: ["In Stock"] },
-  { name: "Malaria RDT (Pf/Pan)", category: "Laboratory Reagents", manufacturer: "Various", origin: "South Korea", desc: "Rapid detection of Plasmodium antigens — Parasitology", tags: ["In Stock", "Featured"] },
-
-  // Hospital Furniture
-  { name: "Manual ICU Bed (5-Function)", category: "Hospital Furniture", manufacturer: "Various", origin: "China", desc: "5-function manual patient bed with side rails — Intensive Care", tags: ["In Stock"] },
-  { name: "Bedside Cabinet (Lockable)", category: "Hospital Furniture", manufacturer: "Various", origin: "China", desc: "Powder-coated steel bedside storage — Ward Equipment", tags: ["In Stock"] },
-  { name: "Stainless Steel Instrument Trolley", category: "Hospital Furniture", manufacturer: "Various", origin: "China", desc: "2-tier stainless steel procedure trolley — Theatre & Ward", tags: ["In Stock", "Featured"] },
-  { name: "Fowler Bed (Electric, 3-Function)", category: "Hospital Furniture", manufacturer: "Various", origin: "China", desc: "Electric 3-function hospital bed — General Ward", tags: ["In Stock"] },
-  { name: "Overbed Table (Height Adjustable)", category: "Hospital Furniture", manufacturer: "Various", origin: "China", desc: "Swivel-top height-adjustable overbed table — Ward Equipment", tags: ["In Stock"] },
-
-  // Medical Consumables
-  { name: "Surgical Gloves (Latex, Sterile) — Size 7.5", category: "Medical Consumables", manufacturer: "SMI", origin: "Belgium", desc: "Sterile powdered surgical gloves — Infection Control", tags: ["In Stock", "Featured"] },
-  { name: "Disposable Syringes (5ml, 23G)", category: "Medical Consumables", manufacturer: "Various", origin: "India", desc: "Luer-lock disposable syringe — Injectable Administration", tags: ["In Stock"] },
-  { name: "IV Cannula (18G)", category: "Medical Consumables", manufacturer: "Various", origin: "India", desc: "Short peripheral IV catheter — Vascular Access", tags: ["In Stock"] },
-  { name: "Surgical Gauze Swabs (10×10cm, Pack 100)", category: "Medical Consumables", manufacturer: "Various", origin: "Ethiopia", desc: "Sterile absorbent gauze swabs — Wound Care", tags: ["In Stock"] },
-  { name: "Disposable Surgical Mask (3-Ply, Box 50)", category: "Medical Consumables", manufacturer: "Various", origin: "China", desc: "Type IIR fluid-resistant surgical mask — Infection Control", tags: ["In Stock"] },
-  { name: "N95 Respirator (FFP2, Box 20)", category: "Medical Consumables", manufacturer: "Various", origin: "China", desc: "NIOSH-approved particulate respirator — Infection Control", tags: ["In Stock", "Featured"] },
-  { name: "Absorbable Suture — PGA 2/0 (Round, 75cm)", category: "Medical Consumables", manufacturer: "SMI", origin: "Belgium", desc: "Polyglycolic acid absorbable suture — Surgery", tags: ["In Stock"] },
-  { name: "Non-Absorbable Suture — Silk 3/0 (Cutting)", category: "Medical Consumables", manufacturer: "SMI", origin: "Belgium", desc: "Braided silk non-absorbable suture — Surgery", tags: ["In Stock"] },
-  { name: "Bone Wax", category: "Medical Consumables", manufacturer: "SMI", origin: "Belgium", desc: "Sterile haemostatic bone wax — Surgery", tags: ["In Stock"] },
-  { name: "Polypropylene Surgical Mesh (7.5×15cm)", category: "Medical Consumables", manufacturer: "SMI", origin: "Belgium", desc: "Macroporous monofilament hernia mesh — Surgery", tags: ["In Stock"] },
-
-  // Emergency Care Supplies
-  { name: "Automated External Defibrillator (AED)", category: "Emergency Care Supplies", manufacturer: "Various", origin: "Germany", desc: "Semi-automatic defibrillator with CPR feedback — Emergency", tags: ["In Stock", "Featured"] },
-  { name: "Normal Saline 0.9% IV Fluid (500ml)", category: "Emergency Care Supplies", manufacturer: "Various", origin: "Ethiopia", desc: "Isotonic crystalloid IV fluid — Resuscitation", tags: ["In Stock"] },
-  { name: "Ringer's Lactate IV Fluid (500ml)", category: "Emergency Care Supplies", manufacturer: "Various", origin: "Ethiopia", desc: "Balanced crystalloid IV fluid — Resuscitation", tags: ["In Stock", "Featured"] },
-  { name: "Emergency Resuscitation Kit", category: "Emergency Care Supplies", manufacturer: "Various", origin: "Germany", desc: "Complete crash-cart resuscitation set — Emergency", tags: ["In Stock"] },
-  { name: "Epinephrine 1mg/ml Injection", category: "Emergency Care Supplies", manufacturer: "Various", origin: "India", desc: "First-line anaphylaxis & cardiac arrest medication — Emergency", tags: ["In Stock", "Cold Chain"] },
-  { name: "Trauma Dressing Kit (Large)", category: "Emergency Care Supplies", manufacturer: "Various", origin: "Germany", desc: "Haemostatic wound packing & pressure bandage — Trauma", tags: ["In Stock"] },
+  // ── ICU / Emergency Supplies & Equipment ───────────────────────────────────────
+  { name: "Endotracheal Tube (Cuffed, Various Sizes)", category: "Medical Supplies", manufacturer: "Various", origin: "India", desc: "Sterile PVC airway tube for mechanical ventilation — Airway Management", tags: ["In Stock", "Featured"] },
+  { name: "Central Venous Catheter Kit (CVC)", category: "Medical Supplies", manufacturer: "Various", origin: "Germany", desc: "Multi-lumen central venous access kit — ICU", tags: ["In Stock"] },
+  { name: "Portable Transport Ventilator", category: "Medical Equipments", manufacturer: "Various", origin: "Germany", desc: "Compact emergency ventilator for patient transport — Emergency", tags: ["In Stock", "Featured"] },
+  { name: "Syringe Infusion Pump", category: "Medical Equipments", manufacturer: "Various", origin: "China", desc: "Precise automated continuous syringe driver — ICU", tags: ["In Stock"] },
+  { name: "Multiparameter Patient Monitor", category: "Medical Equipments", manufacturer: "Various", origin: "China", desc: "Continuous monitoring of ECG, SpO2, NIBP, and temp — ICU", tags: ["In Stock", "Featured"] },
+  { name: "Guedel Airway (Oropharyngeal)", category: "Medical Supplies", manufacturer: "Various", origin: "India", desc: "Colour-coded oral airway adjunct — Emergency", tags: ["In Stock"] },
 ];
 
 const categoryAliases: Record<string, Exclude<Category, "All">> = {
-  "Prescription Medicines": "Medicines",
-  "OTC Products": "Medicines",
-  "Medical Devices": "Medical Equipments",
-  "Diagnostic Equipment": "Medical Equipments",
-  "Laboratory Reagents": "Medical Supplies",
-  "Hospital Furniture": "Medical Equipments",
-  "Medical Consumables": "Medical Supplies",
-  "Emergency Care Supplies": "other Healthcare solutions",
+  "Maternity": "Medicines",
+  "Children & Fertility": "Nutritional suppliments",
+  "ICU / Emergency": "other Healthcare solutions",
 };
 
 const allProducts: Product[] = rawProducts.map((product) => {
-  const searchable = `${product.name} ${product.desc}`.toLowerCase();
-  const category =
-    searchable.includes("vitamin") ||
-    searchable.includes("multivitamin") ||
-    searchable.includes("supplement")
-      ? "Nutritional suppliments"
-      : categoryAliases[product.category] ?? "other Healthcare solutions";
-
+  const category = categoryAliases[product.category] ?? (product.category as Category);
   return { ...product, category };
 });
 
@@ -232,10 +210,10 @@ function Products() {
             className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
             style={{ letterSpacing: "-0.04em" }}
           >
-            Healthcare products. <span className="text-[var(--brand)]">Five categories.</span>
+            Nurturing beginnings. <span className="text-[var(--brand)]">Sustaining futures.</span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
-            From a single emergency syringe to a fully stocked operating theatre, our catalog is built around what real hospitals, pharmacies, and labs actually run out of.
+            From essential vitamins that support early human development to life-saving crash-cart vasopressors in the ICU — every product we supply is clinically proven, regulatory-cleared, and ready when it's needed most.
           </p>
         </div>
 

@@ -144,10 +144,10 @@ function Partners() {
             className="font-display text-[1.75rem] sm:text-[2.75rem] lg:text-[3.75rem] leading-[1.05] font-medium text-[#26221f] mb-6"
             style={{ letterSpacing: "-0.04em" }}
           >
-            Global makers. <span className="text-[var(--brand)]">Local impact.</span>
+            Global manufacturers. <span className="text-[var(--brand)]">Local healing.</span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
-            The world's most trusted manufacturers, connected to the country's most demanding healthcare institutions through a logistics network that does not sleep.
+            We partner with the world's most trusted medical manufacturers to ensure Ethiopian hospitals never lack the essential tools required for safe arrivals, early-years care, and rapid emergency response.
           </p>
         </div>
         
