@@ -367,7 +367,7 @@ function TrustedCollage() {
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
               <div className="overflow-hidden py-4">
                 <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  Every birth deserves the best possible start. We supply the medicines, supplements, and obstetric essentials that keep mothers and newborns safe through every stage of the journey.
+                  Every birth deserves the best start. We supply the medicines, supplements, and obstetric essentials that keep mothers and newborns safe.
                 </p>
               </div>
             </div>
@@ -385,7 +385,7 @@ function TrustedCollage() {
           <div className="relative overflow-visible p-4 lg:p-6">
             <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25">
               <img
-                src={qualityImg}
+                src="https://images.pexels.com/photos/3341189/pexels-photo-3341189.jpeg"
                 className="img-a absolute inset-0 w-full h-full object-cover"
                 alt="Laboratory"
               />
@@ -395,7 +395,7 @@ function TrustedCollage() {
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
               <div className="overflow-hidden py-4">
                 <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  From first vaccinations to precision paediatric doses, we import the formulations children need — and the hormone therapies that give families a fighting chance to begin.
+                  From vaccinations to precision paediatric doses, we import what children need - and the hormone therapies that give families hope.
                 </p>
               </div>
             </div>
@@ -416,7 +416,7 @@ function TrustedCollage() {
           <div className="relative overflow-visible p-4 lg:p-6">
             <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25">
               <img
-                src={coldChainImg}
+                src="https://images.pexels.com/photos/34584/pexels-photo.jpg"
                 className="img-a absolute inset-0 w-full h-full object-cover"
                 alt="Cold-chain logistics"
               />
@@ -426,7 +426,7 @@ function TrustedCollage() {
             <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
               <div className="overflow-hidden py-4">
                 <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  Life doesn't wait. Our critical-care portfolio — resuscitation drugs, IV solutions, and emergency consumables — is stocked and ready before the alarm ever sounds.
+                  Life doesn't wait. Our critical-care essentials are stocked and ready before the alarm sounds.
                 </p>
               </div>
             </div>
@@ -456,7 +456,7 @@ function TrustedCollage() {
         >
           <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25 bg-white">
             <img
-              src={partnersImg}
+              src="https://images.pexels.com/photos/36217325/pexels-photo-36217325.jpeg"
               className="img-b absolute inset-0 w-full h-full object-cover"
               alt="Partners"
             />
@@ -470,7 +470,7 @@ function TrustedCollage() {
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
             <div className="overflow-hidden py-4">
               <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                We trace every product back to its factory floor — partnering only with manufacturers who meet international benchmarks, so you never have to question what's in the vial.
+                Traced back to the factory floor, partnering only with manufacturers who meet international benchmarks. Know what's in the vial.
               </p>
             </div>
           </div>
@@ -494,7 +494,7 @@ function TrustedCollage() {
         >
           <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25 bg-white">
             <img
-              src={supportImg}
+              src={coldChainImg}
               className="img-b absolute inset-0 w-full h-full object-cover"
               alt="Support"
             />
@@ -508,7 +508,7 @@ function TrustedCollage() {
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
             <div className="overflow-hidden py-4">
               <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                Biologics and hormone therapies lose their power in the wrong conditions. Our cold-chain infrastructure keeps every product potent from the manufacturer's door to yours.
+                Biologics lose their power in the wrong conditions. Our cold-chain keeps every product potent, door to door.
               </p>
             </div>
           </div>
@@ -546,7 +546,7 @@ function TrustedCollage() {
           <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
             <div className="overflow-hidden py-4">
               <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                A gap in the formulary is not a healthcare option. We own the full import cycle — customs, warehousing, last-mile — so your shelves stay full and your patients stay covered.
+                A formulary gap isn't an option. We own customs, warehousing, and last-mile shelves full, patients covered.
               </p>
             </div>
           </div>
