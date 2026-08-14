@@ -1,21 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState } from "react";
 import {
   Building2,
-  Rocket,
   Stethoscope,
   Snowflake,
-  Package,
   Network,
   ShieldCheck,
 } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { Reveal, SectionLabel, AnimatedHeadline } from "@/components/site";
 import { company } from "@/lib/company";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -238,15 +231,11 @@ function About() {
         </div>
         
         <div className="w-full max-w-[1440px] mx-auto rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden bg-black/5 relative">
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline
-            className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover"
-          >
-            <source src="https://www.pexels.com/download/video/5853201/" type="video/mp4" />
-          </video>
+            <img
+              src="https://images.pexels.com/photos/4041804/pexels-photo-4041804.jpeg"
+              alt="About Favored PLC"
+              className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover"
+            />
         </div>
       </section>
 
@@ -376,6 +365,8 @@ function About() {
       <EditorialTimeline />
 
       <MissionVisionSection />
+
+      <FutureProjectsSection />
 
       <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-[1440px] px-6">
@@ -523,209 +514,139 @@ function MissionVisionSection() {
 }
 
 function EditorialTimeline() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      if (!ref.current) return;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const cards = gsap.utils.toArray<HTMLElement>(".sui-scroll-card");
-      const visuals = gsap.utils.toArray<HTMLElement>(".sui-scroll-visual");
-      const cursor = ref.current.querySelector<HTMLElement>(".sui-scroll-cursor");
-      const cursorTrail = ref.current.querySelector<HTMLElement>(".sui-scroll-cursor-trail");
-      let cursorReturn: gsap.core.Tween | undefined;
-      const moveCursor = cursor
-        ? gsap.quickTo(cursor, "y", { duration: 0.42, ease: "power3.out" })
-        : undefined;
-      const moveTrail = cursorTrail
-        ? gsap.quickTo(cursorTrail, "scaleY", { duration: 0.42, ease: "power3.out" })
-        : undefined;
-      const moveTrailOffset = cursorTrail
-        ? gsap.quickTo(cursorTrail, "y", { duration: 0.42, ease: "power3.out" })
-        : undefined;
-
-      if (reduce) {
-        gsap.set(cards, { opacity: 1, y: 0 });
-        gsap.set(visuals, { opacity: 1, scale: 1 });
-        return;
-      }
-
-      gsap.set(cards, { autoAlpha: 0, y: "76vh", scale: 0.98 });
-      gsap.set(visuals, { autoAlpha: 0, scale: 0.9, rotateX: -10 });
-      if (cursor) gsap.set(cursor, { y: 0 });
-      if (cursorTrail) {
-        gsap.set(cursorTrail, {
-          xPercent: -50,
-          yPercent: -100,
-          y: 0,
-          scaleY: 0,
-          transformOrigin: "50% 100%",
-          backgroundImage: "linear-gradient(to top, var(--brand), var(--brand))",
-        });
-      }
-
-      const sequence = gsap.timeline({
-        defaults: { ease: "power2.out" },
-        scrollTrigger: {
-          trigger: ref.current,
-          start: "top top",
-          end: () => `+=${timeline.length * window.innerHeight}`,
-          scrub: 0.65,
-          pin: ".sui-scroll-stage",
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            if (!moveCursor) return;
-            const velocity = self.getVelocity();
-            const offset = gsap.utils.clamp(-46, 46, velocity / 22);
-            cursorReturn?.kill();
-            moveCursor(offset);
-            if (cursorTrail && moveTrail && moveTrailOffset) {
-              const trailingDown = offset >= 0;
-              gsap.set(cursorTrail, {
-                yPercent: trailingDown ? -100 : 0,
-                transformOrigin: trailingDown ? "50% 100%" : "50% 0%",
-                backgroundImage: trailingDown
-                  ? "linear-gradient(to top, var(--brand), var(--brand))"
-                  : "linear-gradient(to bottom, var(--brand), var(--brand))",
-              });
-              moveTrail(Math.max(0.08, Math.min(1, Math.abs(offset) / 46)));
-              moveTrailOffset(offset);
-            }
-            cursorReturn = gsap.delayedCall(0.18, () => {
-              moveCursor(0);
-              moveTrail?.(0);
-              moveTrailOffset?.(0);
-            });
-          },
-        },
-      });
-
-      cards.forEach((card, i) => {
-        const visual = visuals[i];
-        const position = i * 2;
-        sequence
-          .to(
-            card,
-            { autoAlpha: 1, y: "18vh", scale: 1, duration: 0.42 },
-            position,
-          )
-          .to(
-            visual,
-            { autoAlpha: 1, scale: 1, rotateX: 0, duration: 0.45 },
-            position + 0.05,
-          )
-          .to(card, { y: "-18vh", duration: 0.9, ease: "none" }, position + 0.45);
-
-        sequence
-          .to(card, { autoAlpha: 0, y: "-76vh", scale: 0.98, duration: 0.48 }, position + 1.34)
-          .to(visual, { autoAlpha: 0, scale: 0.94, rotateX: 10, duration: 0.48 }, position + 1.34);
-      });
-    },
-    { scope: ref },
-  );
-
   return (
-    <section
-      ref={ref}
-      className="relative overflow-hidden bg-gradient-to-b from-white via-[var(--mist)] to-white text-[var(--ink)]"
-      style={{ minHeight: `${timeline.length * 100}vh` }}
-    >
-      <div className="sui-scroll-stage relative h-screen min-h-[760px] overflow-hidden">
-        <div className="relative mx-auto h-full max-w-[1440px] px-6 py-8 sm:px-8 sm:py-10 lg:px-12">
-          <div className="absolute left-6 top-4 z-10 max-w-2xl sm:left-8 sm:top-5 lg:left-2">
-            <Reveal>
-              <SectionLabel>Editorial Timeline</SectionLabel>
-              <AnimatedHeadline
-                text="One direction: quality care within reach."
-                as="h2"
-                className="mt-3 font-display text-2xl leading-[0.95] text-[var(--ink)] sm:text-3xl lg:text-4xl"
-              />
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--ink)]/65 sm:text-base">
-                A short biography of the boxes we've moved, the partners we've earned, and the
-                standards we've kept.
-              </p>
-            </Reveal>
-          </div>
+    <section className="bg-gradient-to-b from-white via-[var(--mist)] to-white py-24 sm:py-32 text-[var(--ink)]">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
 
-          <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 hidden h-[40vh] -translate-x-1/2 -translate-y-1/2 lg:block">
-            <div
-              className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle, color-mix(in oklab, var(--ink) 70%, transparent) 2.8px, transparent 3.2px)",
-                backgroundPosition: "center top",
-                backgroundRepeat: "repeat-y",
-                backgroundSize: "1px 16px",
-              }}
-            />
-            <div className="sui-scroll-cursor-trail absolute left-1/2 top-1/2 h-[104px] w-[3px] rounded-full" />
-            <div
-              className="sui-scroll-cursor absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[5px] border-white bg-[var(--brand)]"
-            />
-          </div>
+        {/* Section header */}
+        <Reveal className="mb-16 sm:mb-20">
+          <SectionLabel>Editorial Timeline</SectionLabel>
+          <AnimatedHeadline
+            text="One direction: quality care within reach."
+            as="h2"
+            className="mt-3 font-display text-2xl leading-[0.95] text-[var(--ink)] sm:text-3xl lg:text-4xl"
+          />
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--ink)]/65 sm:text-base">
+            A short biography of the boxes we've moved, the partners we've earned, and the
+            standards we've kept.
+          </p>
+        </Reveal>
 
-          <div className="absolute inset-0 z-40 px-6 sm:px-8 lg:px-12">
+        {/* Timeline list */}
+        <div className="relative">
+          {/* Vertical line */}
+          <div
+            className="absolute left-5 top-0 bottom-0 w-px sm:left-7"
+            style={{ background: "linear-gradient(to bottom, var(--brand), color-mix(in oklab, var(--brand) 20%, transparent))" }}
+          />
+
+          <div className="flex flex-col gap-12 sm:gap-16">
             {timeline.map((t, i) => {
               const Icon = t.icon;
-              const sideClass =
-                i % 2 === 0
-                  ? "lg:left-auto lg:right-12 lg:text-left"
-                  : "lg:left-12 lg:right-auto lg:text-right";
               return (
-                <article
-                  key={`${t.year}-${i}`}
-                  className={`sui-scroll-card absolute inset-x-6 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2rem] border border-[var(--brand)]/15 bg-[var(--brand)]/10 shadow-[var(--shadow-card)] backdrop-blur-xl sm:inset-x-8 lg:inset-x-auto lg:w-[calc(50%-160px)] lg:max-w-[500px] ${sideClass}`}
-                >
-                  <div className="flex items-center border-b border-black/5">
-                    <div className="grid h-14 w-14 shrink-0 place-items-center border-r border-black/5 bg-[var(--brand)]/10 font-mono text-sm font-semibold text-[var(--ink)] sm:h-16 sm:w-16">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                    <h3 className="sui-scroll-reveal px-4 font-mono text-base uppercase tracking-[0.02em] text-[var(--ink)] sm:px-5 sm:text-lg lg:text-base">
-                      {t.title}
-                    </h3>
-                  </div>
+                <Reveal key={`${t.year}-${i}`} delay={i * 0.08}>
+                  <div className="relative pl-16 sm:pl-20">
+                    {/* Dot on the line */}
+                    <div
+                      className="absolute left-[13px] top-5 h-5 w-5 -translate-x-1/2 rounded-full border-[3px] border-white bg-[var(--brand)] shadow-sm sm:left-[27px]"
+                    />
 
-                  <div className="grid min-h-[170px] border-b border-black/5 p-4 sm:p-5">
-                    <div className="sui-scroll-visual m-auto grid w-full max-w-[150px] place-items-center">
-                      <div className="relative aspect-square w-full">
-                        <div className="absolute inset-[17%] rotate-45 border border-[var(--ink)]/10" />
-                        <div className="absolute inset-[27%] rotate-45 border border-[var(--brand)]/55" />
-                        <div className="absolute left-1/2 top-[16%] h-[68%] w-px -translate-x-1/2 bg-[var(--ink)]/10" />
-                        <div className="absolute left-[16%] top-1/2 h-px w-[68%] -translate-y-1/2 bg-[var(--ink)]/10" />
-                        <div className="absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[var(--brand)]/60 bg-white">
-                          <Icon className="h-6 w-6 text-[var(--brand)]" strokeWidth={1.6} />
+                    <article className="overflow-hidden rounded-[0.5rem] border border-[var(--brand)]/15 bg-[var(--brand)]/10 shadow-sm">
+                      {/* Card header */}
+                      <div className="flex items-center border-b border-black/5">
+                        <div className="grid h-14 w-14 shrink-0 place-items-center border-r border-black/5 bg-[var(--brand)]/10 font-mono text-sm font-semibold text-[var(--ink)] sm:h-16 sm:w-16">
+                          {String(i + 1).padStart(2, "0")}
                         </div>
-                        <span className="absolute left-[26%] top-[30%] h-3 w-3 rounded-full border border-[var(--brand)] bg-white" />
-                        <span className="absolute right-[28%] top-[37%] h-3 w-3 rounded-full border border-[var(--brand)] bg-white" />
-                        <span className="absolute bottom-[26%] left-[47%] h-3 w-3 rounded-full border border-[var(--brand)] bg-white" />
+                        <h3 className="px-4 font-mono text-base uppercase tracking-[0.02em] text-[var(--ink)] sm:px-5 sm:text-lg lg:text-base">
+                          {t.title}
+                        </h3>
                       </div>
-                    </div>
-                  </div>
 
-                  <div className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:p-5">
-                    <div className="sui-scroll-reveal">
-                      <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--ink)]/40">
-                        {t.year}
+                      {/* Card body */}
+                      <div className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:p-5">
+                        <div>
+                          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--ink)]/40">
+                            {t.year}
+                          </div>
+                          <p className="mt-2 max-w-xl text-xs leading-relaxed text-[var(--ink)]/65 sm:text-sm">
+                            {t.body}
+                          </p>
+                        </div>
+                        <div className="flex items-end gap-3 sm:justify-end">
+                          <span className="font-display text-2xl leading-none text-[var(--brand)] sm:text-3xl">
+                            {t.metric}
+                          </span>
+                          <span className="pb-1 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink)]/45">
+                            {t.metricLabel}
+                          </span>
+                        </div>
                       </div>
-                      <p className="mt-2 max-w-xl text-xs leading-relaxed text-[var(--ink)]/65 sm:text-sm">
-                        {t.body}
-                      </p>
-                    </div>
-                    <div className="sui-scroll-reveal flex items-end gap-3 sm:justify-end">
-                      <span className="font-display text-2xl leading-none text-[var(--brand)] sm:text-3xl">
-                        {t.metric}
-                      </span>
-                      <span className="pb-1 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink)]/45">
-                        {t.metricLabel}
-                      </span>
-                    </div>
+                    </article>
                   </div>
-                </article>
+                </Reveal>
               );
             })}
           </div>
         </div>
+
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Future Projects — Coming Soon section
+// ─────────────────────────────────────────────────────────────────────────────
+const futureProjects = [
+  {
+    id: "family-center",
+    label: "Favored Family Center",
+    tagline: "Where families find complete care.",
+    description:
+      "A dedicated healthcare destination designed for every stage of family life — from prenatal support and pediatric care to family wellness, nutrition counseling, and chronic disease management. Favored Family Center will bring compassionate, integrated care under one roof.",
+  },
+  {
+    id: "manufacturing",
+    label: "Favored Manufacturing",
+    tagline: "Made in Ethiopia. Trusted across Africa.",
+    description:
+      "Expanding beyond distribution, Favored will invest in local pharmaceutical and healthcare product manufacturing — reducing dependency on imports, creating jobs, and ensuring that life-saving products are produced at the highest international standards right here in Ethiopia.",
+  },
+];
+
+function FutureProjectsSection() {
+  return (
+    <section className="bg-white py-16 sm:py-20 px-6 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-[1440px]">
+
+        <Reveal className="max-w-3xl mb-10">
+          <SectionLabel>Coming Soon</SectionLabel>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">
+            The future of Favored.
+          </h2>
+          <p className="mt-4 max-w-xl text-sm sm:text-base text-[var(--ink)]/60 leading-relaxed">
+            Our mission is growing. Here's a look at the next chapter — new ventures built on the same foundation of quality, trust, and accessibility.
+          </p>
+        </Reveal>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          {futureProjects.map((project, i) => (
+            <Reveal key={project.id} delay={i * 0.1}>
+              <div className="flex flex-col h-full rounded-[2rem] border border-[var(--brand)]/15 bg-[var(--brand)]/10 px-8 py-8 sm:px-10 sm:py-10">
+                <h3 className="font-display text-3xl sm:text-4xl leading-[0.95] text-[var(--ink)] mb-3">
+                  {project.label.toUpperCase()}
+                </h3>
+                <p className="text-xs font-mono uppercase tracking-[0.15em] text-[var(--brand)] mb-4">
+                  {project.tagline}
+                </p>
+                <p className="text-sm sm:text-base text-[var(--ink)]/70 leading-relaxed">
+                  {project.description}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
       </div>
     </section>
   );

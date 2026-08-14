@@ -317,23 +317,17 @@ function Quality() {
         </div>
         
         <div className="w-full max-w-[1440px] mx-auto rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden bg-black/5 relative">
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline
+          <img
+            src="https://images.pexels.com/photos/7089333/pexels-photo-7089333.jpeg"
+            alt="Quality & Compliance"
             className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover"
-          >
-            <source src="https://www.pexels.com/download/video/7033928/" type="video/mp4" />
-          </video>
+          />
         </div>
       </section>
 
       <QualityStatsMarquee />
 
       <StandardsShowcase />
-
-      <CertificationsTabs />
 
       <ScrollProcess />
     </main>

@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import {
-  ArrowRight, ArrowUpRight, MapPin, ShieldCheck, Stethoscope
+  ArrowRight, ArrowUpRight, MapPin, ShieldCheck, Stethoscope, Sparkles
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
 import ethiopiaMapUrl from "@/assets/maps/Ethiopia_administrative_boundaries.svg?url";
@@ -59,15 +59,16 @@ function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
         aria-hidden
       >
-        <source /* src="/hero-video.mp4"   */src="https://www.pexels.com/download/video/8909855/" type="video/mp4" />
+        <source src="https://www.pexels.com/download/video/7089367/" type="video/mp4" />
       </video>
       <div
         className="absolute inset-0"
         style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.2) 100%)" }}
       />
       <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-8 lg:px-12 pb-16 sm:pb-20">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="gsap-hero-reveal">
+        <div className="max-w-[1440px] mx-auto flex items-end justify-between gap-8">
+          {/* ── Left: headline + CTAs ── */}
+          <div className="gsap-hero-reveal flex-1 min-w-0">
             <h1
               className="text-white leading-[1.05]"
               style={{
@@ -101,6 +102,67 @@ function Hero() {
               </Link>
             </div>
           </div>
+
+          {/* ── Right: Best Offers panel ── */}
+          <Link
+            to="/products"
+            className="gsap-hero-reveal group hidden lg:flex flex-col shrink-0 rounded-2xl overflow-hidden"
+            style={{
+              width: 300,
+              background: "rgba(255,255,255,0.09)",
+              backdropFilter: "blur(28px)",
+              WebkitBackdropFilter: "blur(28px)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15)",
+            }}
+          >
+            {/* glass header */}
+            <div
+              className="flex items-center justify-between px-5 py-3.5"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
+            >
+              <span className="text-[10px] font-bold tracking-[0.22em] text-white/60 uppercase">
+                Best Offers
+              </span>
+            </div>
+
+            {/* product body */}
+            <div className="px-5 py-5">
+              {/* badge */}
+              <span
+                className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-full mb-4"
+                style={{ background: "rgba(74,182,120,0.2)", color: "rgba(74,222,128,1)" }}
+              >
+                <Sparkles className="h-3 w-3" />
+                Featured
+              </span>
+
+              <p
+                className="text-white font-semibold leading-snug text-[15px] group-hover:text-white/90 transition-colors"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                Epinephrine (Adrenaline)
+                <br />
+                1mg/ml Injection
+              </p>
+              <p className="mt-2 text-white/45 text-[12px] leading-relaxed">
+                First-line vasopressor for anaphylaxis &amp; cardiac arrest
+              </p>
+
+              <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between">
+                <span
+                  className="text-[10px] font-semibold px-2 py-1 rounded-md"
+                  style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)" }}
+                >
+                  In Stock
+                </span>
+                <span className="flex items-center gap-1 text-[11px] font-semibold text-white/50 group-hover:text-white transition-colors">
+                  View all
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </span>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
     </section>
@@ -216,7 +278,7 @@ function TrustedCollage() {
         <div className="flex flex-col gap-4">
           <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Born<br />Ready</h3>
           <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
-            <img src="https://images.pexels.com/photos/13176452/pexels-photo-13176452.jpeg" className="absolute inset-0 w-full h-full object-cover" alt="Healthcare Professionals" />
+            <img src="https://images.pexels.com/photos/32830266/pexels-photo-32830266.jpeg" className="absolute inset-0 w-full h-full object-cover" alt="Healthcare Professionals" />
           </div>
           <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
             Every birth deserves the best possible start. We supply the medicines, supplements, and obstetric essentials that keep mothers and newborns safe through every stage of the journey.
@@ -295,7 +357,7 @@ function TrustedCollage() {
           <div className="relative overflow-visible p-4 lg:p-6">
             <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25">
               <img
-                src="https://images.pexels.com/photos/13176452/pexels-photo-13176452.jpeg"
+                src="https://images.pexels.com/photos/32830266/pexels-photo-32830266.jpeg"
                 className="img-a absolute inset-0 w-full h-full object-cover"
                 alt="Healthcare Professionals"
               />

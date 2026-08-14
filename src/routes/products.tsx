@@ -218,9 +218,11 @@ function Products() {
         </div>
 
         <div className="w-full max-w-[1440px] mx-auto rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden bg-black/5 relative">
-          <video autoPlay muted loop playsInline className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover">
-            <source src="https://www.pexels.com/download/video/8173246/" type="video/mp4" />
-          </video>
+          <img
+            src="https://images.pexels.com/photos/27499884/pexels-photo-27499884.jpeg"
+            alt="Products"
+            className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover"
+          />
         </div>
       </section>
 

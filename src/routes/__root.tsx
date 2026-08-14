@@ -261,6 +261,7 @@ const NAV_LINKS = [
   { to: "/products", label: "Products" },
   { to: "/quality", label: "Quality" },
   { to: "/partners", label: "Partners" },
+  { to: "/vacancies", label: "Careers" },
 ] as const;
 
 function Nav() {
@@ -301,7 +302,7 @@ function Nav() {
     };
   }, [open]);
 
-  const isSpecialHero = ["/about", "/products", "/quality", "/partners"].includes(pathname);
+  const isSpecialHero = ["/about", "/products", "/quality", "/partners", "/vacancies"].includes(pathname);
   const effectiveScrolled = scrolled || isSpecialHero;
   const onDark = !effectiveScrolled;
 
@@ -552,6 +553,7 @@ const FOOTER_COLS = [
       { label: "Products", to: "/products" },
       { label: "Quality", to: "/quality" },
       { label: "Partners", to: "/partners" },
+      { label: "Careers", to: "/vacancies" },
     ],
   },
   {
@@ -956,4 +958,3 @@ function Footer() {
     </div>
   );
 }
-

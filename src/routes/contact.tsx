@@ -130,15 +130,11 @@ function Contact() {
   return (
     <main className="bg-white text-[var(--ink)] overflow-x-hidden">
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[var(--ink)] text-white">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
+        <img
+          src="https://images.pexels.com/photos/51953/mother-daughter-love-sunset-51953.jpeg"
+          alt="Contact"
           className="absolute inset-0 w-full h-full object-cover scale-110 pointer-events-none"
-        >
-          <source src="https://www.pexels.com/download/video/7173151/" type="video/mp4" />
-        </video>
+        />
 
         {/* Glass Overlay */}
         <div className="absolute inset-0 bg-black/20 backdrop-blur-lg pointer-events-none z-0" />
