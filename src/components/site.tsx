@@ -193,9 +193,9 @@ export function HeroPictogram({
         </div>
       </div>
       {[
-        { t: "WHO-GMP", c: "top-2 left-0" },
-        { t: "Cold chain - 2-8C", c: "bottom-6 right-0" },
-        { t: "Lot traceable", c: "bottom-0 left-6" },
+        { t: "EFDA compliant", c: "top-2 left-0" },
+        { t: "WHO-GMP products", c: "bottom-6 right-0" },
+        { t: "ISO 13485 products", c: "bottom-0 left-6" },
       ].map((chip) => (
         <div
           key={chip.t}

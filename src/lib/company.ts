@@ -1,42 +1,47 @@
 export const company = {
   name: "Favored PLC",
   established: "2020",
-  employeeCount: "15",
-  productCount: "26",
+  tagline: "Deliver. Excel. Influence.",
   address: "Addis Ketema Subcity, Woreda 05, House No. 422/423, Addis Ababa, Ethiopia",
   phones: ["+251 912 156 409", "+251 991 315 630"],
-  email: "favoredplc@gmail.com",
-  website: "www.favoredplc.com",
+  email: "info@favored.com",
+  website: "www.favored.com",
   primaryContact: "Mrs. Lidia Tesfaye",
   profile:
-    "Favored PLC is a pharmaceutical import and distribution company established in 2020. We improve access to quality pharmaceutical products and healthcare solutions through reliable sourcing, efficient distribution, and strong partnerships with manufacturers, healthcare institutions, and other stakeholders. Favored PLC serves customers across all regions of Ethiopia and currently manages a portfolio of 26 pharmaceutical and healthcare products.",
-  vision: "To be the trusted pharmaceutical and healthcare destination in our region.",
+    "Favored PLC is an Ethiopian pharmaceutical and healthcare trading company established in 2020. Its current business is focused on importing and distributing pharmaceuticals, medical supplies, and medical equipment.",
+  vision:
+    "To become a trusted pharmaceutical and healthcare distribution partner in Ethiopia and the wider region.",
   mission:
-    "We are recognized for delivering quality care within reach while empowering women, children, and families to live healthier lives through dedicated and innovative health solutions.",
-  services: [
-    "Pharmaceutical import and distribution",
-    "Medicines",
-    "Medical supplies",
-    "Medical equipment",
-    "Nutritional supplements",
-    "ICU, emergency, maternal, and child healthcare solutions",
-  ],
+    "To improve access to quality-assured healthcare products through responsible sourcing, regulatory compliance, and dependable distribution partnerships.",
+  purpose:
+    "To help healthcare providers access the products they need to care for mothers, children, and critically ill patients.",
+  commitment:
+    "We commit to transparent documentation, responsive service, and product claims that can be supported by current regulatory and manufacturer records.",
   values: [
     {
       title: "Integrity",
-      body: "We act with honesty, transparency, and accountability in all our decisions and relationships.",
+      body: "We communicate honestly and keep our commercial and product claims evidence-based.",
     },
     {
-      title: "Trusted quality",
-      body: "We are committed to delivering high-quality, effective ICU, emergency, maternal, and child healthcare products that ensure better patient outcomes.",
+      title: "Quality",
+      body: "We prioritize compliant products from qualified manufacturers and maintain the required documentation.",
     },
     {
-      title: "Customer service",
-      body: "We prioritize customer needs by delivering reliable, accessible, and responsive healthcare solutions that enhance satisfaction and improve health outcomes.",
+      title: "Service",
+      body: "We listen to healthcare institutions and respond with practical, timely supply solutions.",
     },
     {
-      title: "Operational excellence",
-      body: "We drive efficiency across procurement, warehousing, and distribution to reduce costs and improve performance.",
+      title: "Excellence",
+      body: "We keep improving how products are sourced, handled, documented, and delivered.",
     },
   ],
+  contacts: {
+    sales: { email: "sales@favored.com", phone: "+251 991 315 630" },
+    finance: { email: "finance@favored.com" },
+    ceo: {
+      name: "Mrs. Lidia Tesfaye",
+      email: "ceo@favored.com",
+      phone: "+251 912 156 409",
+    },
+  },
 } as const;

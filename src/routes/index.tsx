@@ -1,935 +1,289 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import {
-  ArrowRight, ArrowUpRight, MapPin, ShieldCheck, Stethoscope, Sparkles
+  ArrowRight,
+  Baby,
+  BadgeCheck,
+  Building2,
+  HeartPulse,
+  MapPin,
+  PackageCheck,
+  ShieldCheck,
+  Stethoscope,
+  Truck,
+  Users,
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
 import ethiopiaMapUrl from "@/assets/maps/Ethiopia_administrative_boundaries.svg?url";
-import heroVideo from "@/assets/hero-video/998015_Medicines_Masks_3840x2160.mp4"
-import supportImg from "@/assets/institutes/24-7-support.png";
-import coldChainImg from "@/assets/institutes/cold-chain.png";
-import deliveryImg from "@/assets/institutes/on-time-delivery.png";
-import qualityImg from "@/assets/institutes/quality-ensured.png";
-import partnersImg from "@/assets/institutes/trusted-partners.png";
-import { company } from "@/lib/company";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
-
-export const Route = createFileRoute("/")(({
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Favored PLC — Pharmaceutical & Healthcare Distribution" },
-      { name: "description", content: "Premium pharmaceutical import & distribution. Hospitals, pharmacies, and clinics nationwide." },
-      { property: "og:title", content: "Favored PLC — Healthcare Distribution" },
-      { property: "og:description", content: "Trusted pharmaceutical and healthcare distribution for a better tomorrow." },
+      { title: "Favored PLC - Pharmaceutical Import & Distribution" },
+      {
+        name: "description",
+        content:
+          "Favored PLC imports and distributes pharmaceuticals, medical supplies, and medical equipment for healthcare institutions in Ethiopia.",
+      },
+      { property: "og:title", content: "Favored PLC - Healthcare Distribution" },
+      {
+        property: "og:description",
+        content: "Trusted Pharmaceutical & Healthcare Solutions, Delivered with Excellence.",
+      },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
   component: Home,
-} as any));
+});
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Hero
-// ─────────────────────────────────────────────────────────────────────────────
-function Hero() {
-  const heroRef = useRef<HTMLElement>(null);
+const focusAreas = [
+  {
+    id: "maternal-care",
+    title: "Maternal care",
+    body: "A focused supply offer for healthcare providers supporting pregnancy, childbirth, and postnatal care.",
+    icon: HeartPulse,
+  },
+  {
+    id: "child-care",
+    title: "Child care",
+    body: "Selected pharmaceuticals, medical supplies, and equipment for paediatric and newborn care.",
+    icon: Baby,
+  },
+  {
+    id: "critical-care",
+    title: "Critical care",
+    body: "Priority products for hospitals, emergency units, intensive care, and time-sensitive clinical needs.",
+    icon: Stethoscope,
+  },
+];
 
-  useGSAP(() => {
-    gsap.fromTo(
-      ".gsap-hero-reveal",
-      { opacity: 0, y: 24 },
-      { opacity: 1, y: 0, duration: 0.9, delay: 0.3, ease: "power2.out" }
-    );
-  }, { scope: heroRef });
+const audiences = [
+  { title: "Hospitals & clinics", icon: Building2 },
+  { title: "Pharmacies & wholesalers", icon: PackageCheck },
+  { title: "Manufacturers", icon: Users },
+];
 
+function Home() {
   return (
-    <section
-      ref={heroRef}
-      className="relative h-screen min-h-[600px] overflow-hidden text-white"
-      aria-label="Favored PLC introduction"
-    >
-      <video
-        autoPlay muted loop playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        aria-hidden
+    <main className="overflow-x-hidden bg-white text-[var(--ink)]">
+      <section
+        className="relative h-screen min-h-[600px] overflow-hidden text-white"
+        aria-label="Favored PLC introduction"
       >
-        <source src="https://www.pexels.com/download/video/7089367/" type="video/mp4" />
-      </video>
-      <div
-        className="absolute inset-0"
-        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.2) 100%)" }}
-      />
-      <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-8 lg:px-12 pb-16 sm:pb-20">
-        <div className="max-w-[1440px] mx-auto flex items-end justify-between gap-8">
-          {/* ── Left: headline + CTAs ── */}
-          <div className="gsap-hero-reveal flex-1 min-w-0">
-            <h1
-              className="text-white leading-[1.05]"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(2.5rem, 5.5vw, 3.5rem)",
-                fontWeight: 600,
-                letterSpacing: "-0.02em",
-                maxWidth: "800px",
-              }}
-            >
-              Trusted Pharmaceutical{" "}
-              &amp; Healthcare Solutions
-              <br />
-              for a Better Tomorrow.
-            </h1>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-2 text-[15px] font-semibold text-white bg-primary px-8 py-3.5 hover:bg-primary/80 hover:scale-105 transition-all"
-                style={{ borderRadius: 9999 }}
-              >
-                Explore Products
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 text-[15px] font-semibold text-white px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-105 transition-all"
-                style={{ borderRadius: 9999 }}
-              >
-                Contact Us
-              </Link>
-            </div>
-          </div>
-
-          {/* ── Right: Best Offers panel ── */}
-          <Link
-            to="/products"
-            className="gsap-hero-reveal group hidden lg:flex flex-col shrink-0 rounded-2xl overflow-hidden"
-            style={{
-              width: 300,
-              background: "rgba(255,255,255,0.09)",
-              backdropFilter: "blur(28px)",
-              WebkitBackdropFilter: "blur(28px)",
-              border: "1px solid rgba(255,255,255,0.18)",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15)",
-            }}
-          >
-            {/* glass header */}
-            <div
-              className="flex items-center justify-between px-5 py-3.5"
-              style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
-            >
-              <span className="text-[10px] font-bold tracking-[0.22em] text-white/60 uppercase">
-                Best Offers
-              </span>
-            </div>
-
-            {/* product body */}
-            <div className="px-5 py-5">
-              {/* badge */}
-              <span
-                className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-full mb-4"
-                style={{ background: "rgba(74,182,120,0.2)", color: "rgba(74,222,128,1)" }}
-              >
-                <Sparkles className="h-3 w-3" />
-                Featured
-              </span>
-
-              <p
-                className="text-white font-semibold leading-snug text-[15px] group-hover:text-white/90 transition-colors"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Epinephrine (Adrenaline)
-                <br />
-                1mg/ml Injection
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+          aria-hidden="true"
+        >
+          <source src="https://www.pexels.com/download/video/7089367/" type="video/mp4" />
+        </video>
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.2) 100%)",
+          }}
+        />
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-16 sm:px-8 sm:pb-20 lg:px-12">
+          <div className="mx-auto flex max-w-[1440px] items-end justify-between gap-8">
+            <div className="min-w-0 flex-1">
+              <p className="font-mono text-xs uppercase tracking-[0.22em] text-white/65">
+                Pharmaceutical import & distribution · Ethiopia
               </p>
-              <p className="mt-2 text-white/45 text-[12px] leading-relaxed">
-                First-line vasopressor for anaphylaxis &amp; cardiac arrest
+              <h1 className="mt-5 max-w-[800px] font-display text-[clamp(2.5rem,5.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-.02em] text-white">
+                Trusted Pharmaceutical & Healthcare Solutions, Delivered with Excellence
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
+                Favored imports and distributes pharmaceuticals, medical supplies, and medical
+                equipment for hospitals, clinics, pharmacies, wholesalers, and institutional buyers.
               </p>
-
-              <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between">
-                <span
-                  className="text-[10px] font-semibold px-2 py-1 rounded-md"
-                  style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)" }}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-[15px] font-semibold text-white transition-all hover:scale-105 hover:bg-primary/80"
                 >
-                  In Stock
-                </span>
-                <span className="flex items-center gap-1 text-[11px] font-semibold text-white/50 group-hover:text-white transition-colors">
-                  View all
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </span>
+                  Send an inquiry <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="/products"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-8 py-3.5 text-[15px] font-semibold text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20"
+                >
+                  View our focus
+                </Link>
               </div>
             </div>
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Stats Marquee
-// ─────────────────────────────────────────────────────────────────────────────
-function StatsMarquee() {
-  const items = [
-    `${company.established} ESTABLISHED`, `${company.employeeCount} TEAM MEMBERS`, `${company.productCount} PRODUCTS`,
-    "ALL ETHIOPIAN REGIONS", "PHARMACEUTICAL IMPORT", "MEDICAL SUPPLIES", "HEALTHCARE SOLUTIONS",
-  ];
-  return (
-    <section className="py-8 bg-white overflow-hidden border-b border-black/5">
-      <div className="flex marquee gap-24 whitespace-nowrap">
-        {[...items, ...items, ...items].map((t, i) => (
-          <div key={i} className="flex items-center text-sm sm:text-base font-semibold text-[var(--ink)]/40 tracking-tight">
-            <span>{t}</span>
           </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+        </div>
+      </section>
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Trusted Collage — two-slide full-page pinned grid
-// ─────────────────────────────────────────────────────────────────────────────
-function TrustedCollage() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+      <section className="border-b border-black/5 bg-white py-8">
+        <div className="mx-auto grid max-w-[1440px] gap-3 px-6 sm:grid-cols-3 sm:px-8 lg:px-12">
+          {audiences.map(({ title, icon: Icon }) => (
+            <div
+              key={title}
+              className="flex items-center gap-3 rounded-2xl bg-[var(--mist)] px-5 py-4"
+            >
+              <Icon className="h-5 w-5 text-[var(--brand)]" strokeWidth={1.6} />
+              <span className="text-sm font-semibold">{title}</span>
+            </div>
+          ))}
+        </div>
+      </section>
 
-  useGSAP(() => {
-    // ── initial states ──────────────────────────────────────────────────────
-    gsap.set(".img-a", { clipPath: "inset(0 100% 0 0)" });
-    gsap.set(".title-a", { y: "120%" });
-    gsap.set(".desc-a", { autoAlpha: 0, y: "120%", clipPath: "inset(100% 0 0 0)" });
-    gsap.set(".slide-b-cell", { autoAlpha: 0 });
-    gsap.set(".img-b", { clipPath: "inset(0 100% 0 0)" });
-    gsap.set(".title-b", { y: "120%" });
-    gsap.set(".desc-b", { autoAlpha: 0, y: "120%", clipPath: "inset(100% 0 0 0)" });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        id: "home-trusted-collage",
-        trigger: gridRef.current,
-        pin: gridRef.current,
-        start: "top top",
-        end: "+=900%",    // 9× viewport — footer stays well below
-        scrub: 1.2,
-        anticipatePin: 1,
-        refreshPriority: 1,
-      },
-    });
-
-    // 1. Pause — empty grid visible
-    tl.to({}, { duration: 0.4 });
-
-    // 2. Slide A images expand left → right
-    tl.to(".img-a", { clipPath: "inset(0 0% 0 0)", duration: 1.5, ease: "power2.inOut", stagger: 0.3 });
-
-    // 3. Slide A titles + descs rise from below
-    tl.to(".title-a", { y: "0%", duration: 0.8, ease: "power3.out", stagger: 0.2 });
-    tl.to(".desc-a", { autoAlpha: 1, y: "0%", clipPath: "inset(0% 0 0 0)", duration: 0.8, ease: "power3.out", stagger: 0.2 }, "<0.1");
-
-    // 4. Hold
-    tl.to({}, { duration: 0.5 });
-
-    // 5. Slide A exits: images collapse left, text exits upward
-    tl.to(".img-a", { clipPath: "inset(0 0% 0 100%)", duration: 1.2, ease: "power2.inOut", stagger: 0.2 });
-    tl.to(".title-a", { y: "-120%", duration: 0.6, ease: "power2.in", stagger: 0.15 }, "<");
-    tl.to(".desc-a", { autoAlpha: 0, y: "-120%", clipPath: "inset(0 0 100% 0)", duration: 0.6, ease: "power2.in", stagger: 0.15 }, "<");
-
-    // 6. Slide B images enter from left
-    tl.set(".slide-b-cell", { autoAlpha: 1 });
-    tl.to(".img-b", { clipPath: "inset(0 0% 0 0)", duration: 1.5, ease: "power2.inOut", stagger: 0.3 }, "<0.2");
-
-    // 7. Slide B titles + descs rise from below
-    tl.to(".title-b", { y: "0%", duration: 0.8, ease: "power3.out", stagger: 0.2 });
-    tl.to(".desc-b", { autoAlpha: 1, y: "0%", clipPath: "inset(0% 0 0 0)", duration: 0.8, ease: "power3.out", stagger: 0.2 }, "<0.1");
-
-    // 8. Final hold before unpin
-    tl.to({}, { duration: 0.6 });
-  }, { scope: wrapperRef });
-
-  // Helper: grid cell positions (5 cols × 3 rows)
-  const col = (n: number) => `${(n - 1) * 20}%`;
-  const row = (n: number) => `${((n - 1) * 100) / 3}%`;
-  const W = "20%";
-  const H = "calc(100% / 3)";
-
-  return (
-    <div ref={wrapperRef}>
-      {/* Heading — scrolls away, NOT pinned */}
-      <div className="bg-white border-t border-black/5 pt-24 sm:pt-32 pb-12 px-6 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-[1440px] flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
           <Reveal className="max-w-3xl">
-            <SectionLabel>Trusted By Institutions</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">
-              Where life-critical pharmaceuticals meet the institutions that cannot afford to wait.
+            <SectionLabel>What Favored does</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+              Focused trading for essential areas of care.
             </h2>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--ink)]/65">
+              Our current business is importing and distributing. We concentrate our core portfolio
+              in three therapeutic areas and handle other opportunities selectively.
+            </p>
           </Reveal>
-          <Link to="/partners" className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ink)] hover:text-[var(--brand)] shrink-0">
-            Meet our partners <ArrowRight className="h-4 w-4" />
-          </Link>
+          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+            {focusAreas.map(({ id, title, body, icon: Icon }, index) => (
+              <Reveal key={id} delay={index * 0.06}>
+                <article
+                  id={id}
+                  className="h-full rounded-[2rem] border border-black/5 bg-[var(--mist)] p-7 sm:p-9"
+                >
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-[var(--brand)] shadow-sm">
+                    <Icon className="h-6 w-6" strokeWidth={1.6} />
+                  </div>
+                  <h3 className="mt-12 font-display text-3xl">{title}</h3>
+                  <p className="mt-4 text-base leading-relaxed text-[var(--ink)]/65">{body}</p>
+                  <Link
+                    to="/products"
+                    hash={id}
+                    className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--brand)]"
+                  >
+                    Explore this area <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Mobile Stacked Version */}
-      <div className="lg:hidden w-full bg-white px-6 sm:px-8 pb-20 flex flex-col gap-12 pt-8">
-        <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Born<br />Ready</h3>
-          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
-            <img src="https://images.pexels.com/photos/32830266/pexels-photo-32830266.jpeg" className="absolute inset-0 w-full h-full object-cover" alt="Healthcare Professionals" />
-          </div>
-          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            Every birth deserves the best possible start. We supply the medicines, supplements, and obstetric essentials that keep mothers and newborns safe through every stage of the journey.
-          </p>
-        </div>
-        
-        <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Small Bodies,<br />Big Stakes</h3>
-          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
-            <img src={qualityImg} className="absolute inset-0 w-full h-full object-cover" alt="Laboratory" />
-          </div>
-          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            From first vaccinations to precision paediatric doses, we import the formulations children need — and the hormone therapies that give families a fighting chance to begin.
-          </p>
-        </div>
-        
-        <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">When Seconds<br />Count</h3>
-          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
-            <img src={coldChainImg} className="absolute inset-0 w-full h-full object-cover" alt="Cold-chain logistics" />
-          </div>
-          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            Life doesn't wait. Our critical-care portfolio — resuscitation drugs, IV solutions, and emergency consumables — is stocked and ready before the alarm ever sounds.
-          </p>
-        </div>
-        
-        <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Source<br />to Shelf</h3>
-          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
-            <img src={partnersImg} className="absolute inset-0 w-full h-full object-cover" alt="Partners" />
-          </div>
-          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            We trace every product back to its factory floor — partnering only with manufacturers who meet international benchmarks, so you never have to question what's in the vial.
-          </p>
-        </div>
-        
-        <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">Temperature<br />Never Lies</h3>
-          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
-            <img src={supportImg} className="absolute inset-0 w-full h-full object-cover" alt="Support" />
-          </div>
-          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            Biologics and hormone therapies lose their power in the wrong conditions. Our cold-chain infrastructure keeps every product potent from the manufacturer's door to yours.
-          </p>
-        </div>
-        
-        <div className="flex flex-col gap-4">
-          <h3 className="font-display text-3xl text-[var(--ink)] leading-tight">No Gaps,<br />Ever</h3>
-          <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden relative">
-            <img src={deliveryImg} className="absolute inset-0 w-full h-full object-cover" alt="Delivery" />
-          </div>
-          <p className="text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-            A gap in the formulary is not a healthcare option. We own the full import cycle — customs, warehousing, last-mile — so your shelves stay full and your patients stay covered.
-          </p>
-        </div>
-      </div>
-
-      {/* Full-page pinned grid (Desktop Only) */}
-      <div ref={gridRef} className="hidden lg:block relative w-full h-screen bg-white overflow-hidden isolate">
-
-        {/* ── SLIDE A — CSS grid ─────────────────────────────────────────────
-            Row 1: [empty] [title-a col2] [img-a col3] [desc-a col4] [empty]
-            Row 2: [title-a col1] [img-a col2] [desc-a col3] [empty] [empty]
-            Row 3: [empty] [empty] [title-a col3] [img-a col4] [desc-a col5]   */}
-        <div className="grid grid-cols-5 grid-rows-3 w-full h-full">
-
-          {/* ROW 1 */}
-          <div className="p-4 lg:p-6"><div className="w-full h-full rounded-3xl border border-[#228B22]/25" /></div>
-          <div className="p-4 lg:p-6">
-            <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-end text-right">
-              <div className="overflow-hidden py-2">
-                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Born<br />Ready</h3>
-              </div>
-            </div>
-          </div>
-          <div className="relative overflow-visible p-4 lg:p-6">
-            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25">
-              <img
-                src="https://images.pexels.com/photos/32830266/pexels-photo-32830266.jpeg"
-                className="img-a absolute inset-0 w-full h-full object-cover"
-                alt="Healthcare Professionals"
-              />
-            </div>
-          </div>
-          <div className="p-4 lg:p-6 pointer-events-none">
-            <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
-              <div className="overflow-hidden py-4">
-                <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  Every birth deserves the best start. We supply the medicines, supplements, and obstetric essentials that keep mothers and newborns safe.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="p-4 lg:p-6"><div className="w-full h-full rounded-3xl border border-[#228B22]/25" /></div>
-
-          {/* ROW 2 */}
-          <div className="p-4 lg:p-6">
-            <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-end text-right">
-              <div className="overflow-hidden py-2">
-                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Small Bodies,<br />Big Stakes</h3>
-              </div>
-            </div>
-          </div>
-          <div className="relative overflow-visible p-4 lg:p-6">
-            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25">
-              <img
-                src="https://images.pexels.com/photos/3341189/pexels-photo-3341189.jpeg"
-                className="img-a absolute inset-0 w-full h-full object-cover"
-                alt="Laboratory"
-              />
-            </div>
-          </div>
-          <div className="p-4 lg:p-6 pointer-events-none">
-            <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
-              <div className="overflow-hidden py-4">
-                <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  From vaccinations to precision paediatric doses, we import what children need - and the hormone therapies that give families hope.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="p-4 lg:p-6"><div className="w-full h-full rounded-3xl border border-[#228B22]/25" /></div>
-          <div className="p-4 lg:p-6"><div className="w-full h-full rounded-3xl border border-[#228B22]/25" /></div>
-
-          {/* ROW 3 */}
-          <div className="p-4 lg:p-6"><div className="w-full h-full rounded-3xl border border-[#228B22]/25" /></div>
-          <div className="p-4 lg:p-6"><div className="w-full h-full rounded-3xl border border-[#228B22]/25" /></div>
-          <div className="p-4 lg:p-6">
-            <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-end text-right">
-              <div className="overflow-hidden py-2">
-                <h3 className="title-a font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">When Seconds<br />Count</h3>
-              </div>
-            </div>
-          </div>
-          <div className="relative overflow-visible p-4 lg:p-6">
-            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25">
-              <img
-                src="https://images.pexels.com/photos/34584/pexels-photo.jpg"
-                className="img-a absolute inset-0 w-full h-full object-cover"
-                alt="Cold-chain logistics"
-              />
-            </div>
-          </div>
-          <div className="p-4 lg:p-6 pointer-events-none">
-            <div className="w-full h-full rounded-3xl border border-[#228B22]/25 p-4 lg:p-6 flex flex-col justify-center items-start text-left">
-              <div className="overflow-hidden py-4">
-                <p className="desc-a text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                  Life doesn't wait. Our critical-care essentials are stocked and ready before the alarm sounds.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── SLIDE B — absolutely positioned at DIFFERENT columns ─────────────
-            Row 1 → col1(title) col2(img) col3(desc)   [img was at col3 in A]
-            Row 2 → col3(title) col4(img) col5(desc)   [img was at col2 in A]
-            Row 3 → col2(title) col3(img) col4(desc)   [img was at col4 in A]  */}
-
-        {/* ROW 1 ── col1 title-b */}
-        <div
-          className="slide-b-cell absolute p-4 lg:p-6 z-10"
-          style={{ left: col(1), top: row(1), width: W, height: H }}
-        >
-          <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-end text-right">
-            <div className="overflow-hidden py-2">
-              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Source<br />to Shelf</h3>
-            </div>
-          </div>
-        </div>
-        {/* ROW 1 ── col2 img-b */}
-        <div
-          className="slide-b-cell absolute overflow-visible p-4 lg:p-6 z-10"
-          style={{ left: col(2), top: row(1), width: W, height: H }}
-        >
-          <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25 bg-white">
-            <img
-              src="https://images.pexels.com/photos/36217325/pexels-photo-36217325.jpeg"
-              className="img-b absolute inset-0 w-full h-full object-cover"
-              alt="Partners"
-            />
-          </div>
-        </div>
-        {/* ROW 1 col3 desc-b */}
-        <div
-          className="slide-b-cell absolute p-4 lg:p-6 pointer-events-none z-10"
-          style={{ left: col(3), top: row(1), width: W, height: H }}
-        >
-          <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
-            <div className="overflow-hidden py-4">
-              <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                Traced back to the factory floor, partnering only with manufacturers who meet international benchmarks. Know what's in the vial.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* ROW 2 ── col3 title-b */}
-        <div
-          className="slide-b-cell absolute p-4 lg:p-6 z-10"
-          style={{ left: col(3), top: row(2), width: W, height: H }}
-        >
-          <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-end text-right">
-            <div className="overflow-hidden py-2">
-              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">Temperature<br />Never Lies</h3>
-            </div>
-          </div>
-        </div>
-        {/* ROW 2 ── col4 img-b */}
-        <div
-          className="slide-b-cell absolute overflow-visible p-4 lg:p-6 z-10"
-          style={{ left: col(4), top: row(2), width: W, height: H }}
-        >
-          <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25 bg-white">
-            <img
-              src={coldChainImg}
-              className="img-b absolute inset-0 w-full h-full object-cover"
-              alt="Support"
-            />
-          </div>
-        </div>
-        {/* ROW 2 col5 desc-b */}
-        <div
-          className="slide-b-cell absolute p-4 lg:p-6 pointer-events-none z-10"
-          style={{ left: col(5), top: row(2), width: W, height: H }}
-        >
-          <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
-            <div className="overflow-hidden py-4">
-              <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                Biologics lose their power in the wrong conditions. Our cold-chain keeps every product potent, door to door.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* ROW 3 ── col2 title-b */}
-        <div
-          className="slide-b-cell absolute p-4 lg:p-6 z-10"
-          style={{ left: col(2), top: row(3), width: W, height: H }}
-        >
-          <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-end text-right">
-            <div className="overflow-hidden py-2">
-              <h3 className="title-b font-display text-2xl lg:text-3xl text-[var(--ink)] leading-[1.1]">No Gaps,<br />Ever</h3>
-            </div>
-          </div>
-        </div>
-        {/* ROW 3 ── col3 img-b */}
-        <div
-          className="slide-b-cell absolute overflow-visible p-4 lg:p-6 z-10"
-          style={{ left: col(3), top: row(3), width: W, height: H }}
-        >
-          <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[#228B22]/25 bg-white">
-            <img
-              src={deliveryImg}
-              className="img-b absolute inset-0 w-full h-full object-cover"
-              alt="Delivery"
-            />
-          </div>
-        </div>
-        {/* ROW 3 col4 desc-b */}
-        <div
-          className="slide-b-cell absolute p-4 lg:p-6 pointer-events-none z-10"
-          style={{ left: col(4), top: row(3), width: W, height: H }}
-        >
-          <div className="w-full h-full rounded-3xl border border-[#228B22]/25 bg-white p-4 lg:p-6 flex flex-col justify-center items-start text-left">
-            <div className="overflow-hidden py-4">
-              <p className="desc-b text-[15px] text-[var(--ink)]/70 font-normal leading-relaxed">
-                A formulary gap isn't an option. We own customs, warehousing, and last-mile shelves full, patients covered.
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Pillars Teaser
-// ─────────────────────────────────────────────────────────────────────────────
-function PillarsTeaser() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [hoveredPillar, setHoveredPillar] = useState<number | null>(null);
-
-  useGSAP(() => {
-    gsap.fromTo(
-      ".gsap-pillar-reveal",
-      { opacity: 0 },
-      {
-        opacity: 1,
-        duration: 0.7,
-        stagger: 0.08,
-        ease: "power2.out",
-        scrollTrigger: { trigger: containerRef.current, start: "top 80%" },
-      }
-    );
-  }, { scope: containerRef });
-
-  const pillars = [
-    {
-      n: "01",
-      title: <>Pharmaceutical<br />Imports</>,
-      desc: "Globally certified manufacturers, dependable sourcing, and full chain-of-custody for essential medicines.",
-      color: "#018541",
-      shape: "rounded-none",
-      position: "lg:left-[3%] lg:top-[88px]",
-      content: "items-start justify-start text-left",
-    },
-    {
-      n: "02",
-      title: <>Medical<br />Equipment</>,
-      desc: "Imaging, monitoring, surgical devices, and installation support for facilities that need reliable uptime.",
-      color: "#042A27",
-      shape: "aspect-square rounded-full mx-auto w-full",
-      position: "lg:left-[21%] lg:top-[88px]",
-      content: "items-center justify-center text-center",
-    },
-    {
-      n: "03",
-      title: <>Laboratory<br />Supplies</>,
-      desc: "Reagents, calibrated instruments, and lab essentials selected for accuracy, traceability, and daily use.",
-      color: "#009F5C",
-      shape: "rounded-b-full",
-      position: "lg:left-[44%] lg:top-[88px]",
-      content: "items-start justify-start text-left",
-    },
-    {
-      n: "04",
-      title: <>Hospital<br />Consumables</>,
-      desc: "Daily-use supplies, sterile essentials, and scheduled replenishment that keep clinical teams moving.",
-      color: "#03332F",
-      shape: "rounded-tr-[220px]",
-      position: "lg:right-[3%] lg:top-[88px]",
-      content: "items-center justify-center text-center",
-    },
-  ];
-
-  const getPillarTransform = (index: number) => {
-    if (hoveredPillar === null || hoveredPillar === index) return undefined;
-    if (hoveredPillar === 2 && index === 3) return "translateX(16rem)";
-    return `translateX(${index < hoveredPillar ? "-12rem" : "12rem"})`;
-  };
-
-  return (
-    <section className="bg-white py-24 sm:py-32 px-6 sm:px-8 lg:px-12" ref={containerRef}>
-      <div className="mx-auto max-w-[1440px]">
-        <Reveal className="max-w-3xl">
-          <SectionLabel>Solutions</SectionLabel>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl text-[var(--ink)]">Four pillars of dependable supply.</h2>
-        </Reveal>
-        <div className="relative mt-16 min-h-[640px] overflow-visible lg:mt-10">
-          <div className="grid gap-8 lg:block">
-            {pillars.map((pillar, index) => (
+      <section className="bg-[#082923] py-24 text-white sm:py-32">
+        <div className="mx-auto grid max-w-[1440px] gap-12 px-6 sm:px-8 lg:grid-cols-12 lg:px-12">
+          <Reveal className="lg:col-span-5">
+            <SectionLabel>Why institutions can trust us</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+              Compliance belongs in the evidence.
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-white/65">
+              Favored operates in line with EFDA requirements. Product-level quality claims are
+              supported by the applicable manufacturer documentation.
+            </p>
+            <Link
+              to="/quality"
+              className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold hover:bg-white/10"
+            >
+              Review our quality approach <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Reveal>
+          <div className="grid gap-4 sm:grid-cols-3 lg:col-span-7">
+            {[
+              {
+                title: "EFDA compliance",
+                body: "Favored's importing and distribution activities follow the applicable Ethiopian regulatory requirements.",
+                icon: ShieldCheck,
+              },
+              {
+                title: "WHO-GMP products",
+                body: "WHO-GMP is presented as a manufacturer or product credential, subject to document verification.",
+                icon: BadgeCheck,
+              },
+              {
+                title: "ISO 13485 products",
+                body: "Medical-device certification is stated only where the relevant product documentation supports it.",
+                icon: PackageCheck,
+              },
+            ].map(({ title, body, icon: Icon }) => (
               <article
-                key={pillar.n}
-                className={`gsap-pillar-reveal group relative min-h-[320px] overflow-hidden p-8 text-white opacity-0 transition-transform duration-500 sm:p-10 lg:absolute lg:h-[500px] lg:w-[500px] ${pillar.position} ${pillar.shape}`}
-                style={{ background: pillar.color, transform: getPillarTransform(index) }}
-                onMouseEnter={() => setHoveredPillar(index)}
-                onMouseLeave={() => setHoveredPillar(null)}
-                onFocus={() => setHoveredPillar(index)}
-                onBlur={() => setHoveredPillar(null)}
-                tabIndex={0}
+                key={title}
+                className="rounded-[1.75rem] border border-white/10 bg-white/[.055] p-6"
               >
-                <div className={`flex h-full min-h-[220px] flex-col ${pillar.content}`}>
-                  <h3 className="font-display text-3xl leading-[1.05] text-white sm:text-4xl">
-                    {pillar.title}
-                  </h3>
-                  <p className="mt-6 max-w-sm text-base font-semibold leading-relaxed text-white transition-all duration-300 opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-3 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
-                    {pillar.desc}
-                  </p>
-                </div>
+                <Icon className="h-6 w-6 text-[var(--brand)]" strokeWidth={1.5} />
+                <h3 className="mt-10 font-display text-2xl">{title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-white/60">{body}</p>
               </article>
             ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Featured Teasers
-// ─────────────────────────────────────────────────────────────────────────────
-function FeaturedTeasers() {
-  return (
-    <section className="relative py-24 md:py-0 h-auto md:h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0 noise-overlay">
-        <img
-          src="https://images.pexels.com/photos/7615557/pexels-photo-7615557.jpeg"
-          alt="Pharmacy background"
-          className="w-full h-full object-cover scale-[1.05] translate-x-0 md:-translate-x-2"
-        />
-        {/* Overlays to integrate with brand palette and ensure text readability */}
-        <div className="absolute inset-0 bg-[var(--ink)]/50 mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-black/40"></div>
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 w-full">
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
-
-          <Link to="/quality" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-8 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 h-auto md:aspect-[4/5] md:max-h-[600px]">
-            <div className="flex flex-col items-center w-full">
-              <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-6 md:mb-16">
-                Quality & Compliance
-              </h3>
-
-              <div className="relative w-24 h-24 md:w-32 md:h-32 mb-8 md:mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
-                <ShieldCheck className="w-16 h-16 md:w-24 md:h-24 stroke-[1.5]" />
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center gap-6 md:gap-8 w-full">
-              <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-sm">
-                Built on quality, safety & trust.
-              </p>
-              <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-                {["WHO-GMP", "ISO 9001", "GDP"].map((c) => (
-                  <span key={c} className="rounded-full bg-white/5 px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-xs font-semibold text-white border border-[var(--brand)]/50 tracking-wide uppercase">
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </Link>
-
-          <Link to="/products" className="group relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-8 sm:p-14 flex flex-col items-center justify-between text-center transition-all duration-500 hover:bg-white/10 hover:border-white/20 h-auto md:aspect-[4/5] md:max-h-[600px] mt-4 md:mt-0">
-            <div className="flex flex-col items-center w-full">
-              <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white mb-6 md:mb-16">
-                Product Catalog
-              </h3>
-
-              <div className="relative w-24 h-24 md:w-32 md:h-32 mb-8 md:mb-12 flex items-center justify-center text-[var(--brand)]/80 group-hover:text-[var(--brand)] group-hover:scale-110 transition-all duration-700">
-                <Stethoscope className="w-16 h-16 md:w-24 md:h-24 stroke-[1.5]" />
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center gap-6 md:gap-8 w-full">
-              <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-sm">
-                26 pharmaceutical and healthcare products.
-              </p>
-              <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-                {["Prescription", "OTC", "Devices", "Lab", "Consumables", "Emergency"].map((c) => (
-                  <span key={c} className="rounded-full bg-white/5 px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-xs font-semibold text-white border border-[var(--brand)]/50 tracking-wide uppercase">
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </Link>
-
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Network Preview
-// ─────────────────────────────────────────────────────────────────────────────
-function NetworkPreview() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeHub, setActiveHub] = useState(0);
-
-  const hubs = [
-    {
-      city: "Addis Ababa",
-      region: "Central command",
-      // Green SVG paths cluster: avg x≈38.6%, y≈51%
-      x: 38.6,
-      y: 51.0,
-      stat: "Daily dispatch control",
-      detail: "Our primary distribution hub, fulfilling daily deliveries to major hospitals and pharmacies across the capital.",
-      image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200",
-    },
-    {
-      city: "Bahir Dar",
-      region: "Northwest corridor",
-      // Green SVG path start: x=29.6%, y=28%
-      x: 29.6,
-      y: 28.0,
-      stat: "Hospital and pharmacy supply",
-      detail: "We distribute extensively throughout the Amhara region, ensuring continuous supply to healthcare facilities in Bahir Dar and beyond.",
-      image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&q=80&w=1200",
-    },
-    {
-      city: "Mekelle",
-      region: "Northern reach",
-      // Green SVG path start: x=42.9%, y=10.9%
-      x: 42.9,
-      y: 10.9,
-      stat: "Long-haul validated lanes",
-      detail: "Our northern distribution lanes deliver temperature-sensitive pharmaceuticals and critical supplies directly to Mekelle's medical centers.",
-      image: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&q=80&w=1200",
-    },
-    {
-      city: "Hawassa",
-      region: "Southern corridor",
-      // Green SVG path start: x=37.2%, y=67.5%
-      x: 37.2,
-      y: 67.5,
-      stat: "Clinic and lab coverage",
-      detail: "We supply the southern corridor, distributing essential medicines and medical devices directly to clinics and hospitals in Hawassa.",
-      image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80&w=1200",
-    },
-    {
-      city: "Dire Dawa",
-      region: "Eastern gateway",
-      // Green SVG paths cluster: avg x≈59.1%, y≈45.5%
-      x: 59.1,
-      y: 45.5,
-      stat: "Fast regional transfer",
-      detail: "Our eastern distribution network ensures rapid fulfillment and delivery of critical healthcare supplies to facilities in Dire Dawa.",
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1200",
-    },
-    {
-      city: "Jimma",
-      region: "Southwest route",
-      // Green SVG path start: x=25.8%, y=62.2%
-      x: 25.8,
-      y: 62.2,
-      stat: "Reliable replenishment",
-      detail: "We consistently distribute essential pharmaceutical stock and recurring medical consumables to healthcare providers throughout Jimma.",
-      image: "https://images.unsplash.com/photo-1518152006812-edab29b069ac?auto=format&fit=crop&q=80&w=1200",
-    },
-  ];
-
-  useGSAP(() => {
-    const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: "top 75%" } });
-    tl.fromTo(".gsap-network-highlight", { opacity: 0 }, { opacity: 1, duration: 0.9, stagger: 0.08, ease: "power2.out" }, 0);
-  }, { scope: containerRef });
-
-  const selectedHub = hubs[activeHub];
-  return (
-    <section className="bg-white" ref={containerRef}>
-      <div className="grid overflow-hidden border-y border-black/5 bg-white lg:min-h-[760px] lg:grid-cols-[52vw_48vw]">
-        <div className="relative flex min-h-[720px] flex-col px-6 py-12 sm:px-10 lg:px-12">
-          <Reveal className="relative z-20 max-w-[690px]">
-            <SectionLabel>Network</SectionLabel>
-            <h2 className="mt-4 max-w-[660px] font-display text-3xl text-[var(--ink)] sm:text-4xl">
-              A nationwide network, always moving.
-            </h2>
-            <p className="mt-7 max-w-[640px] text-sm font-semibold uppercase leading-snug text-[var(--ink)]/70 sm:text-base">
-              From hospital wards to neighborhood pharmacies we keep healthcare moving.
-            </p>
-          </Reveal>
-
-          <div className="relative z-10 mt-12 flex-1 min-h-[410px] overflow-hidden bg-white/45">
-            <div className="absolute inset-5 flex items-center justify-center sm:inset-8">
-              <div className="relative aspect-[800/611] h-full max-h-full max-w-full">
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto grid max-w-[1440px] items-center gap-14 px-6 sm:px-8 lg:grid-cols-2 lg:px-12">
+          <Reveal>
+            <div className="relative overflow-hidden rounded-[2.5rem] bg-[#edf7f1] p-8 sm:p-12">
+              <div className="relative mx-auto aspect-[800/611] w-full max-w-[800px]">
                 <img
                   src={ethiopiaMapUrl}
                   alt="Map of Ethiopia"
-                  className="absolute inset-0 h-full w-full object-contain drop-shadow-sm"
+                  className="absolute inset-0 h-full w-full object-contain opacity-55"
                 />
-
-                {hubs.map((hub, index) => {
-                  const isActive = activeHub === index;
-
-                  return (
-                    <button
-                      key={hub.city}
-                      onMouseEnter={() => setActiveHub(index)}
-                      className={`absolute z-20 origin-bottom -translate-x-1/2 -translate-y-full transition-transform hover:scale-125 text-[#228b22] ${isActive ? "scale-125 drop-shadow-md" : ""
-                        }`}
-                      style={{ left: `${hub.x}%`, top: `${hub.y}%` }}
-                      aria-label={`Select ${hub.city}`}
-                    >
-                      <MapPin
-                        className={`h-5 w-5 sm:h-6 sm:w-6 ${isActive ? "fill-[#228b22] stroke-white" : "fill-white stroke-[#228b22]"
-                          }`}
-                      />
-                    </button>
-                  );
-                })}
+                <button
+                  type="button"
+                  aria-label="Addis Ababa - Central hub"
+                  className="group absolute z-20 origin-bottom -translate-x-1/2 -translate-y-full text-[#228b22] transition-transform hover:scale-125 focus-visible:scale-125 focus-visible:outline-none"
+                  style={{ left: "38.6%", top: "51%" }}
+                >
+                  <MapPin className="h-6 w-6 fill-white stroke-[#228b22] drop-shadow-md transition-colors group-hover:fill-[#228b22] group-hover:stroke-white group-focus-visible:fill-[#228b22] group-focus-visible:stroke-white" />
+                  <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-[calc(100%+0.5rem)] whitespace-nowrap rounded-full bg-white px-4 py-2 text-xs font-semibold text-[var(--ink)] opacity-0 shadow-lg transition-all group-hover:-translate-y-[calc(100%+0.75rem)] group-hover:opacity-100 group-focus-visible:-translate-y-[calc(100%+0.75rem)] group-focus-visible:opacity-100">
+                    Addis Ababa · Central hub
+                  </span>
+                </button>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="relative min-h-[620px] overflow-hidden bg-[var(--ink)] text-white lg:min-h-[760px]">
-          {/* Background image mirrors the footer CTA treatment */}
-          <div
-            key={selectedHub.image}
-            aria-hidden
-            className="absolute inset-0 transition-opacity duration-500"
-            style={{
-              backgroundImage: `url(${selectedHub.image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center 35%",
-            }}
-          />
-          <div className="absolute inset-0 bg-[rgba(5,22,18,0.45)]" />
-
-          {/* Top Right Box */}
-          <div
-            className="absolute bg-white p-8 flex flex-col justify-between z-10"
-            style={{ width: "220px", height: "200px", top: "0px", right: "10px" }}
-          >
-            <p className="font-display text-2xl text-[#4A5143] leading-tight break-words">Network role</p>
-            <p className="text-[10px] font-bold uppercase tracking-[0.08em] leading-relaxed text-[#4A5143]/80 break-words">
-              {selectedHub.region}
+          </Reveal>
+          <Reveal>
+            <SectionLabel>Nationwide distribution</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+              One central hub. A nationwide partner network.
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-[var(--ink)]/65">
+              Favored coordinates distribution from Addis Ababa and extends its reach through
+              wholesale strategic partnerships.
             </p>
-          </div>
-
-          {/* Left/Lower Box */}
-          <div
-            className="absolute bg-white p-8 flex flex-col justify-between shadow-2xl z-20"
-            style={{ width: "210px", height: "200px", top: "200px", right: "230px" }}
-          >
-            <p className="font-display text-2xl text-[#4A5143] leading-tight break-words">Movement</p>
-            <p className="text-[10px] font-bold uppercase tracking-[0.08em] leading-relaxed text-[#4A5143]/80 break-words">
-              ACTIVE ROUTE —<br />
-              {selectedHub.stat}
-            </p>
-          </div>
-
-          {/* Bottom Left Content */}
-          <div className="absolute bottom-0 left-0 w-full p-8 sm:p-10 lg:p-12 z-30">
-            <div className="max-w-[480px]">
-              <h3 className="font-display text-[32px] sm:text-[40px] lg:text-[46px] leading-[1.05] tracking-tight text-white">
-                {selectedHub.city}
-                <br />
-                distribution lane.
-              </h3>
-              <p className="mt-4 max-w-[380px] text-sm sm:text-base leading-relaxed text-white/90">
-                {selectedHub.detail}
-              </p>
-
+            <div className="mt-8 flex items-center gap-3 text-sm font-semibold">
+              <Truck className="h-5 w-5 text-[var(--brand)]" /> Distribution plans are confirmed
+              against each customer's location and order requirements.
             </div>
-          </div>
+          </Reveal>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Page
-// ─────────────────────────────────────────────────────────────────────────────
-function Home() {
-  return (
-    <main className="bg-white text-[var(--ink)] overflow-x-hidden">
-      <Hero />
-      <StatsMarquee />
-      <TrustedCollage />
-      <PillarsTeaser />
-      <FeaturedTeasers />
-      <NetworkPreview />
+      <section className="bg-[var(--mist)] py-24 sm:py-32">
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
+          <Reveal className="rounded-[2.5rem] bg-white p-8 sm:p-14 lg:flex lg:items-end lg:justify-between lg:gap-16">
+            <div className="max-w-3xl">
+              <SectionLabel>Future plan</SectionLabel>
+              <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+                A future family-care business, built in stages.
+              </h2>
+              <p className="mt-6 text-lg leading-relaxed text-[var(--ink)]/65">
+                Favored's future plan is to develop a clearly defined family-care offer for women,
+                children, and households. It remains a future initiative; today's operating focus is
+                pharmaceutical and healthcare-product trading.
+              </p>
+            </div>
+            <Link
+              to="/about"
+              className="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--ink)] px-7 py-3.5 text-sm font-semibold text-white lg:mt-0"
+            >
+              Read our story <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
     </main>
   );
 }
-

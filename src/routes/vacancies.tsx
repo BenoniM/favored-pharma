@@ -15,6 +15,7 @@ import {
   Mail,
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
+import careersHero from "@/assets/hero-img/ChatGPT Image Aug 17, 2026, 10_35_31 AM.png";
 
 export const Route = createFileRoute("/vacancies")({
   head: () => ({
@@ -174,13 +175,7 @@ function ResponsibilityCard({
 // ─────────────────────────────────────────────────────────────────────────────
 // Job Card (accordion)
 // ─────────────────────────────────────────────────────────────────────────────
-function JobCard({
-  job,
-  index,
-}: {
-  job: (typeof openings)[number];
-  index: number;
-}) {
+function JobCard({ job, index }: { job: (typeof openings)[number]; index: number }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -202,9 +197,7 @@ function JobCard({
           {/* Icon */}
           <div
             className={`shrink-0 flex items-center justify-center w-11 h-11 rounded-xl transition-colors duration-300 ${
-              open
-                ? "bg-[var(--brand)] text-white"
-                : "bg-[var(--brand)]/10 text-[var(--brand)]"
+              open ? "bg-[var(--brand)] text-white" : "bg-[var(--brand)]/10 text-[var(--brand)]"
             }`}
           >
             <Briefcase className="w-5 h-5" strokeWidth={1.75} />
@@ -283,14 +276,14 @@ function JobCard({
             {/* Apply CTA */}
             <div className="mt-8 flex flex-wrap gap-3 items-center">
               <a
-                href={`mailto:hello@favoredplc.com?subject=Application: ${encodeURIComponent(job.title)}`}
+                href={`mailto:careers@favored.com?subject=Application: ${encodeURIComponent(job.title)}`}
                 className="inline-flex items-center gap-2 bg-[var(--brand)] text-white text-sm font-medium px-6 py-3 rounded-full hover:bg-[var(--ink)] transition-all duration-300 hover:scale-105"
               >
                 Apply Now
                 <ArrowRight className="w-4 h-4" strokeWidth={2} />
               </a>
               <span className="text-xs text-[var(--ink)]/40">
-                Send your CV to hello@favoredplc.com
+                Send your CV to careers@favored.com
               </span>
             </div>
           </div>
@@ -342,15 +335,17 @@ function Vacancies() {
             Shape a healthier Ethiopia <span className="text-[var(--brand)]">with us.</span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--ink)]/70 max-w-2xl mx-auto font-medium leading-relaxed">
-            We are a growing pharmaceutical distribution company powered by a team that believes access to quality medicine saves lives. If that mission excites you, we would love to meet you.
+            We are a growing pharmaceutical distribution company powered by a team that believes
+            access to quality medicine saves lives. If that mission excites you, we would love to
+            meet you.
           </p>
         </div>
 
-        <div className="w-full max-w-[1440px] mx-auto rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden bg-black/5 relative">
+        <div className="w-full max-w-[1440px] mx-auto rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden bg-[#E6F6ED] relative">
           <img
-            src="https://images.pexels.com/photos/5452190/pexels-photo-5452190.jpeg"
+            src={careersHero}
             alt="Careers at Favored PLC"
-            className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-cover"
+            className="w-full h-[30vh] sm:h-[70vh] lg:h-[80vh] object-contain"
           />
         </div>
       </section>
@@ -364,15 +359,14 @@ function Vacancies() {
           <Reveal className="mb-14 max-w-3xl">
             <SectionLabel>Corporate Responsibilities</SectionLabel>
             <h2
-              className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl text-[var(--ink)] leading-[1.08]"
+              className="mt-4 font-display text-3xl leading-[1.08] text-[var(--ink)] sm:text-4xl"
               style={{ letterSpacing: "-0.025em" }}
             >
-              How we show up for{" "}
-              <span className="text-[var(--brand)]">people and planet.</span>
+              How we show up for <span className="text-[var(--brand)]">people and planet.</span>
             </h2>
             <p className="mt-5 text-base sm:text-lg text-[var(--ink)]/60 max-w-2xl leading-relaxed">
-              At Favored PLC, responsibility is not a checkbox—it is central to why we exist.
-              Here is what that commitment looks like in practice.
+              At Favored PLC, responsibility is not a checkbox—it is central to why we exist. Here
+              is what that commitment looks like in practice.
             </p>
           </Reveal>
 
@@ -386,7 +380,7 @@ function Vacancies() {
 
       {/* ── Dark stat strip ── */}
       <Reveal>
-        <section className="bg-[#07221E] py-16 px-6 sm:px-8">
+        <section className="bg-[#07221E] px-6 py-16 sm:px-8 lg:px-12">
           <div className="mx-auto max-w-[1440px]">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
               {[
@@ -396,9 +390,7 @@ function Vacancies() {
                 { value: "2020", label: "Founded" },
               ].map((stat) => (
                 <div key={stat.label} className="flex flex-col items-center gap-2">
-                  <span className="font-display text-4xl sm:text-5xl text-white">
-                    {stat.value}
-                  </span>
+                  <span className="font-display text-4xl sm:text-5xl text-white">{stat.value}</span>
                   <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-white/40">
                     {stat.label}
                   </span>
@@ -415,15 +407,14 @@ function Vacancies() {
           <Reveal className="mb-14 max-w-3xl">
             <SectionLabel>Open Positions</SectionLabel>
             <h2
-              className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl text-[var(--ink)] leading-[1.08]"
+              className="mt-4 font-display text-3xl leading-[1.08] text-[var(--ink)] sm:text-4xl"
               style={{ letterSpacing: "-0.025em" }}
             >
-              Current{" "}
-              <span className="text-[var(--brand)]">vacancies.</span>
+              Current <span className="text-[var(--brand)]">vacancies.</span>
             </h2>
             <p className="mt-5 text-base sm:text-lg text-[var(--ink)]/60 max-w-2xl leading-relaxed">
-              We hire people who are curious, driven, and care deeply about healthcare.
-              Explore our open roles below.
+              We hire people who are curious, driven, and care deeply about healthcare. Explore our
+              open roles below.
             </p>
           </Reveal>
 
@@ -444,12 +435,12 @@ function Vacancies() {
                   Send us a speculative application.
                 </h3>
                 <p className="mt-3 text-sm sm:text-[0.95rem] text-[var(--ink)]/60 max-w-md leading-relaxed">
-                  We are always keen to hear from talented professionals who share our mission.
-                  Drop us your CV and tell us how you can contribute.
+                  We are always keen to hear from talented professionals who share our mission. Drop
+                  us your CV and tell us how you can contribute.
                 </p>
               </div>
               <a
-                href="mailto:hello@favoredplc.com?subject=Speculative%20Application"
+                href="mailto:careers@favored.com?subject=Speculative%20Application"
                 className="shrink-0 inline-flex items-center gap-2.5 bg-[var(--brand)] text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-[var(--ink)] transition-all duration-300 hover:scale-105 whitespace-nowrap"
               >
                 <Mail className="w-4 h-4" strokeWidth={2} />

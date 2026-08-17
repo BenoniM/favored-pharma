@@ -1,22 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Mail, Phone, MapPin, ArrowRight, Plus, Minus, Loader2, Check } from "lucide-react";
-import { z } from "zod";
-import { toast } from "sonner";
-import { Reveal, PageHero, SectionLabel } from "@/components/site";
+import { type FormEvent, useState } from "react";
+import { ArrowRight, Building2, Mail, MapPin, Phone, UserRound } from "lucide-react";
+import { Reveal, SectionLabel } from "@/components/site";
 import logoCroppedSvgUrl from "@/assets/logo/Logo-Cropped.svg?url";
 import { company } from "@/lib/company";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Favored PLC — Talk to a Specialist" },
+      { title: "Contact Favored PLC" },
       {
         name: "description",
-        content: "Request a quote, become a partner, or visit one of our regional offices.",
+        content:
+          "Contact Favored PLC sales, finance, or the CEO office, send an inquiry, and find the Addis Ababa office.",
       },
       { property: "og:title", content: "Contact Favored PLC" },
-      { property: "og:description", content: "A specialist responds within one business day." },
+      {
+        property: "og:description",
+        content: "Product, procurement, finance, and partnership inquiries.",
+      },
       { property: "og:url", content: "/contact" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
@@ -24,52 +26,32 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-
-const AnimatedText = ({ children }: { children: React.ReactNode }) => (
-  <span className="group relative overflow-hidden inline-flex cursor-default">
-    <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full">
-      {children}
-    </span>
-    <span className="absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] translate-y-full group-hover:translate-y-0" aria-hidden="true">
-      {children}
-    </span>
-  </span>
-);
-
-const faqs = [
+const contacts = [
   {
-    id: "moq",
-    q: "What is your minimum order quantity?",
-    a: "MOQ varies by product line — most consumables ship from a single carton, while specialty pharmaceuticals may have lot-based minimums. Our team will confirm at quote.",
+    title: "Sales",
+    subtitle: "Products, quotations & availability",
+    email: company.contacts.sales.email,
+    phone: company.contacts.sales.phone,
+    icon: Building2,
   },
   {
-    id: "emergency",
-    q: "How quickly can you fulfill an emergency order?",
-    a: "Cold-chain and life-saving supplies in regional stock typically dispatch within 4 hours; nationwide delivery averages 48 hours.",
+    title: "Finance",
+    subtitle: "Invoices, payments & account questions",
+    email: company.contacts.finance.email,
+    icon: Mail,
   },
   {
-    id: "coverage",
-    q: "Do you supply outside major cities?",
-    a: "Yes — through our six regional hubs we deliver to facilities in every region of the country.",
-  },
-  {
-    id: "compliance",
-    q: "Can I see compliance documentation before ordering?",
-    a: "Absolutely. We share CoA, CoO, and import certificates ahead of every order on request.",
+    title: "CEO Office",
+    subtitle: company.contacts.ceo.name,
+    email: company.contacts.ceo.email,
+    phone: company.contacts.ceo.phone,
+    icon: UserRound,
   },
 ];
 
-const contactSchema = z.object({
-  name: z.string().trim().min(2, "Name is too short").max(100),
-  org: z.string().trim().min(2, "Organization is required").max(120),
-  email: z.string().trim().email("Enter a valid email").max(255),
-  phone: z.string().trim().max(40).optional().or(z.literal("")),
-  type: z.string(),
-  message: z.string().trim().min(10, "Tell us a bit more (10+ chars)").max(1000),
-});
-type FormState = {
+type Inquiry = {
   name: string;
-  org: string;
+  organization: string;
   email: string;
   phone: string;
   type: string;
@@ -77,309 +59,250 @@ type FormState = {
 };
 
 function Contact() {
-  const [openFaq, setOpenFaq] = useState<string | null>("moq");
-  const [form, setForm] = useState<FormState>({
+  const [form, setForm] = useState<Inquiry>({
     name: "",
-    org: "",
+    organization: "",
     email: "",
     phone: "",
-    type: "Product Quote",
+    type: "Product availability",
     message: "",
   });
-  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
-  // FAQ deep-link via hash (#faq-emergency)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const sync = () => {
-      const h = window.location.hash.replace("#faq-", "");
-      if (h && faqs.some((f) => f.id === h)) {
-        setOpenFaq(h);
-        const el = document.getElementById(`faq-${h}`);
-        if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "center" }), 60);
-      }
-    };
-    sync();
-    window.addEventListener("hashchange", sync);
-    return () => window.removeEventListener("hashchange", sync);
-  }, []);
+  const update = (key: keyof Inquiry, value: string) =>
+    setForm((current) => ({ ...current, [key]: value }));
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = contactSchema.safeParse(form);
-    if (!result.success) {
-      const fieldErrors: Partial<Record<keyof FormState, string>> = {};
-      for (const issue of result.error.issues) {
-        const k = issue.path[0] as keyof FormState;
-        fieldErrors[k] = issue.message;
-      }
-      setErrors(fieldErrors);
-      toast.error("Please fix the highlighted fields.");
-      return;
-    }
-    setErrors({});
-    setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 900));
-    setSubmitting(false);
-    setSubmitted(true);
-    toast.success("Inquiry received — we'll be in touch within one business day.");
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const subject = encodeURIComponent(`Favored inquiry: ${form.type} - ${form.organization}`);
+    const body = encodeURIComponent(
+      [
+        `Name: ${form.name}`,
+        `Organization: ${form.organization}`,
+        `Email: ${form.email}`,
+        `Phone: ${form.phone || "Not provided"}`,
+        `Inquiry type: ${form.type}`,
+        "",
+        form.message,
+      ].join("\n"),
+    );
+    window.location.href = `mailto:${company.contacts.sales.email}?subject=${subject}&body=${body}`;
   };
 
   return (
-    <main className="bg-white text-[var(--ink)] overflow-x-hidden">
-      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[var(--ink)] text-white">
+    <main className="overflow-x-hidden bg-white text-[var(--ink)]">
+      <section className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-[var(--ink)] text-white">
         <img
           src="https://images.pexels.com/photos/51953/mother-daughter-love-sunset-51953.jpeg"
           alt="Contact"
-          className="absolute inset-0 w-full h-full object-cover scale-110 pointer-events-none"
+          className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover"
         />
-
-        {/* Glass Overlay */}
-        <div className="absolute inset-0 bg-black/20 backdrop-blur-lg pointer-events-none z-0" />
-
-        {/* Left Text / Top Text on Mobile */}
-        <div className="absolute inset-x-0 sm:inset-x-auto text-center sm:text-left top-[35%] sm:top-1/2 -translate-y-1/2 sm:left-12 md:left-24 z-10 block">
-          <span className="font-display text-[2rem] sm:text-lg md:text-xl lg:text-2xl text-white/90 tracking-wide">
-            Get In Touch
+        <div className="pointer-events-none absolute inset-0 z-0 bg-black/20 backdrop-blur-lg" />
+        <div className="absolute inset-x-0 top-[35%] z-10 -translate-y-1/2 text-center sm:inset-x-auto sm:left-12 sm:top-1/2 sm:text-left md:left-24">
+          <span className="font-display text-[2rem] tracking-wide text-white/90 sm:text-lg md:text-xl lg:text-2xl">
+            Tell us what you need
           </span>
         </div>
-
-        {/* Center Logo */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
           <img
             src={logoCroppedSvgUrl}
-            alt="Logo"
-            className="h-24 sm:h-32 md:h-40 w-auto brightness-0 invert"
+            alt="Favored PLC"
+            className="h-24 w-auto brightness-0 invert sm:h-32 md:h-40"
           />
         </div>
-
-        {/* Right Text */}
-        <div className="absolute right-6 sm:right-12 md:right-24 top-1/2 -translate-y-1/2 z-10 hidden sm:block">
-          <span className="font-display text-lg md:text-xl lg:text-2xl text-white/90 tracking-wide">
-            Let's Talk supply
+        <div className="absolute right-6 top-1/2 z-10 hidden -translate-y-1/2 sm:block sm:right-12 md:right-24">
+          <span className="font-display text-lg tracking-wide text-white/90 md:text-xl lg:text-2xl">
+            Contact Favored
           </span>
         </div>
-
-        {/* Bottom Text */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-full max-w-4xl px-6 text-center z-10">
-          <p className="text-white/80 text-lg sm:text-xl md:text-2xl leading-relaxed font-medium">
-            Whether you're a hospital procurement officer, pharmacy owner, or manufacturer looking for a distribution partner — a specialist will respond within one business day.
+        <div className="absolute bottom-6 left-1/2 z-10 w-full max-w-4xl -translate-x-1/2 px-6 text-center">
+          <p className="text-lg font-medium leading-relaxed text-white/80 sm:text-xl md:text-2xl">
+            For product availability, quotations, institutional procurement, finance, or partnership
+            discussions, contact the relevant Favored team.
           </p>
         </div>
       </section>
 
-      {/* Headquarter & Contact Info Section */}
-      <section className="bg-white py-16 border-y border-black/5">
+      <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            {/* Headers */}
-            <div className="border-b border-black/10 pb-4 md:pr-12 lg:pr-24 md:border-r">
-              <h2 className="text-xl sm:text-2xl font-display tracking-wide text-[var(--ink)]">Headquarter</h2>
-            </div>
-            <div className="border-b border-black/10 pb-4 pt-8 md:pt-0 md:pl-12 lg:pl-24">
-              <h2 className="text-xl sm:text-2xl font-display tracking-wide text-[var(--ink)]">Contact</h2>
-            </div>
-
-            {/* Content */}
-            <div className="pt-8 md:pr-12 lg:pr-24 md:border-r border-black/10 relative flex flex-col justify-center">
-              <div className="text-lg sm:text-xl md:text-2xl text-[var(--ink)]/80 leading-snug tracking-tight flex flex-col items-start gap-1">
-                <AnimatedText>Addis Ketema Subcity,</AnimatedText>
-                <AnimatedText>Woreda 05, House No. 422/423</AnimatedText>
-                <AnimatedText>Addis Ababa, Ethiopia</AnimatedText>
-              </div>
-              <div className="absolute right-8 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#bbf7d0]" />
-            </div>
-
-            <div className="pt-8 md:pl-12 lg:pl-24 flex flex-col justify-center">
-              <div className="text-lg sm:text-xl md:text-2xl text-[var(--ink)]/80 leading-snug tracking-tight flex flex-col items-start gap-1">
-                <AnimatedText>Phone - {company.phones.join(" / ")}</AnimatedText>
-                <AnimatedText>Mail - {company.email}</AnimatedText>
-              </div>
-            </div>
+          <Reveal className="max-w-3xl">
+            <SectionLabel>Direct contacts</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+              Reach the right desk.
+            </h2>
+          </Reveal>
+          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+            {contacts.map(({ title, subtitle, email, phone, icon: Icon }, index) => (
+              <Reveal key={title} delay={index * 0.05}>
+                <article className="h-full rounded-[2rem] border border-black/5 bg-[var(--mist)] p-8">
+                  <Icon className="h-7 w-7 text-[var(--brand)]" strokeWidth={1.5} />
+                  <h3 className="mt-12 font-display text-3xl">{title}</h3>
+                  <p className="mt-2 text-sm text-[var(--ink)]/55">{subtitle}</p>
+                  <div className="mt-8 space-y-3">
+                    <a
+                      href={`mailto:${email}`}
+                      className="flex items-center gap-3 text-sm font-semibold hover:text-[var(--brand)]"
+                    >
+                      <Mail className="h-4 w-4 text-[var(--brand)]" /> {email}
+                    </a>
+                    {phone && (
+                      <a
+                        href={`tel:${phone.replace(/\s/g, "")}`}
+                        className="flex items-center gap-3 text-sm font-semibold hover:text-[var(--brand)]"
+                      >
+                        <Phone className="h-4 w-4 text-[var(--brand)]" /> {phone}
+                      </a>
+                    )}
+                  </div>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Form & FAQ Split Section */}
-      <section className="py-16 sm:py-24 bg-white">
-        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12 grid lg:grid-cols-2 gap-16 lg:gap-24">
+      <section className="bg-[var(--mist)] py-24 sm:py-32">
+        <div className="mx-auto grid max-w-[1440px] gap-14 px-6 sm:px-8 lg:grid-cols-2 lg:px-12">
           <Reveal>
-            <form
-              noValidate
-              onSubmit={handleSubmit}
-              className="bg-transparent"
-            >
-              <div className="flex items-center gap-2 mb-10">
-                <div className="h-2 w-2 rounded-full bg-[var(--brand)] animate-pulse" />
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--ink)]/60">
-                  Inquiry Form
-                </span>
+            <SectionLabel>Inquiry form</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+              Prepare an email to sales.
+            </h2>
+            <p className="mt-5 max-w-xl leading-relaxed text-[var(--ink)]/65">
+              Submitting this form opens your email application with the inquiry prefilled, so you
+              retain a copy and can attach product lists or procurement documents.
+            </p>
+            <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field label="Name" required>
+                  <input
+                    required
+                    value={form.name}
+                    onChange={(event) => update("name", event.target.value)}
+                    className="input"
+                    placeholder="Your full name"
+                  />
+                </Field>
+                <Field label="Organization" required>
+                  <input
+                    required
+                    value={form.organization}
+                    onChange={(event) => update("organization", event.target.value)}
+                    className="input"
+                    placeholder="Hospital, clinic, pharmacy..."
+                  />
+                </Field>
+                <Field label="Email" required>
+                  <input
+                    required
+                    type="email"
+                    value={form.email}
+                    onChange={(event) => update("email", event.target.value)}
+                    className="input"
+                    placeholder="name@organization.com"
+                  />
+                </Field>
+                <Field label="Phone">
+                  <input
+                    value={form.phone}
+                    onChange={(event) => update("phone", event.target.value)}
+                    className="input"
+                    placeholder="+251 ..."
+                  />
+                </Field>
               </div>
-
-              {submitted ? (
-                <div className="rounded-2xl bg-white border border-[var(--brand)]/30 p-8 text-center animate-in fade-in zoom-in-95 duration-300">
-                  <div className="mx-auto h-14 w-14 rounded-full bg-[var(--brand)] text-white grid place-items-center">
-                    <Check className="h-7 w-7" />
-                  </div>
-                  <h3 className="mt-4 font-display text-3xl">Inquiry received</h3>
-                  <p className="mt-2 text-[var(--ink)]/65">
-                    A specialist will be in touch within one business day.
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-10">
-                  <div className="space-y-8">
-                    {(
-                      [
-                        ["name", "Name", true, "Hello...", "text"],
-                        ["email", "Email", true, "Where can I reply?", "email"],
-                        ["org", "Organization Name", false, "Your organization or website?", "text"],
-                        ["phone", "Phone", false, "Your phone number?", "tel"],
-                      ] as const
-                    ).map(([k, l, req, p, type]) => (
-                      <label key={k} className="block relative">
-                        <span className="block text-sm font-semibold text-[var(--ink)] mb-2">
-                          {l}
-                          {req && <span className="text-red-400 ml-0.5">*</span>}
-                        </span>
-                        <input
-                          type={type}
-                          value={form[k as keyof FormState]}
-                          onChange={(e) => setForm((f) => ({ ...f, [k]: e.target.value }))}
-                          placeholder={p}
-                          aria-invalid={!!errors[k as keyof FormState]}
-                          className={`w-full bg-transparent border-b py-3 text-sm outline-none transition-colors placeholder:text-[var(--ink)]/40 ${errors[k as keyof FormState] ? "border-red-400" : "border-black/10 focus:border-[var(--brand)]"}`}
-                        />
-                        {errors[k as keyof FormState] && (
-                          <span className="absolute -bottom-5 left-0 text-xs text-red-500">
-                            {errors[k as keyof FormState]}
-                          </span>
-                        )}
-                      </label>
-                    ))}
-                  </div>
-
-                  <label className="block">
-                    <span className="block text-sm font-semibold text-[var(--ink)] mb-4">
-                      What's in your mind?<span className="text-red-400 ml-0.5">*</span>
-                    </span>
-                    <div className="flex flex-wrap gap-3">
-                      {["Partnership", "Product Quote", "Catalog Request", "Other"].map((t) => (
-                        <button
-                          type="button"
-                          key={t}
-                          onClick={() => setForm((f) => ({ ...f, type: t }))}
-                          className={`rounded-full px-5 py-2.5 text-sm transition-colors border ${form.type === t ? "bg-[var(--brand)] text-white border-[var(--brand)]" : "bg-white text-[var(--ink)]/70 border-black/15 hover:border-black/30"}`}
-                        >
-                          {t}
-                        </button>
-                      ))}
-                    </div>
-                  </label>
-
-                  <label className="block relative">
-                    <span className="block text-sm font-semibold text-[var(--ink)] mb-2">
-                      Message<span className="text-red-400 ml-0.5">*</span>
-                    </span>
-                    <textarea
-                      rows={4}
-                      value={form.message}
-                      onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                      placeholder="I want to discuss..."
-                      aria-invalid={!!errors.message}
-                      className={`w-full bg-transparent border-b py-3 text-sm outline-none transition-colors resize-none placeholder:text-[var(--ink)]/40 ${errors.message ? "border-red-400" : "border-black/10 focus:border-[var(--brand)]"}`}
-                    />
-                    {errors.message && (
-                      <span className="absolute -bottom-5 left-0 text-xs text-red-500">{errors.message}</span>
-                    )}
-                  </label>
-
-                  <div className="flex justify-end pt-4">
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--brand)] text-white px-8 py-4 text-sm font-medium transition-transform duration-200 hover:scale-110 active:scale-95 disabled:opacity-60"
-                    >
-                      {submitting ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <>
-                          Submit <ArrowRight className="h-4 w-4" />
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              )}
+              <Field label="Inquiry type" required>
+                <select
+                  value={form.type}
+                  onChange={(event) => update("type", event.target.value)}
+                  className="input"
+                >
+                  <option>Product availability</option>
+                  <option>Quotation</option>
+                  <option>Institutional procurement</option>
+                  <option>Manufacturer partnership</option>
+                  <option>Finance</option>
+                  <option>Other</option>
+                </select>
+              </Field>
+              <Field label="Message" required>
+                <textarea
+                  required
+                  rows={6}
+                  value={form.message}
+                  onChange={(event) => update("message", event.target.value)}
+                  className="input resize-y"
+                  placeholder="Include product, quantity, organization, destination, and timing where possible."
+                />
+              </Field>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--brand)] px-7 py-3.5 text-sm font-semibold text-white"
+              >
+                Open email inquiry <ArrowRight className="h-4 w-4" />
+              </button>
             </form>
           </Reveal>
 
-          {/* FAQs */}
-          <div>
-            <Reveal>
-              <div className="flex items-center gap-2 mb-10">
-                <div className="h-2 w-2 rounded-full bg-[var(--brand)] animate-pulse" />
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--ink)]/60">
-                  Frequently Asked
-                </span>
-              </div>
-            </Reveal>
-            <div className="border-t border-black/10">
-              {faqs.map((f, i) => {
-                const open = openFaq === f.id;
-                return (
-                  <Reveal key={f.id} delay={i * 0.04}>
-                    <div id={`faq-${f.id}`} className="scroll-mt-32">
-                      <button
-                        onClick={() => {
-                          setOpenFaq(open ? null : f.id);
-                        }}
-                        className="w-full text-left bg-transparent border-b border-black/10 py-6 hover:border-black/30 transition-colors group"
-                      >
-                        <div className="flex items-center justify-between gap-4">
-                          <span className="text-lg md:text-xl font-medium text-[var(--ink)] transition-colors">
-                            {f.q}
-                          </span>
-                          <div className={`shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--ink)]/60 group-hover:text-[var(--ink)]">
-                              <path d="m6 9 6 6 6-6"/>
-                            </svg>
-                          </div>
-                        </div>
-                        <div
-                          className={`grid transition-[grid-template-rows,opacity] duration-300 ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+          <Reveal>
+            <div className="overflow-hidden rounded-[2.5rem] border border-black/5 bg-white shadow-[var(--shadow-card)]">
+              <iframe
+                title="Favored PLC office location"
+                src="https://www.google.com/maps?q=Addis%20Ketema%20Subcity%20Woreda%2005%20House%20422%20423%20Addis%20Ababa%20Ethiopia&output=embed"
+                className="h-[430px] w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+              <div className="p-8">
+                <div className="flex items-start gap-4">
+                  <MapPin className="mt-1 h-6 w-6 shrink-0 text-[var(--brand)]" strokeWidth={1.5} />
+                  <div>
+                    <p className="font-display text-2xl">Favored PLC office</p>
+                    <p className="mt-3 leading-relaxed text-[var(--ink)]/65">{company.address}</p>
+                    <div className="mt-6 space-y-2">
+                      {company.phones.map((phone) => (
+                        <a
+                          key={phone}
+                          href={`tel:${phone.replace(/\s/g, "")}`}
+                          className="block text-sm font-semibold hover:text-[var(--brand)]"
                         >
-                          <div className="overflow-hidden">
-                            <p className="pt-4 text-[var(--ink)]/60 text-sm sm:text-base leading-relaxed pr-8">{f.a}</p>
-                          </div>
-                        </div>
-                      </button>
+                          {phone}
+                        </a>
+                      ))}
+                      <a
+                        href={`mailto:${company.email}`}
+                        className="block text-sm font-semibold hover:text-[var(--brand)]"
+                      >
+                        {company.email}
+                      </a>
                     </div>
-                  </Reveal>
-                );
-              })}
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
-
-      {/* FAQ JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqs.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
-            })),
-          }),
-        }}
-      />
     </main>
+  );
+}
+
+function Field({
+  label,
+  required,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm font-semibold">
+        {label}
+        {required && <span className="ml-1 text-[var(--brand)]">*</span>}
+      </span>
+      {children}
+    </label>
   );
 }

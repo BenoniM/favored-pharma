@@ -17,7 +17,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 
-
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import logoImg from "@/assets/logo/Logo.png";
@@ -91,24 +90,45 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Favored PLC — Trusted Pharmaceutical & Healthcare Solutions" },
-      { name: "description", content: "Favored PLC imports and distributes premium pharmaceuticals, medical supplies, healthcare equipment and life-saving solutions for hospitals, clinics and pharmacies." },
+      { title: "Favored PLC - Pharmaceutical Import & Distribution" },
+      {
+        name: "description",
+        content:
+          "Favored PLC imports and distributes pharmaceuticals, medical supplies, and medical equipment for healthcare institutions in Ethiopia.",
+      },
       { property: "og:site_name", content: "Favored PLC" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:title", content: "Favored PLC — Trusted Pharmaceutical & Healthcare Solutions" },
-      { name: "twitter:title", content: "Favored PLC — Trusted Pharmaceutical & Healthcare Solutions" },
-      { property: "og:description", content: "Favored PLC imports and distributes premium pharmaceuticals, medical supplies, healthcare equipment and life-saving solutions for hospitals, clinics and pharmacies." },
-      { name: "twitter:description", content: "Favored PLC imports and distributes premium pharmaceuticals, medical supplies, healthcare equipment and life-saving solutions for hospitals, clinics and pharmacies." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d4461a09-b016-4819-902d-798107afaf4d/id-preview-889ad667--6f3735cb-2248-44a9-a24d-120fe6510a38.lovable.app-1782466793892.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d4461a09-b016-4819-902d-798107afaf4d/id-preview-889ad667--6f3735cb-2248-44a9-a24d-120fe6510a38.lovable.app-1782466793892.png" },
+      { property: "og:title", content: "Favored PLC - Pharmaceutical Import & Distribution" },
+      { name: "twitter:title", content: "Favored PLC - Pharmaceutical Import & Distribution" },
+      {
+        property: "og:description",
+        content: "Trusted pharmaceutical and healthcare solutions, delivered with excellence.",
+      },
+      {
+        name: "twitter:description",
+        content: "Trusted pharmaceutical and healthcare solutions, delivered with excellence.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d4461a09-b016-4819-902d-798107afaf4d/id-preview-889ad667--6f3735cb-2248-44a9-a24d-120fe6510a38.lovable.app-1782466793892.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d4461a09-b016-4819-902d-798107afaf4d/id-preview-889ad667--6f3735cb-2248-44a9-a24d-120fe6510a38.lovable.app-1782466793892.png",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: logoCroppedPngUrl, type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
     ],
     scripts: [
       {
@@ -122,8 +142,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               name: "Favored PLC",
               url: "/",
               logo: "/favicon.ico",
-              description: "Pharmaceutical imports, medical equipment, laboratory supplies, and hospital consumables for healthcare providers.",
-              sameAs: [],
+              description:
+                "Pharmaceutical, medical-supply, and medical-equipment import and distribution for Ethiopian healthcare providers.",
+              sameAs: ["https://et.linkedin.com/company/favored-plc"],
             },
             {
               "@type": "WebSite",
@@ -138,17 +159,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "@id": "/#localbusiness",
               name: "Favored PLC",
               image: "/favicon.ico",
-              telephone: "+251-11-000-0000",
-              email: "hello@favoredplc.com",
-              priceRange: "$$",
+              telephone: "+251-912-156-409",
+              email: "info@favored.com",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "Bole Sub-City",
+                streetAddress: "Addis Ketema Subcity, Woreda 05, House No. 422/423",
                 addressLocality: "Addis Ababa",
                 addressCountry: "ET",
               },
               areaServed: "ET",
-              openingHours: "Mo-Fr 08:30-17:30",
             },
           ],
         }),
@@ -213,7 +232,11 @@ function RootComponent() {
 
     if (!outletRef.current) return;
     const el = outletRef.current;
-    gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "all" });
+    gsap.fromTo(
+      el,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "all" },
+    );
   }, [pathname]);
 
   useEffect(() => {
@@ -254,7 +277,6 @@ function RootComponent() {
   );
 }
 
-
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
@@ -289,7 +311,9 @@ function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     if (open) {
@@ -302,34 +326,30 @@ function Nav() {
     };
   }, [open]);
 
-  const isSpecialHero = ["/about", "/products", "/quality", "/partners", "/vacancies"].includes(pathname);
+  const isSpecialHero = ["/about", "/products", "/quality", "/partners", "/vacancies"].includes(
+    pathname,
+  );
   const effectiveScrolled = scrolled || isSpecialHero;
   const onDark = !effectiveScrolled;
 
   return (
     <header
-      className={`fixed z-50 transition-all duration-500 ${effectiveScrolled ? "top-4 inset-x-4 sm:inset-x-8" : "top-0 inset-x-0"
-        }`}
+      className={`fixed z-50 transition-all duration-500 ${
+        effectiveScrolled ? "top-4 inset-x-4 sm:inset-x-8" : "top-0 inset-x-0"
+      }`}
       style={{ transform: hidden ? "translateY(-150%)" : "translateY(0)" }}
     >
       <div className="mx-auto max-w-[1440px]">
         <div
-          className={`flex items-center transition-all duration-300 ${effectiveScrolled
+          className={`flex items-center transition-all duration-300 ${
+            effectiveScrolled
               ? "bg-white px-6 sm:px-8 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-black/5 rounded-full"
               : "px-6 sm:px-10 py-5"
-            }`}
+          }`}
         >
           {/* Logo */}
           <Link to="/" className="shrink-0 flex items-center">
-            <img
-              src={logoImg}
-              alt="Favored PLC"
-              className="h-10 sm:h-12 w-auto object-contain"
-              style={{
-                filter: onDark ? "brightness(0) invert(1)" : "none",
-                transition: "filter 0.3s",
-              }}
-            />
+            <img src={logoImg} alt="Favored PLC" className="h-10 sm:h-12 w-auto object-contain" />
           </Link>
 
           {/* Main nav links */}
@@ -338,10 +358,11 @@ function Nav() {
               <Link
                 key={l.to}
                 to={l.to}
-                className={`text-base font-medium transition-colors ${onDark
+                className={`text-base font-medium transition-colors ${
+                  onDark
                     ? "text-white hover:text-white"
                     : "text-[var(--ink)] hover:text-[var(--ink)]"
-                  } data-[status=active]:text-[var(--brand)] data-[status=active]:font-semibold`}
+                } data-[status=active]:text-[var(--brand)] data-[status=active]:font-semibold`}
                 activeProps={{ "data-status": "active" } as any}
               >
                 {l.label}
@@ -353,42 +374,53 @@ function Nav() {
           <div className="ml-auto flex items-center gap-3">
             <Link
               to="/contact"
-              className={`hidden sm:inline-flex items-center gap-1.5 text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 ${onDark
+              className={`hidden sm:inline-flex items-center gap-1.5 text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 ${
+                onDark
                   ? "bg-white text-black hover:bg-gray-100"
                   : "bg-black text-white hover:bg-gray-800"
-                }`}
+              }`}
             >
               Contact Us
             </Link>
             <button
               onClick={() => setOpen(!open)}
-              className={`lg:hidden p-2 relative w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 ${onDark ? "text-white" : "text-[var(--brand)]"
-                }`}
+              className={`lg:hidden p-2 relative w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 ${
+                onDark ? "text-white" : "text-[var(--brand)]"
+              }`}
               aria-label="Menu"
               aria-expanded={open}
             >
-              <Menu className={`absolute w-7 h-7 stroke-[3] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "scale-50 opacity-0 rotate-90" : "scale-100 opacity-100 rotate-0"}`} />
-              <X className={`absolute w-7 h-7 stroke-[3] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "scale-100 opacity-100 rotate-0" : "scale-50 opacity-0 -rotate-90"}`} />
+              <Menu
+                className={`absolute w-7 h-7 stroke-[3] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "scale-50 opacity-0 rotate-90" : "scale-100 opacity-100 rotate-0"}`}
+              />
+              <X
+                className={`absolute w-7 h-7 stroke-[3] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "scale-100 opacity-100 rotate-0" : "scale-50 opacity-0 -rotate-90"}`}
+              />
             </button>
           </div>
         </div>
       </div>
 
       {/* Mobile menu backdrop */}
-      {typeof document !== "undefined" && createPortal(
-        <div
-          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-[40] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      {typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-[40] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
             }`}
-          onClick={() => setOpen(false)}
-          aria-hidden="true"
-        />,
-        document.body
-      )}
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />,
+          document.body,
+        )}
 
       {/* Mobile menu dropdown */}
       <div
-        className={`mx-auto max-w-[1440px] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] absolute inset-x-0 top-full pt-2 sm:pt-4 origin-top ${open ? "opacity-100 pointer-events-auto translate-y-0 scale-y-100" : "opacity-0 pointer-events-none -translate-y-4 scale-y-95"
-          }`}
+        className={`mx-auto max-w-[1440px] lg:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] absolute inset-x-0 top-full pt-2 sm:pt-4 origin-top ${
+          open
+            ? "opacity-100 pointer-events-auto translate-y-0 scale-y-100"
+            : "opacity-0 pointer-events-none -translate-y-4 scale-y-95"
+        }`}
       >
         <div className="rounded-3xl bg-white p-8 shadow-[0_20px_40px_rgb(0,0,0,0.1)] border border-black/5 flex flex-col gap-6 w-full">
           <div className="flex flex-col gap-5 mt-2">
@@ -414,8 +446,10 @@ function Nav() {
 
           <div className="mt-4 pt-8 border-t border-black/5 flex flex-col gap-5">
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/40 mb-3">Contact</div>
-              <div className="text-sm font-medium text-[var(--ink)]/80">hello@favoredplc.com</div>
+              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/40 mb-3">
+                Contact
+              </div>
+              <div className="text-sm font-medium text-[var(--ink)]/80">info@favored.com</div>
               <div className="text-sm font-medium text-[var(--ink)]/80 mt-1">+251 11 000 0000</div>
             </div>
             <Link
@@ -438,19 +472,22 @@ function Nav() {
 function CtaSection() {
   const ctaRef = useRef<HTMLElement>(null);
 
-  useGSAP(() => {
-    gsap.from('.gsap-cta-reveal', {
-      scrollTrigger: {
-        trigger: ctaRef.current,
-        start: 'top 75%',
-      },
-      y: 24,
-      opacity: 0,
-      duration: 0.85,
-      stagger: 0.15,
-      ease: 'power2.out',
-    });
-  }, { scope: ctaRef });
+  useGSAP(
+    () => {
+      gsap.from(".gsap-cta-reveal", {
+        scrollTrigger: {
+          trigger: ctaRef.current,
+          start: "top 75%",
+        },
+        y: 24,
+        opacity: 0,
+        duration: 0.85,
+        stagger: 0.15,
+        ease: "power2.out",
+      });
+    },
+    { scope: ctaRef },
+  );
 
   return (
     <section
@@ -464,21 +501,13 @@ function CtaSection() {
       <div className="absolute inset-0 bg-[#051612]/45" />
 
       {/* Layout */}
-      <div
-        className="relative h-full flex flex-col md:flex-row md:justify-between p-8 sm:p-12 md:p-20"
-      >
+      <div className="relative h-full flex flex-col md:flex-row md:justify-between p-8 sm:p-12 md:p-20">
         {/* TOP-LEFT — kicker + heading */}
-        <div
-          className="gsap-cta-reveal flex flex-col items-start w-full md:w-auto max-w-[420px]"
-        >
-          <p
-            className="text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-white/50 font-mono mb-3 md:mb-5"
-          >
+        <div className="gsap-cta-reveal flex flex-col items-start w-full md:w-auto max-w-[420px]">
+          <p className="text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-white/50 font-mono mb-3 md:mb-5">
             — WORK WITH FAVORED
           </p>
-          <h2
-            className="text-4xl md:text-5xl lg:text-[2.75rem] font-bold text-white font-display leading-[1.05] tracking-[-0.03em] capitalize mb-12 md:mb-0"
-          >
+          <h2 className="mb-12 font-display text-3xl font-bold capitalize leading-[1.08] tracking-[-0.03em] text-white sm:text-4xl md:mb-0">
             Build a healthier future, with
             <br />
             Favored PLC.
@@ -486,17 +515,11 @@ function CtaSection() {
         </div>
 
         {/* BOTTOM-RIGHT — sub-heading, description, buttons */}
-        <div
-          className="gsap-cta-reveal flex flex-col items-start md:items-end text-left md:text-right mt-auto md:ml-auto w-full md:w-auto max-w-[500px]"
-        >
-          <h3
-            className="text-2xl md:text-[1.75rem] font-bold text-white font-display leading-[1.1] tracking-[-0.025em] mb-4"
-          >
+        <div className="gsap-cta-reveal flex flex-col items-start md:items-end text-left md:text-right mt-auto md:ml-auto w-full md:w-auto max-w-[500px]">
+          <h3 className="text-2xl md:text-[1.75rem] font-bold text-white font-display leading-[1.1] tracking-[-0.025em] mb-4">
             To deliver, not just distribute
           </h3>
-          <p
-            className="text-[10px] md:text-[11px] uppercase tracking-[0.1em] text-white/60 font-mono leading-[1.95] mb-8"
-          >
+          <p className="text-[10px] md:text-[11px] uppercase tracking-[0.1em] text-white/60 font-mono leading-[1.95] mb-8">
             FAVORED PLC SUPPLIES VERIFIED PHARMACEUTICALS,
             <br className="hidden md:block" />
             MEDICAL DEVICES AND LABORATORY ESSENTIALS
@@ -559,11 +582,11 @@ const FOOTER_COLS = [
   {
     label: "PRODUCTS",
     links: [
-      { label: "Medicines", to: "/products", search: { cat: "Medicines" }, hash: "catalog-section" },
-      { label: "Medical Supplies", to: "/products", search: { cat: "Medical Supplies" }, hash: "catalog-section" },
-      { label: "Medical Equipments", to: "/products", search: { cat: "Medical Equipments" }, hash: "catalog-section" },
-      { label: "Nutritional Suppliments", to: "/products", search: { cat: "Nutritional suppliments" }, hash: "catalog-section" },
-      { label: "Other Healthcare Solutions", to: "/products", search: { cat: "other Healthcare solutions" }, hash: "catalog-section" },
+      { label: "Maternal Care", to: "/products", hash: "maternal-care" },
+      { label: "Child Care", to: "/products", hash: "child-care" },
+      { label: "Critical Care", to: "/products", hash: "critical-care" },
+      { label: "Medical Supplies", to: "/products", hash: "core-offer" },
+      { label: "Medical Equipment", to: "/products", hash: "core-offer" },
     ],
   },
   {
@@ -594,7 +617,16 @@ function FooterNavColumn({ index }: { index: number }) {
         >
           {col.label}
         </p>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+        <ul
+          style={{
+            listStyle: "none",
+            padding: 0,
+            margin: 0,
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.55rem",
+          }}
+        >
           {col.links.map((link) => (
             <li key={link.label}>
               <Link
@@ -682,7 +714,7 @@ function FooterNavColumn({ index }: { index: number }) {
           MAIL
         </p>
         <a
-          href="mailto:favoredplc@gmail.com"
+          href="mailto:info@favored.com"
           style={{
             display: "block",
             fontSize: 14,
@@ -693,7 +725,7 @@ function FooterNavColumn({ index }: { index: number }) {
             letterSpacing: "-0.01em",
           }}
         >
-          favoredplc@gmail.com
+          info@favored.com
         </a>
       </div>
     </div>
@@ -708,10 +740,7 @@ function FooterContent() {
         {/* Nav columns grid */}
         <div className="grid grid-cols-4 flex-none border-b border-black/10">
           {[0, 1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="border-r border-black/10 last:border-r-0"
-            >
+            <div key={i} className="border-r border-black/10 last:border-r-0">
               <FooterNavColumn index={i} />
             </div>
           ))}
@@ -762,8 +791,12 @@ function FooterContent() {
       <div className="flex lg:hidden flex-col h-full w-full">
         {/* Box 1: Nav & Company */}
         <div className="flex border-b border-black/10 flex-none">
-          <div className="flex-1 border-r border-black/10"><FooterNavColumn index={0} /></div>
-          <div className="flex-1"><FooterNavColumn index={2} /></div>
+          <div className="flex-1 border-r border-black/10">
+            <FooterNavColumn index={0} />
+          </div>
+          <div className="flex-1">
+            <FooterNavColumn index={2} />
+          </div>
         </div>
         {/* Box 2: Contact (Email Form, full width) */}
         <div className="w-full border-b border-black/10 flex-none">
@@ -823,102 +856,146 @@ function Footer() {
   const barsRef = useRef<HTMLDivElement[]>([]);
   const footerContentRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    const scene = sceneRef.current;
-    if (!scene) return;
+  useGSAP(
+    () => {
+      const scene = sceneRef.current;
+      if (!scene) return;
 
-    const bars = barsRef.current;
-    const footerEl = footerContentRef.current;
+      const bars = barsRef.current;
+      const footerEl = footerContentRef.current;
 
-    gsap.set(footerEl, { opacity: 0, pointerEvents: "none" });
+      gsap.set(footerEl, { opacity: 0, pointerEvents: "none" });
 
-    const mm = gsap.matchMedia();
+      const mm = gsap.matchMedia();
 
-    // Desktop: Curtain drops from top
-    mm.add("(min-width: 1024px)", () => {
-      gsap.set(bars, { yPercent: -100, x: 0, borderBottomLeftRadius: "3rem", borderBottomRightRadius: "3rem", borderTopRightRadius: 0 });
+      // Desktop: Curtain drops from top
+      mm.add("(min-width: 1024px)", () => {
+        gsap.set(bars, {
+          yPercent: -100,
+          x: 0,
+          borderBottomLeftRadius: "3rem",
+          borderBottomRightRadius: "3rem",
+          borderTopRightRadius: 0,
+        });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          id: "site-footer-curtain-desktop",
-          trigger: scene,
-          start: "top top",
-          end: "+=200%",
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-        },
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            id: "site-footer-curtain-desktop",
+            trigger: scene,
+            start: "top top",
+            end: "+=200%",
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+          },
+        });
+
+        tl.to(bars, {
+          keyframes: [
+            {
+              yPercent: 0,
+              borderBottomLeftRadius: "3rem",
+              borderBottomRightRadius: "3rem",
+              duration: 0.34,
+              ease: "power2.inOut",
+            },
+            {
+              borderBottomLeftRadius: "0rem",
+              borderBottomRightRadius: "0rem",
+              duration: 0.06,
+              ease: "power2.in",
+            },
+          ],
+          stagger: 0.12,
+        });
+
+        tl.to(
+          footerEl,
+          {
+            opacity: 1,
+            duration: 0.25,
+            ease: "power1.in",
+            onStart: () => {
+              if (footerEl) footerEl.style.pointerEvents = "auto";
+            },
+            onReverseComplete: () => {
+              if (footerEl) footerEl.style.pointerEvents = "none";
+            },
+          },
+          ">-0.05",
+        );
+
+        tl.to(bars, { borderColor: "rgba(0,0,0,0)", duration: 0.25, ease: "power1.in" }, "<");
       });
 
-      tl.to(bars, {
-        keyframes: [
-          { yPercent: 0, borderBottomLeftRadius: "3rem", borderBottomRightRadius: "3rem", duration: 0.34, ease: "power2.inOut" },
-          { borderBottomLeftRadius: "0rem", borderBottomRightRadius: "0rem", duration: 0.06, ease: "power2.in" },
-        ],
-        stagger: 0.12,
+      // Mobile: Curtain slides from left to right
+      mm.add("(max-width: 1023px)", () => {
+        gsap.set(bars, {
+          x: "-100vw",
+          yPercent: 0,
+          borderTopRightRadius: "3rem",
+          borderBottomRightRadius: "3rem",
+          borderBottomLeftRadius: 0,
+        });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            id: "site-footer-curtain-mobile",
+            trigger: scene,
+            start: "top top",
+            end: "+=200%",
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+          },
+        });
+
+        tl.to(bars, {
+          keyframes: [
+            {
+              x: 0,
+              borderTopRightRadius: "3rem",
+              borderBottomRightRadius: "3rem",
+              duration: 0.34,
+              ease: "power2.inOut",
+            },
+            {
+              borderTopRightRadius: "0rem",
+              borderBottomRightRadius: "0rem",
+              duration: 0.06,
+              ease: "power2.in",
+            },
+          ],
+          stagger: 0.12,
+        });
+
+        tl.to(
+          footerEl,
+          {
+            opacity: 1,
+            duration: 0.25,
+            ease: "power1.in",
+            onStart: () => {
+              if (footerEl) footerEl.style.pointerEvents = "auto";
+            },
+            onReverseComplete: () => {
+              if (footerEl) footerEl.style.pointerEvents = "none";
+            },
+          },
+          ">-0.05",
+        );
+
+        tl.to(bars, { borderColor: "rgba(0,0,0,0)", duration: 0.25, ease: "power1.in" }, "<");
       });
 
-      tl.to(
-        footerEl,
-        {
-          opacity: 1,
-          duration: 0.25,
-          ease: "power1.in",
-          onStart: () => { if (footerEl) footerEl.style.pointerEvents = "auto"; },
-          onReverseComplete: () => { if (footerEl) footerEl.style.pointerEvents = "none"; },
-        },
-        ">-0.05"
-      );
-
-      tl.to(bars, { borderColor: "rgba(0,0,0,0)", duration: 0.25, ease: "power1.in" }, "<");
-    });
-
-    // Mobile: Curtain slides from left to right
-    mm.add("(max-width: 1023px)", () => {
-      gsap.set(bars, { x: "-100vw", yPercent: 0, borderTopRightRadius: "3rem", borderBottomRightRadius: "3rem", borderBottomLeftRadius: 0 });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          id: "site-footer-curtain-mobile",
-          trigger: scene,
-          start: "top top",
-          end: "+=200%",
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-        },
-      });
-
-      tl.to(bars, {
-        keyframes: [
-          { x: 0, borderTopRightRadius: "3rem", borderBottomRightRadius: "3rem", duration: 0.34, ease: "power2.inOut" },
-          { borderTopRightRadius: "0rem", borderBottomRightRadius: "0rem", duration: 0.06, ease: "power2.in" },
-        ],
-        stagger: 0.12,
-      });
-
-      tl.to(
-        footerEl,
-        {
-          opacity: 1,
-          duration: 0.25,
-          ease: "power1.in",
-          onStart: () => { if (footerEl) footerEl.style.pointerEvents = "auto"; },
-          onReverseComplete: () => { if (footerEl) footerEl.style.pointerEvents = "none"; },
-        },
-        ">-0.05"
-      );
-
-      tl.to(bars, { borderColor: "rgba(0,0,0,0)", duration: 0.25, ease: "power1.in" }, "<");
-    });
-
-    return () => mm.revert();
-  }, { scope: sceneRef });
+      return () => mm.revert();
+    },
+    { scope: sceneRef },
+  );
 
   return (
     // This outer div is what GSAP pins — it stays locked in viewport
     <div ref={sceneRef} style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-
       {/* ── CTA — bottom layer ── */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1 }}>
         <CtaSection />
@@ -930,7 +1007,9 @@ function Footer() {
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
-            ref={(el) => { if (el) barsRef.current[i] = el; }}
+            ref={(el) => {
+              if (el) barsRef.current[i] = el;
+            }}
             className="bg-white overflow-hidden border-black/10 border-b last:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0"
           >
             <div className="hidden lg:block h-full">
