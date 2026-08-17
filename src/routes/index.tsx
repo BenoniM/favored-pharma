@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
 import ethiopiaMapUrl from "@/assets/maps/Ethiopia_administrative_boundaries.svg?url";
+import homeHero from "@/assets/hero-img/ChatGPT Image Aug 17, 2026, 10_58_47 AM.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -70,16 +71,12 @@ function Home() {
         className="relative h-screen min-h-[600px] overflow-hidden text-white"
         aria-label="Favored PLC introduction"
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
+        <img
+          src={homeHero}
+          alt=""
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
-        >
-          <source src="https://www.pexels.com/download/video/7089367/" type="video/mp4" />
-        </video>
+        />
         <div
           className="absolute inset-0"
           style={{
