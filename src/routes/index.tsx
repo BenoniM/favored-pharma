@@ -1,14 +1,12 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  Baby,
   BadgeCheck,
   Building2,
-  HeartPulse,
   MapPin,
   PackageCheck,
   ShieldCheck,
-  Stethoscope,
   Truck,
   Users,
 } from "lucide-react";
@@ -42,19 +40,16 @@ const focusAreas = [
     id: "maternal-care",
     title: "Maternal care",
     body: "A focused supply offer for healthcare providers supporting pregnancy, childbirth, and postnatal care.",
-    icon: HeartPulse,
   },
   {
     id: "child-care",
     title: "Child care",
     body: "Selected pharmaceuticals, medical supplies, and equipment for paediatric and newborn care.",
-    icon: Baby,
   },
   {
     id: "critical-care",
     title: "Critical care",
     body: "Priority products for hospitals, emergency units, intensive care, and time-sensitive clinical needs.",
-    icon: Stethoscope,
   },
 ];
 
@@ -63,6 +58,97 @@ const audiences = [
   { title: "Pharmacies & wholesalers", icon: PackageCheck },
   { title: "Manufacturers", icon: Users },
 ];
+
+const focusTreatments = [
+  {
+    color: "#018541",
+    shape: "rounded-none",
+    content: "items-start justify-start text-left",
+  },
+  {
+    color: "#042A27",
+    shape: "aspect-square rounded-full mx-auto w-full",
+    content: "items-center justify-center text-center",
+  },
+  {
+    color: "#009F5C",
+    shape: "rounded-b-full",
+    content: "items-start justify-start text-left",
+  },
+];
+
+function FocusAreasSection() {
+  const [hoveredArea, setHoveredArea] = useState<number | null>(null);
+
+  const getTransform = (index: number) => {
+    if (hoveredArea === null || hoveredArea === index) return undefined;
+    return `translateX(${index < hoveredArea ? "-12rem" : "12rem"})`;
+  };
+
+  return (
+    <section className="bg-white px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+      <div className="mx-auto max-w-[1440px]">
+        <Reveal className="max-w-3xl">
+          <SectionLabel>What Favored does</SectionLabel>
+          <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+            Focused trading for essential areas of care.
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--ink)]/65">
+            Our current business is importing and distributing. We concentrate our core portfolio
+            in three therapeutic areas and handle other opportunities selectively.
+          </p>
+        </Reveal>
+        <div className="relative mt-16 min-h-[640px] overflow-visible lg:mt-10">
+          <div className="grid gap-8 lg:block">
+            {focusAreas.map(({ id, title, body }, index) => {
+              const treatment = focusTreatments[index];
+              const positions = [
+                "lg:left-[16%] lg:top-[88px]",
+                "lg:left-[34%] lg:top-[88px]",
+                "lg:left-[52%] lg:top-[88px]",
+              ];
+              return (
+                <article
+                  key={id}
+                  id={id}
+                  className={`group relative min-h-[320px] w-full max-w-[460px] overflow-hidden p-8 text-white transition-transform duration-500 sm:p-10 lg:absolute lg:h-[500px] lg:w-[460px] lg:max-w-none ${positions[index]} ${treatment.shape} ${hoveredArea === index ? "z-20" : "z-10"}`}
+                  style={{
+                    background: treatment.color,
+                    transform: getTransform(index),
+                  }}
+                  onMouseEnter={() => setHoveredArea(index)}
+                  onMouseLeave={() => setHoveredArea(null)}
+                  onFocus={() => setHoveredArea(index)}
+                  onBlur={() => setHoveredArea(null)}
+                  tabIndex={0}
+                >
+                  <div className={`flex h-full min-h-[220px] flex-col ${treatment.content}`}>
+                    <p className="mb-5 font-mono text-xs text-white/55">
+                      {String(index + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="font-display text-3xl leading-[1.05] text-white sm:text-4xl">
+                      {title}
+                    </h3>
+                    <p className="mt-6 max-w-sm translate-y-0 text-base font-semibold leading-relaxed text-white opacity-100 transition-all duration-300 lg:translate-y-3 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-focus:translate-y-0 lg:group-focus:opacity-100">
+                      {body}
+                    </p>
+                    <Link
+                      to="/products"
+                      hash={id}
+                      className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-white/80 opacity-100 transition-all duration-300 hover:text-white lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus:opacity-100"
+                    >
+                      Explore this area <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function Home() {
   return (
@@ -130,43 +216,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
-          <Reveal className="max-w-3xl">
-            <SectionLabel>What Favored does</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
-              Focused trading for essential areas of care.
-            </h2>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--ink)]/65">
-              Our current business is importing and distributing. We concentrate our core portfolio
-              in three therapeutic areas and handle other opportunities selectively.
-            </p>
-          </Reveal>
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
-            {focusAreas.map(({ id, title, body, icon: Icon }, index) => (
-              <Reveal key={id} delay={index * 0.06}>
-                <article
-                  id={id}
-                  className="h-full rounded-[2rem] border border-black/5 bg-[var(--mist)] p-7 sm:p-9"
-                >
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-[var(--brand)] shadow-sm">
-                    <Icon className="h-6 w-6" strokeWidth={1.6} />
-                  </div>
-                  <h3 className="mt-12 font-display text-3xl">{title}</h3>
-                  <p className="mt-4 text-base leading-relaxed text-[var(--ink)]/65">{body}</p>
-                  <Link
-                    to="/products"
-                    hash={id}
-                    className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--brand)]"
-                  >
-                    Explore this area <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FocusAreasSection />
 
       <section className="bg-[#082923] py-24 text-white sm:py-32">
         <div className="mx-auto grid max-w-[1440px] gap-12 px-6 sm:px-8 lg:grid-cols-12 lg:px-12">
