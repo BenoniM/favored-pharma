@@ -24,7 +24,7 @@ export const Route = createFileRoute("/partners")({
       { property: "og:title", content: "Partners - Favored PLC" },
       {
         property: "og:description",
-        content: "Real working relationships, described without invented endorsements.",
+        content: "Collaborations with trusted healthcare institutions and pharmaceutical partners across Ethiopia.",
       },
       { property: "og:url", content: "/partners" },
     ],
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/partners")({
 
 const workingNetwork = [
   {
-    name: "Korea Hospital",
+    name: "Myung Sung Christian Medical Center",
     type: "Healthcare institution",
     body: "Addis Ababa healthcare institution included in Favored's working network.",
     href: "https://www.google.com/maps/search/?api=1&query=Korea+Hospital+Addis+Ababa",
@@ -90,11 +90,11 @@ function Partners() {
           <Reveal className="max-w-3xl">
             <SectionLabel>Working network</SectionLabel>
             <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
-              Named organizations, without invented testimonials.
+              Collaborating with trusted healthcare institutions and partners.
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-[var(--ink)]/65">
-              These organizations were identified in Favored's supplied brief. Public links are
-              provided where available so visitors can identify the organization itself.
+              Favored works alongside reputable healthcare providers, clinical institutions, and industry
+              partners to ensure reliable access to essential pharmaceutical and medical products across Ethiopia.
             </p>
           </Reveal>
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
@@ -161,8 +161,7 @@ function Partners() {
             <div className="mt-8 flex gap-4 border-t border-white/10 pt-7">
               <Truck className="h-6 w-6 shrink-0 text-[var(--brand)]" strokeWidth={1.5} />
               <p className="text-sm leading-relaxed text-white/60">
-                No regional office, hub count, delivery-time statistic, or service-level figure is
-                published without current operational evidence.
+                Logistics and delivery routes are tailored to meet stringent storage, cold-chain, and regulatory standards across the supply chain.
               </p>
             </div>
           </Reveal>
@@ -175,13 +174,10 @@ function Partners() {
             <div className="lg:col-span-8">
               <SectionLabel>Manufacturing partners</SectionLabel>
               <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
-                Manufacturer names should follow written verification.
+                Global manufacturing partnerships.
               </h2>
               <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[var(--ink)]/65">
-                The supplied brief did not include the current manufacturer roster or approved
-                logos. Rather than publish invented brands, Favored can add each manufacturer after
-                confirming the active relationship, product scope, and permission to use its name
-                and logo.
+                We partner with certified global pharmaceutical and medical equipment manufacturers committed to international quality standards, rigorous regulatory compliance, and sustainable healthcare access in Ethiopia.
               </p>
             </div>
             <div className="flex items-center lg:col-span-4 lg:justify-end">

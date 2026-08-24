@@ -58,7 +58,7 @@ const areas = [
 const core = [
   {
     title: "Pharmaceuticals",
-    body: "Registered prescription and non-prescription products selected for the three therapeutic areas.",
+    body: "A broad range of registered prescription and non-prescription products.",
     icon: Pill,
   },
   {

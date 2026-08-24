@@ -39,16 +39,19 @@ const focusAreas = [
   {
     id: "maternal-care",
     title: "Maternal care",
+    quote: "BORN READY",
     body: "A focused supply offer for healthcare providers supporting pregnancy, childbirth, and postnatal care.",
   },
   {
     id: "child-care",
     title: "Child care",
+    quote: "SMALL BODIES BIG STAKES",
     body: "Selected pharmaceuticals, medical supplies, and equipment for paediatric and newborn care.",
   },
   {
     id: "critical-care",
     title: "Critical care",
+    quote: "WHEN SECOND COUNTS",
     body: "Priority products for hospitals, emergency units, intensive care, and time-sensitive clinical needs.",
   },
 ];
@@ -56,7 +59,7 @@ const focusAreas = [
 const audiences = [
   { title: "Hospitals & clinics", icon: Building2 },
   { title: "Pharmacies & wholesalers", icon: PackageCheck },
-  { title: "Manufacturers", icon: Users },
+  { title: "NGOs", icon: Users },
 ];
 
 const focusTreatments = [
@@ -100,7 +103,7 @@ function FocusAreasSection() {
         </Reveal>
         <div className="relative mt-16 min-h-[640px] overflow-visible lg:mt-10">
           <div className="grid gap-8 lg:block">
-            {focusAreas.map(({ id, title, body }, index) => {
+            {focusAreas.map(({ id, title, quote, body }, index) => {
               const treatment = focusTreatments[index];
               const positions = [
                 "lg:left-[16%] lg:top-[88px]",
@@ -129,6 +132,9 @@ function FocusAreasSection() {
                     <h3 className="font-display text-3xl leading-[1.05] text-white sm:text-4xl">
                       {title}
                     </h3>
+                    <div className="mt-4 inline-flex items-center rounded-full border border-white/20 bg-white/15 px-5 py-2 font-mono text-sm font-semibold tracking-[0.16em] uppercase text-white backdrop-blur-md sm:px-6 sm:py-2.5 sm:text-base">
+                      &ldquo;{quote}&rdquo;
+                    </div>
                     <p className="mt-6 max-w-sm translate-y-0 text-base font-semibold leading-relaxed text-white opacity-100 transition-all duration-300 lg:translate-y-3 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-focus:translate-y-0 lg:group-focus:opacity-100">
                       {body}
                     </p>
@@ -317,9 +323,7 @@ function Home() {
                 A future family-care business, built in stages.
               </h2>
               <p className="mt-6 text-lg leading-relaxed text-[var(--ink)]/65">
-                Favored's future plan is to develop a clearly defined family-care offer for women,
-                children, and households. It remains a future initiative; today's operating focus is
-                pharmaceutical and healthcare-product trading.
+                A dedicated family-care line for women, children, and households, built on our established pharmaceutical and healthcare-product trading business.
               </p>
             </div>
             <Link

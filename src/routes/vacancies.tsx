@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   ChevronDown,
   ChevronUp,
-  Mail,
+  Phone,
 } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
 import careersHero from "@/assets/hero-img/ChatGPT Image Aug 17, 2026, 10_35_31 AM.png";
@@ -276,14 +276,14 @@ function JobCard({ job, index }: { job: (typeof openings)[number]; index: number
             {/* Apply CTA */}
             <div className="mt-8 flex flex-wrap gap-3 items-center">
               <a
-                href={`mailto:careers@favored.com?subject=Application: ${encodeURIComponent(job.title)}`}
+                href="tel:+251912156409"
                 className="inline-flex items-center gap-2 bg-[var(--brand)] text-white text-sm font-medium px-6 py-3 rounded-full hover:bg-[var(--ink)] transition-all duration-300 hover:scale-105"
               >
-                Apply Now
-                <ArrowRight className="w-4 h-4" strokeWidth={2} />
+                <Phone className="w-4 h-4" />
+                Contact HR (+251 912 156 409)
               </a>
-              <span className="text-xs text-[var(--ink)]/40">
-                Send your CV to careers@favored.com
+              <span className="text-xs text-[var(--ink)]/50 font-medium">
+                Call our office to apply or inquire
               </span>
             </div>
           </div>
@@ -440,11 +440,11 @@ function Vacancies() {
                 </p>
               </div>
               <a
-                href="mailto:careers@favored.com?subject=Speculative%20Application"
+                href="tel:+251912156409"
                 className="shrink-0 inline-flex items-center gap-2.5 bg-[var(--brand)] text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-[var(--ink)] transition-all duration-300 hover:scale-105 whitespace-nowrap"
               >
-                <Mail className="w-4 h-4" strokeWidth={2} />
-                Get in Touch
+                <Phone className="w-4 h-4" strokeWidth={2} />
+                Call HR Office
               </a>
             </div>
           </Reveal>

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { type FormEvent, useState } from "react";
-import { ArrowRight, Building2, Mail, MapPin, Phone, UserRound } from "lucide-react";
+import { ArrowRight, Building2, CheckCircle2, MapPin, Phone, UserRound } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
 import logoCroppedSvgUrl from "@/assets/logo/Logo-Cropped.svg?url";
 import { company } from "@/lib/company";
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Contact Favored PLC sales, finance, or the CEO office, send an inquiry, and find the Addis Ababa office.",
+          "Contact Favored PLC sales, finance, or the CEO office, send an inquiry, and find our Addis Ababa office.",
       },
       { property: "og:title", content: "Contact Favored PLC" },
       {
@@ -30,20 +30,18 @@ const contacts = [
   {
     title: "Sales",
     subtitle: "Products, quotations & availability",
-    email: company.contacts.sales.email,
     phone: company.contacts.sales.phone,
     icon: Building2,
   },
   {
     title: "Finance",
-    subtitle: "Invoices, payments & account questions",
-    email: company.contacts.finance.email,
-    icon: Mail,
+    subtitle: "Invoices, payments & accounts",
+    phone: company.contacts.finance.phone,
+    icon: Phone,
   },
   {
     title: "CEO Office",
     subtitle: company.contacts.ceo.name,
-    email: company.contacts.ceo.email,
     phone: company.contacts.ceo.phone,
     icon: UserRound,
   },
@@ -52,7 +50,6 @@ const contacts = [
 type Inquiry = {
   name: string;
   organization: string;
-  email: string;
   phone: string;
   type: string;
   message: string;
@@ -62,30 +59,18 @@ function Contact() {
   const [form, setForm] = useState<Inquiry>({
     name: "",
     organization: "",
-    email: "",
     phone: "",
     type: "Product availability",
     message: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const update = (key: keyof Inquiry, value: string) =>
     setForm((current) => ({ ...current, [key]: value }));
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const subject = encodeURIComponent(`Favored inquiry: ${form.type} - ${form.organization}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${form.name}`,
-        `Organization: ${form.organization}`,
-        `Email: ${form.email}`,
-        `Phone: ${form.phone || "Not provided"}`,
-        `Inquiry type: ${form.type}`,
-        "",
-        form.message,
-      ].join("\n"),
-    );
-    window.location.href = `mailto:${company.contacts.sales.email}?subject=${subject}&body=${body}`;
+    setSubmitted(true);
   };
 
   return (
@@ -131,27 +116,24 @@ function Contact() {
             </h2>
           </Reveal>
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
-            {contacts.map(({ title, subtitle, email, phone, icon: Icon }, index) => (
+            {contacts.map(({ title, subtitle, phone, icon: Icon }, index) => (
               <Reveal key={title} delay={index * 0.05}>
-                <article className="h-full rounded-[2rem] border border-black/5 bg-[var(--mist)] p-8">
-                  <Icon className="h-7 w-7 text-[var(--brand)]" strokeWidth={1.5} />
-                  <h3 className="mt-12 font-display text-3xl">{title}</h3>
-                  <p className="mt-2 text-sm text-[var(--ink)]/55">{subtitle}</p>
-                  <div className="mt-8 space-y-3">
+                <article className="h-full rounded-[2rem] border border-black/5 bg-[var(--mist)] p-8 flex flex-col justify-between">
+                  <div>
+                    <Icon className="h-7 w-7 text-[var(--brand)]" strokeWidth={1.5} />
+                    <h3 className="mt-12 font-display text-3xl">{title}</h3>
+                    <p className="mt-2 text-sm text-[var(--ink)]/55">{subtitle}</p>
+                  </div>
+                  <div className="mt-8">
                     <a
-                      href={`mailto:${email}`}
-                      className="flex items-center gap-3 text-sm font-semibold hover:text-[var(--brand)]"
+                      href={`tel:${phone.replace(/\s/g, "")}`}
+                      className="inline-flex items-center gap-3 text-base font-semibold text-[var(--ink)] hover:text-[var(--brand)] transition-colors"
                     >
-                      <Mail className="h-4 w-4 text-[var(--brand)]" /> {email}
+                      <div className="grid h-9 w-9 place-items-center rounded-full bg-[var(--brand)]/10 text-[var(--brand)]">
+                        <Phone className="h-4 w-4" />
+                      </div>
+                      {phone}
                     </a>
-                    {phone && (
-                      <a
-                        href={`tel:${phone.replace(/\s/g, "")}`}
-                        className="flex items-center gap-3 text-sm font-semibold hover:text-[var(--brand)]"
-                      >
-                        <Phone className="h-4 w-4 text-[var(--brand)]" /> {phone}
-                      </a>
-                    )}
                   </div>
                 </article>
               </Reveal>
@@ -165,82 +147,112 @@ function Contact() {
           <Reveal>
             <SectionLabel>Inquiry form</SectionLabel>
             <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
-              Prepare an email to sales.
+              Send us an inquiry.
             </h2>
             <p className="mt-5 max-w-xl leading-relaxed text-[var(--ink)]/65">
-              Submitting this form opens your email application with the inquiry prefilled, so you
-              retain a copy and can attach product lists or procurement documents.
+              Submit your inquiry below and our team will get in touch with you directly by phone to discuss your procurement, product, or partnership requirements.
             </p>
-            <form onSubmit={handleSubmit} className="mt-10 space-y-5">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Name" required>
+
+            {submitted ? (
+              <div className="mt-10 rounded-[2rem] border border-[var(--brand)]/20 bg-white p-8 sm:p-10 shadow-sm">
+                <div className="flex items-center gap-3 text-[var(--brand)]">
+                  <CheckCircle2 className="h-8 w-8" />
+                  <h3 className="font-display text-2xl font-semibold">Inquiry Received</h3>
+                </div>
+                <p className="mt-4 leading-relaxed text-[var(--ink)]/70">
+                  Thank you, <strong className="text-[var(--ink)]">{form.name || "valued partner"}</strong>. We have received your inquiry for{" "}
+                  <strong className="text-[var(--ink)]">{form.organization || "your institution"}</strong>. Our team will contact you at{" "}
+                  <strong className="text-[var(--brand)]">{form.phone}</strong> promptly.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <a
+                    href="tel:+251991315630"
+                    className="inline-flex items-center gap-2 rounded-full bg-[var(--brand)] px-6 py-3 text-sm font-semibold text-white hover:bg-[var(--ink)] transition-colors"
+                  >
+                    <Phone className="h-4 w-4" /> Call Sales Directly
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setForm({
+                        name: "",
+                        organization: "",
+                        phone: "",
+                        type: "Product availability",
+                        message: "",
+                      });
+                    }}
+                    className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-transparent px-6 py-3 text-sm font-semibold text-[var(--ink)] hover:bg-black/5 transition-colors"
+                  >
+                    Submit Another Inquiry
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <Field label="Name" required>
+                    <input
+                      required
+                      value={form.name}
+                      onChange={(event) => update("name", event.target.value)}
+                      className="input"
+                      placeholder="Your full name"
+                    />
+                  </Field>
+                  <Field label="Organization" required>
+                    <input
+                      required
+                      value={form.organization}
+                      onChange={(event) => update("organization", event.target.value)}
+                      className="input"
+                      placeholder="Hospital, clinic, pharmacy..."
+                    />
+                  </Field>
+                </div>
+                <Field label="Phone Number" required>
                   <input
                     required
-                    value={form.name}
-                    onChange={(event) => update("name", event.target.value)}
-                    className="input"
-                    placeholder="Your full name"
-                  />
-                </Field>
-                <Field label="Organization" required>
-                  <input
-                    required
-                    value={form.organization}
-                    onChange={(event) => update("organization", event.target.value)}
-                    className="input"
-                    placeholder="Hospital, clinic, pharmacy..."
-                  />
-                </Field>
-                <Field label="Email" required>
-                  <input
-                    required
-                    type="email"
-                    value={form.email}
-                    onChange={(event) => update("email", event.target.value)}
-                    className="input"
-                    placeholder="name@organization.com"
-                  />
-                </Field>
-                <Field label="Phone">
-                  <input
+                    type="tel"
                     value={form.phone}
                     onChange={(event) => update("phone", event.target.value)}
                     className="input"
-                    placeholder="+251 ..."
+                    placeholder="+251 9..."
                   />
                 </Field>
-              </div>
-              <Field label="Inquiry type" required>
-                <select
-                  value={form.type}
-                  onChange={(event) => update("type", event.target.value)}
-                  className="input"
+                <Field label="Inquiry type" required>
+                  <select
+                    value={form.type}
+                    onChange={(event) => update("type", event.target.value)}
+                    className="input"
+                  >
+                    <option>Product availability</option>
+                    <option>Quotation</option>
+                    <option>Institutional procurement</option>
+                    <option>Manufacturer partnership</option>
+                    <option>Finance</option>
+                    <option>Other</option>
+                  </select>
+                </Field>
+                <Field label="Message" required>
+                  <textarea
+                    required
+                    rows={5}
+                    value={form.message}
+                    onChange={(event) => update("message", event.target.value)}
+                    className="input resize-y"
+                    placeholder="Include product, quantity, organization, destination, and timing where possible."
+                  />
+                </Field>
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--brand)] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[var(--ink)] transition-colors"
                 >
-                  <option>Product availability</option>
-                  <option>Quotation</option>
-                  <option>Institutional procurement</option>
-                  <option>Manufacturer partnership</option>
-                  <option>Finance</option>
-                  <option>Other</option>
-                </select>
-              </Field>
-              <Field label="Message" required>
-                <textarea
-                  required
-                  rows={6}
-                  value={form.message}
-                  onChange={(event) => update("message", event.target.value)}
-                  className="input resize-y"
-                  placeholder="Include product, quantity, organization, destination, and timing where possible."
-                />
-              </Field>
-              <button
-                type="submit"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--brand)] px-7 py-3.5 text-sm font-semibold text-white"
-              >
-                Open email inquiry <ArrowRight className="h-4 w-4" />
-              </button>
-            </form>
+                  Submit Inquiry <ArrowRight className="h-4 w-4" />
+                </button>
+              </form>
+            )}
           </Reveal>
 
           <Reveal>
@@ -264,17 +276,12 @@ function Contact() {
                         <a
                           key={phone}
                           href={`tel:${phone.replace(/\s/g, "")}`}
-                          className="block text-sm font-semibold hover:text-[var(--brand)]"
+                          className="flex items-center gap-2 text-sm font-semibold text-[var(--ink)] hover:text-[var(--brand)] transition-colors"
                         >
+                          <Phone className="h-4 w-4 text-[var(--brand)]" />
                           {phone}
                         </a>
                       ))}
-                      <a
-                        href={`mailto:${company.email}`}
-                        className="block text-sm font-semibold hover:text-[var(--brand)]"
-                      >
-                        {company.email}
-                      </a>
                     </div>
                   </div>
                 </div>

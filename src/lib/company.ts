@@ -4,15 +4,14 @@ export const company = {
   tagline: "Deliver. Excel. Influence.",
   address: "Addis Ketema Subcity, Woreda 05, House No. 422/423, Addis Ababa, Ethiopia",
   phones: ["+251 912 156 409", "+251 991 315 630"],
-  email: "info@favored.com",
   website: "www.favored.com",
   primaryContact: "Mrs. Lidia Tesfaye",
   profile:
     "Favored PLC is an Ethiopian pharmaceutical and healthcare trading company established in 2020. Its current business is focused on importing and distributing pharmaceuticals, medical supplies, and medical equipment.",
   vision:
-    "To become a trusted pharmaceutical and healthcare distribution partner in Ethiopia and the wider region.",
+    "To lead Ethiopia’s healthcare supply transformation, building resilient partnerships that sustain healthier families and communities.",
   mission:
-    "To improve access to quality-assured healthcare products through responsible sourcing, regulatory compliance, and dependable distribution partnerships.",
+    "Delivering certified healthcare essentials with precision, integrity, and clinical dependability without delay.",
   purpose:
     "To help healthcare providers access the products they need to care for mothers, children, and critically ill patients.",
   commitment:
@@ -36,11 +35,10 @@ export const company = {
     },
   ],
   contacts: {
-    sales: { email: "sales@favored.com", phone: "+251 991 315 630" },
-    finance: { email: "finance@favored.com" },
+    sales: { phone: "+251 991 315 630" },
+    finance: { phone: "+251 912 156 409" },
     ceo: {
       name: "Mrs. Lidia Tesfaye",
-      email: "ceo@favored.com",
       phone: "+251 912 156 409",
     },
   },

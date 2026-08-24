@@ -159,8 +159,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "@id": "/#localbusiness",
               name: "Favored PLC",
               image: "/favicon.ico",
-              telephone: "+251-912-156-409",
-              email: "info@favored.com",
+              telephone: ["+251 912 156 409", "+251 991 315 630"],
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Addis Ketema Subcity, Woreda 05, House No. 422/423",
@@ -449,8 +448,12 @@ function Nav() {
               <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--ink)]/40 mb-3">
                 Contact
               </div>
-              <div className="text-sm font-medium text-[var(--ink)]/80">info@favored.com</div>
-              <div className="text-sm font-medium text-[var(--ink)]/80 mt-1">+251 11 000 0000</div>
+              <a href="tel:+251912156409" className="text-sm font-medium text-[var(--ink)]/80 hover:text-[var(--brand)] transition-colors block">
+                +251 912 156 409
+              </a>
+              <a href="tel:+251991315630" className="text-sm font-medium text-[var(--ink)]/80 hover:text-[var(--brand)] transition-colors block mt-1">
+                +251 991 315 630
+              </a>
             </div>
             <Link
               to="/contact"
@@ -696,36 +699,6 @@ function FooterNavColumn({ index }: { index: number }) {
           }}
         >
           +251 991 315 630
-        </a>
-      </div>
-
-      {/* Email */}
-      <div>
-        <p
-          style={{
-            fontSize: 10,
-            fontFamily: "var(--font-mono)",
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            color: "rgba(0,0,0,0.36)",
-            marginBottom: "0.6rem",
-          }}
-        >
-          MAIL
-        </p>
-        <a
-          href="mailto:info@favored.com"
-          style={{
-            display: "block",
-            fontSize: 14,
-            fontWeight: 600,
-            color: "#03332F",
-            textDecoration: "none",
-            fontFamily: "var(--font-display)",
-            letterSpacing: "-0.01em",
-          }}
-        >
-          info@favored.com
         </a>
       </div>
     </div>

@@ -35,7 +35,7 @@ const overview = [
   { title: "Who We Are", body: company.profile },
   {
     title: "What We Do",
-    body: "We source, import, and distribute pharmaceuticals, medical supplies, and medical equipment. Our current activity is trading; we do not present manufacturing or family care as an active business.",
+    body: "We source, import, and distribute pharmaceuticals, medical supplies, and medical equipment.",
   },
   { title: "Our Purpose", body: company.purpose },
   { title: "Our Commitment", body: company.commitment },

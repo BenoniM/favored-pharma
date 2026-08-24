@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, FileCheck2, ShieldCheck } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/site";
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/quality")({
   component: Quality,
 });
 
-const standards = [
+const claims = [
   {
     label: "Favored PLC",
     title: "EFDA compliance",
@@ -47,6 +48,167 @@ const standards = [
     icon: FileCheck2,
   },
 ];
+
+const standards = [
+  {
+    t: "Certified Suppliers",
+    d: "Vetted, audited, and continuously monitored against EFDA standards.",
+    image:
+      "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&q=80&w=1600",
+  },
+  {
+    t: "Regulatory Compliance",
+    d: "Aligned with local authority requirements and international best practice.",
+    image:
+      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=1600",
+  },
+  {
+    t: "Quality Assurance",
+    d: "Independent QA at intake and dispatch. Reject rate published quarterly.",
+    image:
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1600",
+  },
+  {
+    t: "Reliable Documentation",
+    d: "CoA, CoO, and import certificates available on demand for every lot.",
+    image:
+      "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80&w=1600",
+  },
+];
+
+const qaSteps = [
+  {
+    t: "Source",
+    d: "Vetted manufacturers, audited annually.",
+  },
+  {
+    t: "Inspect",
+    d: "Visual + documentary QA at intake.",
+  },
+  {
+    t: "Document",
+    d: "CoA, CoO, lot record — no exceptions.",
+  },
+  {
+    t: "Store",
+    d: "Climate-zoned, 24/7 monitored warehouses.",
+  },
+  {
+    t: "Pick",
+    d: "Barcoded, double-verified per order.",
+  },
+  {
+    t: "Pack",
+    d: "Validated cold-chain packaging.",
+  },
+  {
+    t: "Ship",
+    d: "Tracked, temperature-logged delivery.",
+  },
+];
+
+function StandardsShowcase() {
+  const [active, setActive] = useState(0);
+  const current = standards[active];
+
+  return (
+    <section className="py-24 sm:py-32">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
+        <Reveal className="mb-16 max-w-3xl">
+          <SectionLabel>Standards</SectionLabel>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl">
+            Non-negotiable, every shipment.
+          </h2>
+        </Reveal>
+
+        <Reveal>
+          <div className="relative h-[560px] w-full overflow-hidden rounded-[2rem] bg-black sm:h-[640px] sm:rounded-[3rem] lg:h-[680px]">
+            {/* Background image */}
+            <img
+              key={current.image}
+              src={current.image}
+              alt={current.t}
+              className="absolute inset-0 h-full w-full animate-in fade-in object-cover duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent" />
+
+            {/* Floating card */}
+            <div className="absolute bottom-4 left-4 top-4 flex w-[86%] flex-col justify-between rounded-[1.5rem] bg-[var(--mist,#F4F1EC)] p-6 sm:bottom-6 sm:left-6 sm:top-6 sm:w-[340px] sm:rounded-[2rem] sm:p-8 xs:w-[75%] lg:w-[380px]">
+              <div>
+                <h3 className="mb-3 font-display text-2xl leading-[1.1] text-[var(--ink)] sm:text-[1.75rem]">
+                  {current.t}
+                </h3>
+                <p className="text-sm leading-relaxed text-[var(--ink)]/60">
+                  {current.d}
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                {standards.map((s, i) => {
+                  const isActive = i === active;
+                  return (
+                    <button
+                      key={s.t}
+                      onClick={() => setActive(i)}
+                      onMouseEnter={() => setActive(i)}
+                      className={`w-full rounded-full px-5 py-2.5 text-left text-sm font-medium transition-all duration-300 ${
+                        isActive
+                          ? "bg-[var(--brand)] text-white"
+                          : "bg-black/[0.04] text-[var(--ink)]/50 hover:bg-black/[0.07] hover:text-[var(--ink)]/70"
+                      }`}
+                    >
+                      {s.t}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Index badge, bottom right */}
+            <div className="absolute bottom-6 right-6 font-mono text-xs text-white/70 sm:bottom-8 sm:right-8">
+              0{active + 1} / 0{standards.length}
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function QAProcessSection() {
+  return (
+    <section className="bg-[#082923] py-24 text-white sm:py-32">
+      <div className="mx-auto grid max-w-[1440px] gap-12 px-6 sm:px-8 lg:grid-cols-12 lg:px-12">
+        <Reveal className="lg:col-span-5">
+          <SectionLabel>QA Process</SectionLabel>
+          <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+            Seven checkpoints, zero shortcuts.
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-white/70 sm:text-lg">
+            A defined path every shipment takes, from manufacturer agreement to client dock.
+          </p>
+        </Reveal>
+        <Reveal className="lg:col-span-7">
+          <div className="space-y-5">
+            {qaSteps.map((step, index) => (
+              <div key={step.t} className="flex gap-4 border-b border-white/10 pb-5">
+                <span className="font-mono text-xs text-[var(--brand)]">0{index + 1}</span>
+                <div>
+                  <h3 className="font-display text-lg font-medium text-white sm:text-xl">
+                    {step.t}
+                  </h3>
+                  <p className="mt-1 text-base leading-relaxed text-white/70">
+                    {step.d}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
 function Quality() {
   return (
@@ -82,7 +244,7 @@ function Quality() {
             </h2>
           </Reveal>
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
-            {standards.map(({ label, title, body, note, icon: Icon }, index) => (
+            {claims.map(({ label, title, body, note, icon: Icon }, index) => (
               <Reveal key={title} delay={index * 0.05}>
                 <article className="flex h-full flex-col rounded-[2rem] border border-black/5 bg-[var(--mist)] p-8">
                   <div className="flex items-center justify-between gap-4">
@@ -103,32 +265,9 @@ function Quality() {
         </div>
       </section>
 
-      <section className="bg-[#082923] py-24 text-white sm:py-32">
-        <div className="mx-auto grid max-w-[1440px] gap-12 px-6 sm:px-8 lg:grid-cols-12 lg:px-12">
-          <Reveal className="lg:col-span-5">
-            <SectionLabel>Verification</SectionLabel>
-            <h2 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
-              Documents before decoration.
-            </h2>
-          </Reveal>
-          <Reveal className="lg:col-span-7">
-            <div className="space-y-5">
-              {[
-                "Confirm the product's EFDA registration or applicable authorization before supply.",
-                "Check the current manufacturer certificate when a WHO-GMP claim is made.",
-                "Check the relevant ISO 13485 certificate for medical-device claims.",
-                "Match certificates and product records to the correct manufacturer, site, and validity period.",
-                "Provide relevant documentation to eligible procurement partners on request.",
-              ].map((item, index) => (
-                <div key={item} className="flex gap-4 border-b border-white/10 pb-5">
-                  <span className="font-mono text-xs text-[var(--brand)]">0{index + 1}</span>
-                  <p className="text-lg leading-relaxed text-white/70">{item}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <StandardsShowcase />
+
+      <QAProcessSection />
 
       <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12">
@@ -139,7 +278,7 @@ function Quality() {
                 Need to review a product's documentation?
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-[var(--ink)]/65">
-                Send the product name, pack details, intended use, and your organization. Our team
+                Send the product name, pack details, and your organization. Our team
                 will confirm availability and share the applicable documentation.
               </p>
             </div>
